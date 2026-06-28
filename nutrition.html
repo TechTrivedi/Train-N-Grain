@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Train N Grain — Get your personalized diet plan. BMR, TDEE, macros, and complete meal plans.">
+    <title>Nutrition — Train N Grain</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>💪</text></svg>">
+</head>
+
+<body>
+
+    <!-- ═══════════════════════ NAVBAR ═══════════════════════ -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="index.html" class="nav-logo">
+                <span>Train</span><span>N Grain</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html#home">Home</a>
+                <a href="index.html#fitness">Fitness</a>
+                <a href="index.html#nutrition">Nutrition</a>
+                <a href="index.html#about">About</a>
+                <a href="index.html#testimonials">Transformations</a>
+                <a href="index.html#contact">Contact</a>
+            </div>
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Nav -->
+    <div class="mobile-nav" id="mobile-nav">
+        <a href="index.html#home">Home</a>
+        <a href="index.html#fitness">Fitness</a>
+        <a href="index.html#nutrition">Nutrition</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#testimonials">Transformations</a>
+        <a href="index.html#contact">Contact</a>
+    </div>
+
+    <!-- ═══════════════════════ NUTRITION SECTION ═══════════════════════ -->
+    <section class="nutrition-section" id="nutrition" style="padding-top: 120px;">
+        <div class="container">
+            <span class="section-label">Nutrition</span>
+            <h2 class="section-title">Get Your <span class="text-gradient">Diet Plan</span></h2>
+            <p class="section-subtitle">We calculate your BMR, TDEE, and macros — then build a complete meal plan for
+                your goal.</p>
+
+            <div class="nutrition-layout">
+                <!-- Form -->
+                <div class="form-card reveal">
+                    <h3>🥗 Nutrition Details</h3>
+                    <form id="nutrition-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="nut-height">Height (cm)</label>
+                                <input type="number" id="nut-height" placeholder="e.g. 175" min="100" max="250"
+                                    required>
+                            </div>
+                            <div class="form-group">
+                                <label for="nut-weight">Weight (kg)</label>
+                                <input type="number" id="nut-weight" placeholder="e.g. 70" min="30" max="250" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="nut-age">Age</label>
+                                <input type="number" id="nut-age" placeholder="e.g. 25" min="12" max="80" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Gender</label>
+                                <div class="radio-group">
+                                    <div class="radio-option">
+                                        <input type="radio" name="nut-gender" id="nut-male" value="male" required>
+                                        <label for="nut-male">♂ Male</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" name="nut-gender" id="nut-female" value="female">
+                                        <label for="nut-female">♀ Female</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nut-activity">Activity Level</label>
+                            <select id="nut-activity" required>
+                                <option value="Sedentary">Sedentary — Desk job, minimal exercise</option>
+                                <option value="Lightly Active">Lightly Active — 1–3 workouts/week</option>
+                                <option value="Moderately Active" selected>Moderately Active — 3–5 workouts/week
+                                </option>
+                                <option value="Very Active">Very Active — 6–7 workouts/week</option>
+                                <option value="Extremely Active">Extremely Active — Athlete / Physical job</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nut-goal">Goal</label>
+                            <select id="nut-goal" required>
+                                <option value="Bulk">💪 Bulk — Gain muscle mass</option>
+                                <option value="Cut">🔥 Cut — Lose fat</option>
+                                <option value="Maintain">⚖️ Maintain — Stay the same</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width:100%;margin-top:8px;">
+                            🍽️ Generate Diet Plan
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Result -->
+                <div class="result-area reveal reveal-delay-1" id="nutrition-result">
+                    <h3>📊 Your Nutrition Plan</h3>
+                    <div class="diet-toggle">
+                        <span class="toggle-label" style="color: var(--neon-green);">🥦 Vegetarian</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="diet-type-toggle">
+                            <span class="toggle-slider"></span>
+                        </label>
+                        <span class="toggle-label" id="toggle-label">🥦 Vegetarian</span>
+                    </div>
+                    <div class="result-placeholder">
+                        <div class="icon-large">🥑</div>
+                        <p>Fill in your details to get a personalized calorie & macro breakdown with a full meal plan.
+                        </p>
+                    </div>
+                    <div id="nutrition-output" style="display:none;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3><span>Train</span>N Grain</h3>
+                    <p>Your complete fitness and nutrition platform. Train smarter, eat better, live stronger.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Platform</h4>
+                    <a href="index.html#fitness">Fitness</a>
+                    <a href="index.html#nutrition">Nutrition</a>
+                    <a href="index.html#features">Features</a>
+                    <a href="index.html#testimonials">Transformations</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <a href="index.html#about">About Us</a>
+                    <a href="index.html#contact">Contact</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 Train N Grain. All rights reserved.</p>
+                <p>Built with 💪 and 🥗</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- App Script -->
+    <script src="nutrition.js"></script>
+</body>
+
+</html>
