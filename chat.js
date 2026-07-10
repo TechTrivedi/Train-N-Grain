@@ -72,11 +72,29 @@ document.addEventListener('DOMContentLoaded', () => {
         return null;
     }
 
+    // Helper to format basic markdown (bold/italic) and escape HTML for XSS prevention
+    function formatMessageText(text) {
+        let safe = text
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+        
+        // Convert **bold** to <strong>bold</strong>
+        safe = safe.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        
+        // Convert *italic* to <em>italic</em>
+        safe = safe.replace(/\*(.*?)\*/g, '<em>$1</em>');
+        
+        return safe;
+    }
+
     // Append a message bubble to UI
     function appendMessage(role, text) {
         const msgDiv = document.createElement('div');
         msgDiv.className = `chat-message ${role}`;
-        msgDiv.textContent = text;
+        msgDiv.innerHTML = formatMessageText(text);
         messagesContainer.appendChild(msgDiv);
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
