@@ -195,6 +195,29 @@
         googleSignupBtn.addEventListener('click', handleGoogleSignIn);
     }
 
+    // ─── Forgot Password ─────────────────────────────────────
+    window.handleForgotPassword = async (e) => {
+        if (e) e.preventDefault();
+        clearAuthError();
+
+        const emailInput = document.getElementById('login-email');
+        if (!emailInput) return;
+
+        const email = emailInput.value.trim();
+        if (!email) {
+            showAuthError('Please enter your email address first to reset password.');
+            emailInput.focus();
+            return;
+        }
+
+        try {
+            await auth.sendPasswordResetEmail(email);
+            showToast('Password reset email sent! Check your inbox ✉️');
+        } catch (error) {
+            showAuthError(friendlyError(error.code));
+        }
+    };
+
     // ─── Logout ──────────────────────────────────────────────
     window.handleLogout = async () => {
         try {

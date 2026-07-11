@@ -189,7 +189,10 @@
                     <input type="email" id="login-email" placeholder="you@example.com" required>
                 </div>
                 <div class="form-group">
-                    <label for="login-password">Password</label>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <label for="login-password" style="margin-bottom: 0;">Password</label>
+                        <a href="#" onclick="handleForgotPassword(event)" style="font-size: 0.75rem; color: var(--text-muted); text-decoration: none; transition: color var(--transition-fast);" onmouseover="this.style.color='var(--neon-green)'" onmouseout="this.style.color='var(--text-muted)'">Forgot Password?</a>
+                    </div>
                     <div class="password-container">
                         <input type="password" id="login-password" placeholder="Your password" required>
                         <button type="button" class="password-toggle-btn" onclick="togglePasswordVisibility('login-password')">
