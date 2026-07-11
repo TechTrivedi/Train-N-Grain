@@ -1,10 +1,12 @@
 /* ============================================================
    Train N Grain — Index Page Logic (app.js)
    
-   Handles: Modal, Fitness form, Nutrition form, Contact form
+   Handles: Modal, Fitness form, Nutrition form, Contact form,
+            and manual plan saving from the landing page.
    
    Dependencies (loaded before this file):
      - shared.js       → navbar, hamburger, scroll reveal, showToast
+     - firebase-config.js → global auth and db (Firestore) instances
      - workout-data.js → window.workoutDatabase
      - nutrition-data.js → window.mealDatabase
    ============================================================ */
@@ -37,6 +39,12 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
     };
 
+    // State variables for saving plans from homepage
+    let currentWorkoutPlan = null;
+    let currentWorkoutStats = null;
+    let currentDietPlan = null;
+    let currentDietStats = null;
+
     // ============================================================
     // SECTION 1: FITNESS — Workout Plan Generator
     // ============================================================
@@ -60,12 +68,63 @@ document.addEventListener('DOMContentLoaded', () => {
         const equipKey = { 'No Equipment': 'bodyweight', 'Dumbbells': 'dumbbells', 'Resistance Bands': 'bands', 'Both (Dumbbells + Bands)': 'both' }[equipment.value] || 'bodyweight';
         const levelKey = level.toLowerCase();
 
-        const db = window.workoutDatabase;
-        const plan = db[levelKey]?.[goalKey]?.[equipKey] || db[levelKey]?.['strength']?.[equipKey] || db['beginner']['strength']['bodyweight'];
+        const dbInstance = window.workoutDatabase;
+        const plan = dbInstance[levelKey]?.[goalKey]?.[equipKey] || dbInstance[levelKey]?.['strength']?.[equipKey] || dbInstance['beginner']['strength']['bodyweight'];
+
+        // Save state for manual saving
+        currentWorkoutPlan = plan;
+        currentWorkoutStats = {
+            level: level,
+            goal: goal,
+            age: age,
+            gender: gender.value,
+            equipment: equipment.value
+        };
 
         renderWorkoutPlan(plan, level, goal);
         showToast('Workout plan generated! 💪');
     });
+
+    async function saveWorkoutPlan(btnEl) {
+        if (!currentWorkoutPlan || !currentWorkoutStats) return;
+
+        if (typeof firebase !== 'undefined' && firebase.auth) {
+            const user = firebase.auth().currentUser;
+            if (!user) {
+                showToast('Please sign in to save plans to your profile! 🔒');
+                openAuthModal();
+                return;
+            }
+
+            const defaultTitle = `Workout Plan — ${new Date().toLocaleDateString()}`;
+            const planTitle = prompt('Give your workout program a name:', defaultTitle);
+            if (planTitle === null) return;
+
+            const finalTitle = planTitle.trim() || defaultTitle;
+
+            try {
+                btnEl.textContent = 'Saving...';
+                btnEl.disabled = true;
+
+                await db.collection('users').doc(user.uid).collection('workouts').add({
+                    title: finalTitle,
+                    plan: currentWorkoutPlan,
+                    stats: currentWorkoutStats,
+                    savedAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+
+                showToast('Workout saved to profile! 💾');
+                btnEl.textContent = 'Saved! ✓';
+                btnEl.style.borderColor = 'var(--neon-green)';
+                btnEl.style.color = 'var(--neon-green)';
+            } catch (err) {
+                console.error('Error saving workout:', err);
+                showToast('Failed to save workout.');
+                btnEl.textContent = 'Save to Profile';
+                btnEl.disabled = false;
+            }
+        }
+    }
 
     function renderWorkoutPlan(plan, level, goal) {
         const container = document.getElementById('workout-result');
@@ -75,11 +134,19 @@ document.addEventListener('DOMContentLoaded', () => {
         if (placeholder) placeholder.style.display = 'none';
         output.style.display = 'block';
 
-        let html = `<div class="workout-header" style="margin-bottom:24px;">
-      <p style="color:var(--text-secondary);font-size:0.9rem;">
+        let html = `<div class="workout-header" style="margin-bottom:24px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+      <p style="color:var(--text-secondary);font-size:0.9rem; margin:0;">
         <strong style="color:var(--neon-green);">${level}</strong> · ${goal} Program
       </p>
-    </div>`;
+      <div style="display:flex; gap:10px;">`;
+
+        if (typeof firebase !== 'undefined' && firebase.auth && firebase.auth().currentUser) {
+            html += `<button class="btn btn-secondary btn-sm" id="btn-home-save-workout" style="padding: 6px 12px; font-size: 0.8rem; border-color: var(--neon-green); color: var(--neon-green);">Save to Profile</button>`;
+        } else {
+            html += `<button class="btn btn-secondary btn-sm" onclick="openAuthModal()" style="padding: 6px 12px; font-size: 0.8rem;">Login to Save</button>`;
+        }
+
+        html += `</div></div>`;
 
         plan.forEach(day => {
             html += `<div class="workout-day">
@@ -99,6 +166,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         output.innerHTML = html;
+
+        const saveBtn = document.getElementById('btn-home-save-workout');
+        if (saveBtn) {
+            saveBtn.addEventListener('click', () => saveWorkoutPlan(saveBtn));
+        }
     }
 
     // ============================================================
@@ -162,12 +234,67 @@ document.addEventListener('DOMContentLoaded', () => {
         const fatG = Math.round((calories * fatPct) / 9);
 
         // Store data globally for toggle
-        window._nutritionData = { calories, proteinG, carbsG, fatG, goal };
+        const plan = { calories, proteinG, carbsG, fatG, goal };
+        window._nutritionData = plan;
+
+        // Keep local state for saving
+        currentDietPlan = plan;
+        currentDietStats = {
+            height,
+            weight,
+            age,
+            gender: gender.value,
+            activity,
+            goal,
+            dietType: dietToggle && dietToggle.checked ? 'nonveg' : 'veg'
+        };
 
         // Default to veg
         renderDietPlan('veg');
         showToast('Diet plan generated! 🥗');
     });
+
+    async function saveDietPlan(btnEl) {
+        if (!currentDietPlan || !currentDietStats) return;
+
+        if (typeof firebase !== 'undefined' && firebase.auth) {
+            const user = firebase.auth().currentUser;
+            if (!user) {
+                showToast('Please sign in to save plans to your profile! 🔒');
+                openAuthModal();
+                return;
+            }
+
+            const defaultTitle = `Diet Plan — ${new Date().toLocaleDateString()}`;
+            const planTitle = prompt('Give your diet program a name:', defaultTitle);
+            if (planTitle === null) return;
+
+            const finalTitle = planTitle.trim() || defaultTitle;
+            currentDietStats.dietType = dietToggle && dietToggle.checked ? 'nonveg' : 'veg';
+
+            try {
+                btnEl.textContent = 'Saving...';
+                btnEl.disabled = true;
+
+                await db.collection('users').doc(user.uid).collection('diets').add({
+                    title: finalTitle,
+                    plan: currentDietPlan,
+                    stats: currentDietStats,
+                    savedAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+
+                showToast('Diet saved to profile! 💾');
+                btnEl.textContent = 'Saved! ✓';
+                btnEl.style.borderColor = 'var(--neon-green)';
+                btnEl.style.color = 'var(--neon-green)';
+            } catch (err) {
+                console.error('Error saving diet:', err);
+                showToast('Failed to save diet.');
+                btnEl.textContent = 'Save to Profile';
+                btnEl.disabled = false;
+            }
+        }
+    }
 
     // Veg / Non-Veg toggle
     const dietToggle = document.getElementById('diet-type-toggle');
@@ -180,7 +307,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function pickMeal(meals, targetCal) {
-        // Pick the meal closest to target calories
         let best = meals[0];
         let bestDiff = Math.abs(meals[0].calories - targetCal);
         meals.forEach(m => {
@@ -204,7 +330,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const { calories, proteinG, carbsG, fatG } = data;
         const meals = window.mealDatabase[type === 'nonveg' ? 'nonveg' : 'veg'];
 
-        // Distribute calories: Breakfast 25%, Lunch 35%, Snacks 15%, Dinner 25%
         const breakfastCal = calories * 0.25;
         const lunchCal = calories * 0.35;
         const snacksCal = calories * 0.15;
@@ -219,6 +344,20 @@ document.addEventListener('DOMContentLoaded', () => {
         if (toggleLabel) toggleLabel.textContent = type === 'nonveg' ? '🍗 Non-Vegetarian' : '🥦 Vegetarian';
 
         let html = `
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:12px;">
+        <span style="color:var(--text-secondary); font-size:0.85rem;">Goal: <strong style="color:var(--neon-green);">${data.goal || 'Maintain'}</strong></span>
+        <div style="display:flex; gap:10px;">`;
+
+        if (typeof firebase !== 'undefined' && firebase.auth && firebase.auth().currentUser) {
+            html += `<button class="btn btn-secondary btn-sm" id="btn-home-save-diet" style="padding: 6px 12px; font-size: 0.8rem; border-color: var(--neon-green); color: var(--neon-green);">Save to Profile</button>`;
+        } else {
+            html += `<button class="btn btn-secondary btn-sm" onclick="openAuthModal()" style="padding: 6px 12px; font-size: 0.8rem;">Login to Save</button>`;
+        }
+
+        html += `
+        </div>
+      </div>
+      
       <div class="calorie-display">
         <div class="calorie-card">
           <div class="value">${calories}</div>
@@ -272,10 +411,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         output.innerHTML = html;
-    }
 
-    // ─── Auth Forms ──────────────────────────────────────
-    // Login & Signup handlers are in auth.js (Firebase)
+        const saveBtn = document.getElementById('btn-home-save-diet');
+        if (saveBtn) {
+            saveBtn.addEventListener('click', () => saveDietPlan(saveBtn));
+        }
+    }
 
     // ─── Contact Form ─────────────────────────────────────
     const contactForm = document.getElementById('contact-form');

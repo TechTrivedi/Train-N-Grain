@@ -1,7 +1,9 @@
 /* ============================================================
    Train N Grain — Fitness Page Logic (fitness.js)
    
-   Handles: Fitness workout generator form and display
+   Handles: Fitness workout generator form and display,
+            manual plan saving to Firestore subcollection,
+            and loading saved plans via query parameters.
    
    Dependencies (loaded before this file):
      - shared.js         → navbar, hamburger, scroll reveal, showToast
@@ -15,43 +17,55 @@ document.addEventListener('DOMContentLoaded', () => {
     const placeholder = container.querySelector('.result-placeholder');
     const output = document.getElementById('workout-output');
 
-    // Local state to prevent multiple loaders
-    let hasLoadedSaved = false;
+    // Read plan ID from URL query parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlPlanId = urlParams.get('id');
+
+    // Keep track of current plan and stats globally for saving
+    let currentPlan = null;
+    let currentStats = null;
 
     // ─── Auth Listener ───────────────────────────────────────
     if (typeof firebase !== 'undefined' && firebase.auth) {
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
-                // Fetch saved plan if not already loaded in this session
-                if (!hasLoadedSaved) {
-                    loadSavedWorkoutPlan(user.uid);
+                // If a specific plan ID was requested in URL, load it
+                if (urlPlanId) {
+                    loadSavedPlan(user.uid, urlPlanId);
                 }
             } else {
-                // Logged out: reset to initial view
-                hasLoadedSaved = false;
+                // Logged out
                 resetToDefaultView();
             }
         });
     }
 
-    // Load saved workout plan from Firestore
-    async function loadSavedWorkoutPlan(uid) {
+    // Load specific plan from Firestore workouts subcollection
+    async function loadSavedPlan(uid, docId) {
         try {
-            const doc = await db.collection('users').doc(uid).get();
+            if (placeholder) placeholder.style.display = 'none';
+            output.style.display = 'block';
+            output.innerHTML = '<p style="color:var(--neon-green); text-align:center;">Loading program from cloud...</p>';
+
+            const doc = await db.collection('users').doc(uid).collection('workouts').doc(docId).get();
             if (doc.exists) {
                 const data = doc.data();
-                if (data.workoutPlan && data.workoutStats) {
-                    hasLoadedSaved = true;
-                    renderWorkoutPlan(data.workoutPlan, data.workoutStats.level, data.workoutStats.goal);
-                    fitnessForm.style.display = 'none'; // Hide form since they have a plan
-                }
+                currentPlan = data.plan;
+                currentStats = data.stats;
+                renderWorkoutPlan(data.plan, currentStats.level, currentStats.goal, docId, true);
+                fitnessForm.style.display = 'none'; // Hide form since loading saved
+            } else {
+                showToast('Program not found or has been deleted.');
+                resetToDefaultView();
             }
         } catch (error) {
-            console.error('Error loading saved workout plan:', error);
+            console.error('Error loading saved program:', error);
+            showToast('Error retrieving program.');
+            resetToDefaultView();
         }
     }
 
-    // Reset views on logout
+    // Reset views on logout or error
     function resetToDefaultView() {
         fitnessForm.style.display = 'block';
         if (placeholder) placeholder.style.display = 'block';
@@ -59,10 +73,12 @@ document.addEventListener('DOMContentLoaded', () => {
             output.style.display = 'none';
             output.innerHTML = '';
         }
+        currentPlan = null;
+        currentStats = null;
     }
 
     // ─── Fitness form submission ──────────────────────────────
-    fitnessForm.addEventListener('submit', async (e) => {
+    fitnessForm.addEventListener('submit', (e) => {
         e.preventDefault();
 
         const age = document.getElementById('fit-age').value;
@@ -81,58 +97,89 @@ document.addEventListener('DOMContentLoaded', () => {
         const levelKey = level.toLowerCase();
 
         const localDb = window.workoutDatabase;
-        const plan = localDb[levelKey]?.[goalKey]?.[equipKey] || localDb[levelKey]?.[goalKey]?.[equipKey] || localDb[levelKey]?.['strength']?.[equipKey] || localDb['beginner']['strength']['bodyweight'];
+        const plan = localDb[levelKey]?.[goalKey]?.[equipKey] || localDb[levelKey]?.['strength']?.[equipKey] || localDb['beginner']['strength']['bodyweight'];
 
-        // Render workout plan
-        renderWorkoutPlan(plan, level, goal);
+        // Store active data in local state for manual save triggers
+        currentPlan = plan;
+        currentStats = {
+            level: level,
+            goal: goal,
+            age: age,
+            gender: gender.value,
+            equipment: equipment.value
+        };
+
+        // Render plan (saving is manual now)
+        renderWorkoutPlan(plan, level, goal, null, false);
         showToast('Workout plan generated! 💪');
-
-        // Save plan to Firestore if user is authenticated
-        if (typeof firebase !== 'undefined' && firebase.auth) {
-            const user = firebase.auth().currentUser;
-            if (user) {
-                try {
-                    await db.collection('users').doc(user.uid).set({
-                        workoutPlan: plan,
-                        workoutStats: {
-                            level: level,
-                            goal: goal,
-                            age: age,
-                            gender: gender.value,
-                            equipment: equipment.value
-                        },
-                        workoutUpdatedAt: firebase.firestore.FieldValue.serverTimestamp()
-                    }, { merge: true });
-                    
-                    hasLoadedSaved = true;
-                    showToast('Plan automatically saved to your cloud profile! 💾');
-                    
-                    // Hide the form smoothly after successful save
-                    setTimeout(() => {
-                        fitnessForm.style.display = 'none';
-                    }, 1000);
-                } catch (error) {
-                    console.error('Error saving workout plan to Firestore:', error);
-                }
-            }
-        }
     });
 
-    function renderWorkoutPlan(plan, level, goal) {
+    // ─── Save Action Handler ──────────────────────────────────
+    async function saveCurrentPlan(btnEl) {
+        if (!currentPlan || !currentStats) return;
+
+        if (typeof firebase !== 'undefined' && firebase.auth) {
+            const user = firebase.auth().currentUser;
+            if (!user) {
+                showToast('Please sign in to save plans to your profile! 🔒');
+                openAuthModal();
+                return;
+            }
+
+            const defaultTitle = `Workout Plan — ${new Date().toLocaleDateString()}`;
+            const planTitle = prompt('Give your workout program a name:', defaultTitle);
+            
+            // If user clicked cancel
+            if (planTitle === null) return;
+
+            const finalTitle = planTitle.trim() || defaultTitle;
+
+            try {
+                btnEl.textContent = 'Saving...';
+                btnEl.disabled = true;
+
+                await db.collection('users').doc(user.uid).collection('workouts').add({
+                    title: finalTitle,
+                    plan: currentPlan,
+                    stats: currentStats,
+                    savedAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+
+                showToast('Successfully saved to your profile! 💾');
+                btnEl.textContent = 'Saved! ✓';
+                btnEl.style.borderColor = 'var(--neon-green)';
+                btnEl.style.color = 'var(--neon-green)';
+            } catch (err) {
+                console.error('Error saving workout plan:', err);
+                showToast('Failed to save program.');
+                btnEl.textContent = 'Save to Profile';
+                btnEl.disabled = false;
+            }
+        }
+    }
+
+    function renderWorkoutPlan(plan, level, goal, docId = null, isAlreadySaved = false) {
         if (placeholder) placeholder.style.display = 'none';
         output.style.display = 'block';
 
-        let html = `<div class="workout-header" style="margin-bottom:24px; display:flex; justify-content:space-between; align-items:center;">
+        let html = `<div class="workout-header" style="margin-bottom:24px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
           <p style="color:var(--text-secondary);font-size:0.9rem; margin:0;">
-            Workout Program: <strong style="color:var(--neon-green);">${level}</strong> · ${goal}
-          </p>`;
+            Program: <strong style="color:var(--neon-green);">${level}</strong> · ${goal}
+          </p>
+          <div style="display:flex; gap:10px;">`;
 
-        // Add update button if user is logged in
         if (typeof firebase !== 'undefined' && firebase.auth && firebase.auth().currentUser) {
+            if (isAlreadySaved) {
+                html += `<span style="font-size: 0.8rem; color: var(--neon-green); border: 1px solid var(--neon-green); padding: 6px 12px; border-radius: 4px;">Loaded from Cloud ✓</span>`;
+            } else {
+                html += `<button class="btn btn-secondary btn-sm" id="btn-save-plan" style="padding: 6px 12px; font-size: 0.8rem; border-color: var(--neon-green); color: var(--neon-green);">Save to Profile</button>`;
+            }
             html += `<button class="btn btn-secondary btn-sm" id="btn-update-plan" style="padding: 6px 12px; font-size: 0.8rem;">Change Stats</button>`;
+        } else {
+            html += `<button class="btn btn-secondary btn-sm" onclick="openAuthModal()" style="padding: 6px 12px; font-size: 0.8rem;">Login to Save</button>`;
         }
         
-        html += `</div>`;
+        html += `</div></div>`;
 
         plan.forEach(day => {
             html += `<div class="workout-day">
@@ -153,7 +200,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         output.innerHTML = html;
 
-        // Attach listener to update button to toggle form
+        // Attach Save Listener
+        const saveBtn = document.getElementById('btn-save-plan');
+        if (saveBtn) {
+            saveBtn.addEventListener('click', () => saveCurrentPlan(saveBtn));
+        }
+
+        // Attach Change Stats Listener
         const updateBtn = document.getElementById('btn-update-plan');
         if (updateBtn) {
             updateBtn.addEventListener('click', () => {

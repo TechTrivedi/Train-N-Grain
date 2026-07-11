@@ -60,7 +60,7 @@
         if (navAuthStatus) {
             navAuthStatus.style.display = 'flex';
             navAuthStatus.innerHTML = `
-                <span class="user-greeting">👋 ${firstName}</span>
+                <a href="profile.html" class="user-greeting" style="text-decoration: none; cursor: pointer; transition: color var(--transition-fast);">👋 ${firstName}</a>
                 <button class="btn btn-logout" onclick="handleLogout()">Logout</button>
             `;
         }
@@ -70,7 +70,7 @@
         if (mobileAuthStatus) {
             mobileAuthStatus.style.display = 'flex';
             mobileAuthStatus.innerHTML = `
-                <span class="user-greeting">👋 ${firstName}</span>
+                <a href="profile.html" class="user-greeting" style="text-decoration: none; cursor: pointer; display: inline-block; margin-bottom: 8px;">👋 ${firstName}</a>
                 <button class="btn btn-logout" onclick="handleLogout()">Logout</button>
             `;
         }
