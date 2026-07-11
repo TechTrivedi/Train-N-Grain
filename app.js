@@ -421,10 +421,35 @@ document.addEventListener('DOMContentLoaded', () => {
     // ─── Contact Form ─────────────────────────────────────
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
-        contactForm.addEventListener('submit', (e) => {
+        contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            showToast('Message sent successfully! ✅');
-            contactForm.reset();
+
+            const name = document.getElementById('contact-name').value;
+            const email = document.getElementById('contact-email').value;
+            const subject = document.getElementById('contact-subject')?.value || 'General Inquiry';
+            const message = document.getElementById('contact-message').value;
+
+            if (!name || !email || !message) {
+                showToast('Please fill out all fields.');
+                return;
+            }
+
+            try {
+                if (typeof db !== 'undefined') {
+                    await db.collection('contacts').add({
+                        name: name,
+                        email: email,
+                        subject: subject,
+                        message: message,
+                        submittedAt: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                }
+                showToast('Message sent successfully! ✅');
+                contactForm.reset();
+            } catch (err) {
+                console.error('Error saving contact message to Firestore:', err);
+                showToast('Failed to send message. Please try again.');
+            }
         });
     }
 
