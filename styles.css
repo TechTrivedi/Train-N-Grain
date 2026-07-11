@@ -1328,6 +1328,43 @@ ul {
     box-shadow: 0 4px 20px rgba(66, 133, 244, 0.15);
 }
 
+/* ---------- Password Visibility Toggle ---------- */
+.password-container {
+    position: relative;
+    display: block;
+    width: 100%;
+}
+
+.password-container input {
+    padding-right: 44px !important;
+}
+
+.password-toggle-btn {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: color var(--transition-fast);
+}
+
+.password-toggle-btn:hover {
+    color: var(--neon-green);
+}
+
+.password-toggle-btn svg {
+    width: 18px;
+    height: 18px;
+    pointer-events: none;
+}
+
 /* ---------- Footer ---------- */
 .footer {
     background: var(--bg-secondary);
