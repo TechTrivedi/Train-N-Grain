@@ -14,6 +14,7 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-// Export auth instance globally
+// Export auth and database instances globally
 const auth = firebase.auth();
 const googleProvider = new firebase.auth.GoogleAuthProvider();
+const db = firebase.firestore();

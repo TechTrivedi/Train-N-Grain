@@ -5,13 +5,100 @@
    
    Dependencies (loaded before this file):
      - shared.js         → navbar, hamburger, scroll reveal, showToast
+     - firebase-config.js → global auth and db (Firestore) instances
      - nutrition-data.js → window.mealDatabase
    ============================================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
-
     const nutritionForm = document.getElementById('nutrition-form');
-    nutritionForm.addEventListener('submit', (e) => {
+    const dietToggle = document.getElementById('diet-type-toggle');
+    const container = document.getElementById('nutrition-result');
+    const placeholder = container.querySelector('.result-placeholder');
+    const output = document.getElementById('nutrition-output');
+
+    // Local state to prevent multiple loaders
+    let hasLoadedSaved = false;
+
+    // ─── Auth Listener ───────────────────────────────────────
+    if (typeof firebase !== 'undefined' && firebase.auth) {
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                // Fetch saved plan if not already loaded in this session
+                if (!hasLoadedSaved) {
+                    loadSavedNutritionPlan(user.uid);
+                }
+            } else {
+                // Logged out: reset to initial view
+                hasLoadedSaved = false;
+                resetToDefaultView();
+            }
+        });
+    }
+
+    // Load saved nutrition plan from Firestore
+    async function loadSavedNutritionPlan(uid) {
+        try {
+            const doc = await db.collection('users').doc(uid).get();
+            if (doc.exists) {
+                const data = doc.data();
+                if (data.nutritionPlan && data.nutritionStats) {
+                    hasLoadedSaved = true;
+                    window._nutritionData = data.nutritionPlan;
+                    const type = data.nutritionStats.dietType || 'veg';
+                    if (dietToggle) {
+                        dietToggle.checked = (type === 'nonveg');
+                    }
+                    renderDietPlan(type);
+                    nutritionForm.style.display = 'none'; // Hide form since they have a plan
+                }
+            }
+        } catch (error) {
+            console.error('Error loading saved nutrition plan:', error);
+        }
+    }
+
+    // Reset views on logout
+    function resetToDefaultView() {
+        nutritionForm.style.display = 'block';
+        if (dietToggle) dietToggle.checked = false;
+        const toggleLabel = document.getElementById('toggle-label');
+        if (toggleLabel) toggleLabel.textContent = '🥦 Vegetarian';
+        
+        if (placeholder) placeholder.style.display = 'block';
+        if (output) {
+            output.style.display = 'none';
+            output.innerHTML = '';
+        }
+        window._nutritionData = null;
+    }
+
+    // ─── Veg / Non-Veg toggle ────────────────────────────────
+    if (dietToggle) {
+        dietToggle.addEventListener('change', async () => {
+            const type = dietToggle.checked ? 'nonveg' : 'veg';
+            if (window._nutritionData) {
+                renderDietPlan(type);
+                
+                // Save diet type preference update to Firestore in real-time
+                if (typeof firebase !== 'undefined' && firebase.auth) {
+                    const user = firebase.auth().currentUser;
+                    if (user) {
+                        try {
+                            await db.collection('users').doc(user.uid).update({
+                                'nutritionStats.dietType': type
+                            });
+                            showToast(`Saved preference: ${type === 'nonveg' ? '🍗 Non-Vegetarian' : '🥦 Vegetarian'}`);
+                        } catch (error) {
+                            console.error('Error updating diet type preference:', error);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    // ─── Nutrition form submission ────────────────────────────
+    nutritionForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
         const height = parseFloat(document.getElementById('nut-height').value);
@@ -66,23 +153,46 @@ document.addEventListener('DOMContentLoaded', () => {
         const carbsG = Math.round((calories * carbsPct) / 4);
         const fatG = Math.round((calories * fatPct) / 9);
 
-        // Store data globally for toggle
-        window._nutritionData = { calories, proteinG, carbsG, fatG, goal };
+        // Store data globally for toggle and DB sync
+        const plan = { calories, proteinG, carbsG, fatG, goal };
+        window._nutritionData = plan;
 
-        // Default to veg
-        renderDietPlan('veg');
+        const type = dietToggle && dietToggle.checked ? 'nonveg' : 'veg';
+        renderDietPlan(type);
         showToast('Diet plan generated! 🥗');
-    });
 
-    // Veg / Non-Veg toggle
-    const dietToggle = document.getElementById('diet-type-toggle');
-    if (dietToggle) {
-        dietToggle.addEventListener('change', () => {
-            if (window._nutritionData) {
-                renderDietPlan(dietToggle.checked ? 'nonveg' : 'veg');
+        // Save plan to Firestore if user is authenticated
+        if (typeof firebase !== 'undefined' && firebase.auth) {
+            const user = firebase.auth().currentUser;
+            if (user) {
+                try {
+                    await db.collection('users').doc(user.uid).set({
+                        nutritionPlan: plan,
+                        nutritionStats: {
+                            height: height,
+                            weight: weight,
+                            age: age,
+                            gender: gender.value,
+                            activity: activity,
+                            goal: goal,
+                            dietType: type
+                        },
+                        nutritionUpdatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                    }, { merge: true });
+                    
+                    hasLoadedSaved = true;
+                    showToast('Plan automatically saved to your cloud profile! 💾');
+                    
+                    // Hide form smoothly
+                    setTimeout(() => {
+                        nutritionForm.style.display = 'none';
+                    }, 1000);
+                } catch (error) {
+                    console.error('Error saving nutrition plan to Firestore:', error);
+                }
             }
-        });
-    }
+        }
+    });
 
     function pickMeal(meals, targetCal) {
         let best = meals[0];
@@ -97,10 +207,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderDietPlan(type) {
         const data = window._nutritionData;
         if (!data) return;
-
-        const container = document.getElementById('nutrition-result');
-        const placeholder = container.querySelector('.result-placeholder');
-        const output = document.getElementById('nutrition-output');
 
         if (placeholder) placeholder.style.display = 'none';
         output.style.display = 'block';
@@ -120,9 +226,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const dinner = pickMeal(meals.dinner, dinnerCal);
 
         const toggleLabel = document.getElementById('toggle-label');
-        if (toggleLabel) toggleLabel.textContent = type === 'nonveg' ? '🍗 Non-Vegetarian' : '🥦 Vegetarian';
+        if (toggleLabel) {
+            toggleLabel.textContent = type === 'nonveg' ? '🍗 Non-Vegetarian' : '🥦 Vegetarian';
+        }
 
         let html = `
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+        <span style="color:var(--text-secondary); font-size:0.85rem;">Goal: <strong style="color:var(--neon-green);">${data.goal || 'Maintain'}</strong></span>`;
+        
+        if (typeof firebase !== 'undefined' && firebase.auth && firebase.auth().currentUser) {
+            html += `<button class="btn btn-secondary btn-sm" id="btn-update-nutrition" style="padding: 6px 12px; font-size: 0.8rem;">Change Stats</button>`;
+        }
+        
+        html += `
+      </div>
+      
       <div class="calorie-display">
         <div class="calorie-card">
           <div class="value">${calories}</div>
@@ -176,6 +294,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         output.innerHTML = html;
-    }
 
+        // Attach listener to update button to toggle form
+        const updateBtn = document.getElementById('btn-update-nutrition');
+        if (updateBtn) {
+            updateBtn.addEventListener('click', () => {
+                nutritionForm.style.display = nutritionForm.style.display === 'none' ? 'block' : 'none';
+                if (nutritionForm.style.display === 'block') {
+                    nutritionForm.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        }
+    }
 });
