@@ -1950,7 +1950,7 @@ ul {
 body.home-page {
     background-color: #0a0a0c;
     background-image: linear-gradient(to bottom, rgba(10, 10, 12, 0.45), rgba(10, 10, 12, 0.95)), url('assets/cbum.jpg');
-    background-size: contain;
+    background-size: 100% 100%;
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;
