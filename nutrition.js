@@ -98,9 +98,9 @@ document.addEventListener('DOMContentLoaded', () => {
         dietToggle.addEventListener('change', async () => {
             const type = dietToggle.checked ? 'nonveg' : 'veg';
             if (window._nutritionData) {
-                // Render with new toggle choice
-                renderDietPlan(type, currentDocId, !!currentDocId);
-                
+                // Update stats locally
+                if (currentStats) currentStats.dietType = type;
+
                 // Save diet type preference update in real-time to active doc if loaded by ID
                 if (currentDocId && typeof firebase !== 'undefined' && firebase.auth) {
                     const user = firebase.auth().currentUser;
@@ -115,12 +115,19 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     }
                 }
+
+                // If it is a live session plan (not loaded from cloud), re-query AI for the new diet type!
+                if (currentStats && !currentDocId) {
+                    regenerateAIDietPlan(type);
+                } else {
+                    renderDietPlan(type, currentDocId, !!currentDocId);
+                }
             }
         });
     }
 
     // ─── Nutrition form submission ────────────────────────────
-    nutritionForm.addEventListener('submit', (e) => {
+    nutritionForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
         const height = parseFloat(document.getElementById('nut-height').value);
@@ -135,66 +142,90 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // BMR (Mifflin-St Jeor)
-        let bmr;
-        if (gender.value === 'male') {
-            bmr = 10 * weight + 6.25 * height - 5 * age + 5;
-        } else {
-            bmr = 10 * weight + 6.25 * height - 5 * age - 161;
-        }
+        // Show loading state
+        if (placeholder) placeholder.style.display = 'none';
+        output.style.display = 'block';
+        output.innerHTML = `
+            <div style="text-align: center; padding: 40px 20px;">
+                <p style="color: var(--neon-green); font-size: 1.1rem; margin-bottom: 12px; font-weight: 600; letter-spacing: 1px;">
+                    ⚡ CALCULATING TARGET MACROS...
+                </p>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 24px;">
+                    Our AI Dietitian is analyzing your stats and compiling a custom meal plan.
+                </p>
+                <div class="loader-spinner" style="width: 40px; height: 40px; border: 3px solid rgba(57, 255, 20, 0.1); border-top-color: var(--neon-green); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto;"></div>
+            </div>
+        `;
+        output.scrollIntoView({ behavior: 'smooth' });
 
-        // Activity multiplier
-        const activityMultipliers = {
-            'Sedentary': 1.2,
-            'Lightly Active': 1.375,
-            'Moderately Active': 1.55,
-            'Very Active': 1.725,
-            'Extremely Active': 1.9
-        };
+        const type = dietToggle && dietToggle.checked ? 'nonveg' : 'veg';
+
+        // Prepare local calculation fallback
+        let bmr = gender.value === 'male' 
+            ? 10 * weight + 6.25 * height - 5 * age + 5 
+            : 10 * weight + 6.25 * height - 5 * age - 161;
+        const activityMultipliers = { 'Sedentary': 1.2, 'Lightly Active': 1.375, 'Moderately Active': 1.55, 'Very Active': 1.725, 'Extremely Active': 1.9 };
         const tdee = bmr * (activityMultipliers[activity] || 1.55);
+        let fallbackCals = goal === 'Bulk' ? tdee + 400 : (goal === 'Cut' ? tdee - 500 : tdee);
+        fallbackCals = Math.round(fallbackCals);
+        let pPct = goal === 'Bulk' ? 0.30 : (goal === 'Cut' ? 0.40 : 0.30);
+        let cPct = goal === 'Bulk' ? 0.45 : (goal === 'Cut' ? 0.30 : 0.40);
+        let fPct = goal === 'Bulk' ? 0.25 : (goal === 'Cut' ? 0.30 : 0.30);
+        const fallbackPlan = {
+            calories: fallbackCals,
+            proteinG: Math.round((fallbackCals * pPct) / 4),
+            carbsG: Math.round((fallbackCals * cPct) / 4),
+            fatG: Math.round((fallbackCals * fPct) / 9),
+            goal: goal
+        };
 
-        // Goal adjustment
-        let calories;
-        if (goal === 'Bulk') calories = tdee + 400;
-        else if (goal === 'Cut') calories = tdee - 500;
-        else calories = tdee;
-
-        calories = Math.round(calories);
-
-        // Macro split based on goal
-        let proteinPct, carbsPct, fatPct;
-        if (goal === 'Bulk') {
-            proteinPct = 0.30; carbsPct = 0.45; fatPct = 0.25;
-        } else if (goal === 'Cut') {
-            proteinPct = 0.40; carbsPct = 0.30; fatPct = 0.30;
-        } else {
-            proteinPct = 0.30; carbsPct = 0.40; fatPct = 0.30;
-        }
-
-        const proteinG = Math.round((calories * proteinPct) / 4);
-        const carbsG = Math.round((calories * carbsPct) / 4);
-        const fatG = Math.round((calories * fatPct) / 9);
-
-        // Store globally
-        const plan = { calories, proteinG, carbsG, fatG, goal };
-        window._nutritionData = plan;
-
-        // Keep local state for saving
-        currentPlan = plan;
-        currentStats = {
+        const reqBody = {
             height,
             weight,
             age,
             gender: gender.value,
             activity,
             goal,
-            dietType: dietToggle && dietToggle.checked ? 'nonveg' : 'veg'
+            dietType: type
         };
-        currentDocId = null;
 
-        const type = dietToggle && dietToggle.checked ? 'nonveg' : 'veg';
-        renderDietPlan(type, null, false);
-        showToast('Diet plan generated! 🥗');
+        try {
+            const response = await fetch('/api/nutrition', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(reqBody)
+            });
+
+            if (!response.ok) {
+                throw new Error(`Server returned status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            if (!data.plan || !data.plan.meals) {
+                throw new Error("Invalid format received from AI server");
+            }
+
+            // Store globally & state
+            window._nutritionData = data.plan;
+            currentPlan = data.plan;
+            currentStats = reqBody;
+            currentDocId = null;
+
+            renderDietPlan(type, null, false);
+            showToast('AI Diet plan generated! 🥗');
+
+        } catch (error) {
+            console.warn('AI diet generation failed, falling back to static database:', error);
+            showToast('API issue. Loaded offline standard plan. 🥦');
+
+            // Fall back
+            window._nutritionData = fallbackPlan;
+            currentPlan = fallbackPlan;
+            currentStats = reqBody;
+            currentDocId = null;
+
+            renderDietPlan(type, null, false);
+        }
     });
 
     // ─── Save Action Handler ──────────────────────────────────
@@ -212,12 +243,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const defaultTitle = `Diet Plan — ${new Date().toLocaleDateString()}`;
             const planTitle = prompt('Give your diet program a name:', defaultTitle);
             
-            // If user clicked cancel
             if (planTitle === null) return;
 
             const finalTitle = planTitle.trim() || defaultTitle;
-            
-            // Sync diet type stats
             currentStats.dietType = dietToggle && dietToggle.checked ? 'nonveg' : 'veg';
 
             try {
@@ -244,6 +272,54 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // ─── Regenerate plan on toggle switch ──────────────────────
+    async function regenerateAIDietPlan(type) {
+        if (!currentStats) return;
+
+        try {
+            // Show sub-loader inside the meals list area but keep stats intact
+            const mealsContainer = document.getElementById('nutrition-output');
+            if (mealsContainer) {
+                // Keep values, just show a loading overlay or text in meals section
+                const loaderHtml = `
+                    <div style="text-align: center; padding: 24px 0; border-top: 1px dashed var(--border-glass); margin-top: 16px;">
+                        <p style="color: var(--neon-green); font-size: 0.9rem; margin-bottom: 12px; font-weight: 600;">
+                            🔄 SWAPPING DIET TYPE TO ${type === 'nonveg' ? '🍗 NON-VEG' : '🥦 VEG'}...
+                        </p>
+                        <div class="loader-spinner" style="width: 28px; height: 28px; border: 2px solid rgba(57, 255, 20, 0.1); border-top-color: var(--neon-green); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto;"></div>
+                    </div>
+                `;
+                // Append or inject loader inside the meal plan section
+                const headerEndIndex = mealsContainer.innerHTML.indexOf('</h4>');
+                if (headerEndIndex !== -1) {
+                    mealsContainer.innerHTML = mealsContainer.innerHTML.substring(0, headerEndIndex + 5) + loaderHtml;
+                }
+            }
+
+            const updatedBody = { ...currentStats, dietType: type };
+
+            const response = await fetch('/api/nutrition', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(updatedBody)
+            });
+
+            if (!response.ok) throw new Error();
+
+            const data = await response.json();
+            window._nutritionData = data.plan;
+            currentPlan = data.plan;
+            currentStats.dietType = type;
+
+            renderDietPlan(type, null, false);
+            showToast(`Swapped to AI ${type === 'nonveg' ? 'Non-Veg' : 'Veg'} plan! 🥗`);
+        } catch (e) {
+            console.warn('AI re-generation failed, falling back to static swap:', e);
+            // Render with local static template swap
+            renderDietPlan(type, null, false);
+        }
+    }
+
     function pickMeal(meals, targetCal) {
         let best = meals[0];
         let bestDiff = Math.abs(meals[0].calories - targetCal);
@@ -262,18 +338,31 @@ document.addEventListener('DOMContentLoaded', () => {
         output.style.display = 'block';
 
         const { calories, proteinG, carbsG, fatG } = data;
-        const meals = window.mealDatabase[type === 'nonveg' ? 'nonveg' : 'veg'];
 
-        // Distribute calories: Breakfast 25%, Lunch 35%, Snacks 15%, Dinner 25%
-        const breakfastCal = calories * 0.25;
-        const lunchCal = calories * 0.35;
-        const snacksCal = calories * 0.15;
-        const dinnerCal = calories * 0.25;
+        let displayMeals = [];
+        if (data.meals && Array.isArray(data.meals)) {
+            // Live AI generated meals
+            displayMeals = data.meals;
+        } else {
+            // Local offline fallback meals
+            const meals = window.mealDatabase[type === 'nonveg' ? 'nonveg' : 'veg'];
+            const breakfastCal = calories * 0.25;
+            const lunchCal = calories * 0.35;
+            const snacksCal = calories * 0.15;
+            const dinnerCal = calories * 0.25;
 
-        const breakfast = pickMeal(meals.breakfast, breakfastCal);
-        const lunch = pickMeal(meals.lunch, lunchCal);
-        const snacks = pickMeal(meals.snacks, snacksCal);
-        const dinner = pickMeal(meals.dinner, dinnerCal);
+            const breakfast = pickMeal(meals.breakfast, breakfastCal);
+            const lunch = pickMeal(meals.lunch, lunchCal);
+            const snacks = pickMeal(meals.snacks, snacksCal);
+            const dinner = pickMeal(meals.dinner, dinnerCal);
+
+            displayMeals = [
+                { type: '🌅 Breakfast', name: breakfast.name, calories: breakfast.calories, protein: breakfast.protein, carbs: breakfast.carbs, fat: breakfast.fat },
+                { type: '☀️ Lunch', name: lunch.name, calories: lunch.calories, protein: lunch.protein, carbs: lunch.carbs, fat: lunch.fat },
+                { type: '🥜 Snacks', name: snacks.name, calories: snacks.calories, protein: snacks.protein, carbs: snacks.carbs, fat: snacks.fat },
+                { type: '🌙 Dinner', name: dinner.name, calories: dinner.calories, protein: dinner.protein, carbs: dinner.carbs, fat: dinner.fat }
+            ];
+        }
 
         const toggleLabel = document.getElementById('toggle-label');
         if (toggleLabel) {
@@ -326,21 +415,16 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       </div>
 
-      <h4 style="margin-bottom:16px;font-size:1rem;">🍽️ Daily Meal Plan</h4>
+      <div id="meals-section-header">
+        <h4 style="margin-bottom:16px;font-size:1rem;">🍽️ Daily Meal Plan</h4>
+      </div>
     `;
 
-        const mealList = [
-            { type: '🌅 Breakfast', meal: breakfast },
-            { type: '☀️ Lunch', meal: lunch },
-            { type: '🥜 Snacks', meal: snacks },
-            { type: '🌙 Dinner', meal: dinner }
-        ];
-
-        mealList.forEach(({ type, meal }) => {
+        displayMeals.forEach((meal) => {
             html += `
         <div class="meal-card">
           <div class="meal-header">
-            <span class="meal-type">${type}</span>
+            <span class="meal-type">${meal.type}</span>
             <span class="meal-cals">${meal.calories} kcal</span>
           </div>
           <div class="meal-items">

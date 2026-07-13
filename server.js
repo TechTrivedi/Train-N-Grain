@@ -3,12 +3,13 @@ import fs from 'fs';
 import path from 'path';
 import chatHandler from './api/chat.js';
 import workoutHandler from './api/workout.js';
+import nutritionHandler from './api/nutrition.js';
 
 const PORT = 3000;
 
 http.createServer((req, res) => {
     // Handle the serverless API routes
-    if (req.method === 'POST' && (req.url === '/api/chat' || req.url === '/api/workout')) {
+    if (req.method === 'POST' && (req.url === '/api/chat' || req.url === '/api/workout' || req.url === '/api/nutrition')) {
         let body = '';
         req.on('data', chunk => { body += chunk; });
         req.on('end', () => {
@@ -37,8 +38,10 @@ http.createServer((req, res) => {
 
             if (req.url === '/api/chat') {
                 chatHandler(req, mockRes);
-            } else {
+            } else if (req.url === '/api/workout') {
                 workoutHandler(req, mockRes);
+            } else {
+                nutritionHandler(req, mockRes);
             }
         });
     } else {
