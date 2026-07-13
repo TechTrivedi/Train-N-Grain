@@ -2003,4 +2003,32 @@ ul {
         opacity: 0;
     }
 }
+
+/* ---------- Vertical Focus Text Overlay ---------- */
+.vertical-hero-text {
+    position: absolute;
+    right: 8%;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    z-index: 10;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 900;
+    font-size: 3.5rem;
+    color: rgba(255, 255, 255, 0.7);
+    letter-spacing: 0.2em;
+    pointer-events: none;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+    user-select: none;
+    line-height: 1.0;
+}
+
+@media (max-width: 1024px) {
+    .vertical-hero-text {
+        display: none;
+    }
+}
 
