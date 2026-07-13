@@ -408,7 +408,7 @@ ul {
 
 .hero-content {
     position: relative;
-    z-index: 10;
+    z-index: 1;
     max-width: 750px;
 }
 
@@ -1944,23 +1944,5 @@ ul {
     background: rgba(255, 255, 255, 0.01);
     border: 1px dashed var(--border-glass);
     border-radius: var(--radius-md);
-}
-
-/* ---------- Fixed Parallax Page Background ---------- */
-body.home-page {
-    background-color: #0a0a0c;
-    background-image: linear-gradient(to bottom, rgba(10, 10, 12, 0.45), rgba(10, 10, 12, 0.95)), url('assets/cbum.jpg');
-    background-size: 100% 100%;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-}
-
-body.home-page .hero {
-    background: transparent;
-}
-
-body.home-page .preview {
-    background: transparent;
 }
 
