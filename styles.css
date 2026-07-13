@@ -1946,89 +1946,21 @@ ul {
     border-radius: var(--radius-md);
 }
 
-/* ---------- Hero Slideshow Background ---------- */
-.hero-slideshow {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    overflow: hidden;
-}
-
-.hero-slideshow::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom, rgba(10, 10, 12, 0.65), rgba(10, 10, 12, 0.95));
-    z-index: 2;
-}
-
-.hero-slideshow .slide {
-    position: absolute;
-    inset: 0;
+/* ---------- Fixed Parallax Page Background ---------- */
+body.home-page {
+    background-color: #0a0a0c;
+    background-image: linear-gradient(to bottom, rgba(10, 10, 12, 0.45), rgba(10, 10, 12, 0.95)), url('assets/cbum.jpg');
     background-size: cover;
-    background-position: center;
+    background-position: center top;
     background-repeat: no-repeat;
-    opacity: 0;
-    z-index: 1;
-    animation: imageFade 15s linear infinite;
+    background-attachment: fixed;
 }
 
-/* Offset animations for each slide */
-.hero-slideshow .slide:nth-child(1) {
-    animation-delay: 0s;
-}
-.hero-slideshow .slide:nth-child(2) {
-    animation-delay: 5s;
-}
-.hero-slideshow .slide:nth-child(3) {
-    animation-delay: 10s;
+body.home-page .hero {
+    background: transparent;
 }
 
-@keyframes imageFade {
-    0% {
-        opacity: 0;
-        transform: scale(1.0);
-    }
-    8% {
-        opacity: 1;
-    }
-    33% {
-        opacity: 1;
-    }
-    41% {
-        opacity: 0;
-        transform: scale(1.05); /* Subtle zoom effect */
-    }
-    100% {
-        opacity: 0;
-    }
-}
-
-/* ---------- Vertical Focus Text Overlay ---------- */
-.vertical-hero-text {
-    position: absolute;
-    right: 8%;
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-    z-index: 10;
-    font-family: 'Outfit', sans-serif;
-    font-weight: 900;
-    font-size: 3.5rem;
-    color: rgba(255, 255, 255, 0.7);
-    letter-spacing: 0.2em;
-    pointer-events: none;
-    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
-    user-select: none;
-    line-height: 1.0;
-}
-
-@media (max-width: 1024px) {
-    .vertical-hero-text {
-        display: none;
-    }
+body.home-page .preview {
+    background: transparent;
 }
 
