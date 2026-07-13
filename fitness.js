@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ─── Fitness form submission ──────────────────────────────
-    fitnessForm.addEventListener('submit', (e) => {
+    fitnessForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
         const age = document.getElementById('fit-age').value;
@@ -92,26 +92,71 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        // Show loading state
+        if (placeholder) placeholder.style.display = 'none';
+        output.style.display = 'block';
+        output.innerHTML = `
+            <div style="text-align: center; padding: 40px 20px;">
+                <p style="color: var(--neon-green); font-size: 1.1rem; margin-bottom: 12px; font-weight: 600; letter-spacing: 1px;">
+                    ⚡ COMPILING CUSTOM AI ROUTINE...
+                </p>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 24px;">
+                    Our AI Coach is generating a safe, optimized program based on your stats.
+                </p>
+                <div class="loader-spinner" style="width: 40px; height: 40px; border: 3px solid rgba(57, 255, 20, 0.1); border-top-color: var(--neon-green); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto;"></div>
+            </div>
+        `;
+        output.scrollIntoView({ behavior: 'smooth' });
+
         const goalKey = { 'Strength': 'strength', 'Fat Loss': 'fatloss', 'Endurance': 'endurance', 'General Fitness': 'general' }[goal] || 'strength';
         const equipKey = { 'No Equipment': 'bodyweight', 'Dumbbells': 'dumbbells', 'Resistance Bands': 'bands', 'Both (Dumbbells + Bands)': 'both' }[equipment.value] || 'bodyweight';
         const levelKey = level.toLowerCase();
 
+        // Local data fallback backup plan
         const localDb = window.workoutDatabase;
-        const plan = localDb[levelKey]?.[goalKey]?.[equipKey] || localDb[levelKey]?.['strength']?.[equipKey] || localDb['beginner']['strength']['bodyweight'];
+        const fallbackPlan = localDb[levelKey]?.[goalKey]?.[equipKey] || localDb[levelKey]?.['strength']?.[equipKey] || localDb['beginner']['strength']['bodyweight'];
 
-        // Store active data in local state for manual save triggers
-        currentPlan = plan;
-        currentStats = {
-            level: level,
-            goal: goal,
-            age: age,
+        // Request body
+        const reqBody = {
+            age: parseInt(age),
             gender: gender.value,
+            goal: goal,
+            level: level,
             equipment: equipment.value
         };
 
-        // Render plan (saving is manual now)
-        renderWorkoutPlan(plan, level, goal, null, false);
-        showToast('Workout plan generated! 💪');
+        try {
+            const response = await fetch('/api/workout', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(reqBody)
+            });
+
+            if (!response.ok) {
+                throw new Error(`Server returned status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            if (!data.plan || !Array.isArray(data.plan)) {
+                throw new Error("Invalid format received from AI server");
+            }
+
+            currentPlan = data.plan;
+            currentStats = reqBody;
+
+            renderWorkoutPlan(data.plan, level, goal, null, false);
+            showToast('AI Workout plan generated! 💪');
+
+        } catch (error) {
+            console.warn('AI generation failed, falling back to static database:', error);
+            showToast('API issue. Loaded offline standard plan. 🔌');
+            
+            // Fall back to offline static plan
+            currentPlan = fallbackPlan;
+            currentStats = reqBody;
+
+            renderWorkoutPlan(fallbackPlan, level, goal, null, false);
+        }
     });
 
     // ─── Save Action Handler ──────────────────────────────────

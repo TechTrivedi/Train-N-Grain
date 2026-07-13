@@ -2,12 +2,13 @@ import http from 'http';
 import fs from 'fs';
 import path from 'path';
 import chatHandler from './api/chat.js';
+import workoutHandler from './api/workout.js';
 
 const PORT = 3000;
 
 http.createServer((req, res) => {
-    // Handle the serverless API route
-    if (req.method === 'POST' && req.url === '/api/chat') {
+    // Handle the serverless API routes
+    if (req.method === 'POST' && (req.url === '/api/chat' || req.url === '/api/workout')) {
         let body = '';
         req.on('data', chunk => { body += chunk; });
         req.on('end', () => {
@@ -34,7 +35,11 @@ http.createServer((req, res) => {
                 }
             };
 
-            chatHandler(req, mockRes);
+            if (req.url === '/api/chat') {
+                chatHandler(req, mockRes);
+            } else {
+                workoutHandler(req, mockRes);
+            }
         });
     } else {
         // Serve static frontend files
