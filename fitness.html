@@ -122,6 +122,24 @@
                             </div>
                         </div>
 
+                        <div class="form-group">
+                            <label>Cardio & Warm-up Preferences</label>
+                            <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 8px;">
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <input type="checkbox" id="fit-warmup" style="width: auto; margin: 0;" checked>
+                                    <label for="fit-warmup" style="margin-bottom: 0; font-size: 0.9rem; color: var(--text-secondary); cursor: pointer;">Include daily Warm-ups & Cardio finishers</label>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 12px; margin-top: 4px;">
+                                    <label for="fit-cardio-pref" style="margin-bottom: 0; font-size: 0.85rem; color: var(--text-muted); white-space: nowrap;">Active Rest Preference:</label>
+                                    <select id="fit-cardio-pref" style="padding: 8px 12px; font-size: 0.85rem; flex: 1; background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-glass); border-radius: var(--radius-md); color: var(--text-primary);">
+                                        <option value="none">None (Standard Rest)</option>
+                                        <option value="walking">🚶 Walking (Low Intensity)</option>
+                                        <option value="running">🏃 Running / Jogging (High Intensity)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
                         <button type="submit" class="btn btn-primary" style="width:100%;margin-top:8px;">
                             🔥 Generate Workout Plan
                         </button>

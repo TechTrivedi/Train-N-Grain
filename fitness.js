@@ -86,6 +86,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const goal = document.getElementById('fit-goal').value;
         const level = document.getElementById('fit-level').value;
         const equipment = document.querySelector('input[name="fit-equipment"]:checked');
+        const includeWarmup = document.getElementById('fit-warmup').checked;
+        const cardioPref = document.getElementById('fit-cardio-pref').value;
 
         if (!age || !gender || !equipment) {
             showToast('Please fill in all fields');
@@ -122,7 +124,9 @@ document.addEventListener('DOMContentLoaded', () => {
             gender: gender.value,
             goal: goal,
             level: level,
-            equipment: equipment.value
+            equipment: equipment.value,
+            includeWarmup: includeWarmup,
+            cardioPref: cardioPref
         };
 
         try {

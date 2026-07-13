@@ -27,7 +27,7 @@ export default async function handler(req, res) {
         return res.status(405).json({ error: 'Method Not Allowed' });
     }
 
-    const { age, gender, goal, level, equipment } = req.body;
+    const { age, gender, goal, level, equipment, includeWarmup, cardioPref } = req.body;
 
     if (!goal || !level || !equipment) {
         return res.status(400).json({ error: 'Missing required parameters: goal, level, and equipment are mandatory.' });
@@ -62,6 +62,8 @@ JSON Schema:
 - Fitness Goal: ${goal}
 - Experience Level: ${level}
 - Available Equipment: ${equipment}
+- Include Daily Warm-ups & Cardio Finishers: ${includeWarmup ? 'YES (Always include a brief Warm-up block as the first exercise of the day, and a Cardio/HIIT finisher as the last exercise of the training day)' : 'NO'}
+- Active Rest Cardio Preference: ${cardioPref !== 'none' ? `Include scheduled ${cardioPref} sessions (e.g. 20-30 min brisk walk or jog) on rest/active-recovery days or integrated in the training calendar.` : 'None (Standard Rest)'}
 
 Design a weekly routine of 3 to 5 training days depending on the experience level. Choose relevant exercises, specify sets, reps, and brief, actionable form instructions.`;
 
