@@ -184,25 +184,25 @@ export const NutritionPage: React.FC<NutritionPageProps> = ({ user, openAuthModa
   };
 
   return (
-    <div className="space-y-12 max-w-6xl mx-auto">
+    <div className="space-y-6 max-w-6xl mx-auto pt-1">
 
       {/* Title Header */}
-      <div className="text-center space-y-3">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#00A3FF]/10 border border-[#00A3FF]/30 text-[#00A3FF] text-xs font-bold uppercase tracking-wider">
-          <Utensils className="w-4 h-4" /> Sports Nutrition & Macro Engine
+      <div className="text-center space-y-1.5">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#00A3FF]/10 border border-[#00A3FF]/30 text-[#00A3FF] text-[11px] font-bold uppercase tracking-wider">
+          <Utensils className="w-3.5 h-3.5" /> Sports Nutrition & Macro Engine
         </div>
-        <h1 className="font-display text-4xl sm:text-5xl font-extrabold text-white">
+        <h1 className="font-display text-3xl sm:text-4xl font-extrabold text-white">
           AI Nutrition & Diet Generator
         </h1>
-        <p className="text-gray-400 text-sm sm:text-base max-w-xl mx-auto">
-          Calculate your exact Mifflin-St Jeor TDEE calorie targets and generate custom daily meal cards with instant Veg/Non-Veg preference swapping.
+        <p className="text-gray-400 text-xs sm:text-sm max-w-xl mx-auto">
+          Calculate your exact Mifflin-St Jeor TDEE calorie targets and generate custom daily meal cards.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
 
         {/* Left Col: Nutrition Assessment Form */}
-        <div className="lg:col-span-5 glass-panel-dark rounded-3xl p-6 sm:p-8 border border-white/10 space-y-6">
+        <div className="lg:col-span-5 glass-panel-dark rounded-3xl p-5 sm:p-6 border border-white/10 space-y-4">
           
           {/* Veg / Non-Veg Toggle Header */}
           <div className="flex items-center justify-between bg-white/[0.04] p-2 rounded-2xl border border-white/10">

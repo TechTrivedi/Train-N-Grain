@@ -153,30 +153,30 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
   };
 
   return (
-    <div className="space-y-12 max-w-6xl mx-auto">
+    <div className="space-y-6 max-w-6xl mx-auto pt-1">
 
       {/* Title Header */}
-      <div className="text-center space-y-3">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#00A3FF]/10 border border-[#00A3FF]/30 text-[#00A3FF] text-xs font-bold uppercase tracking-wider">
-          <Dumbbell className="w-4 h-4" /> AI Training Routine Compiler
+      <div className="text-center space-y-1.5">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#00A3FF]/10 border border-[#00A3FF]/30 text-[#00A3FF] text-[11px] font-bold uppercase tracking-wider">
+          <Dumbbell className="w-3.5 h-3.5" /> AI Training Routine Compiler
         </div>
-        <h1 className="font-display text-4xl sm:text-5xl font-extrabold text-white">
+        <h1 className="font-display text-3xl sm:text-4xl font-extrabold text-white">
           AI Workout Generator
         </h1>
-        <p className="text-gray-400 text-sm sm:text-base max-w-xl mx-auto">
-          Specify your equipment, training goals, warmups, and cardio preferences to generate a custom routine powered by Gemini 3.1 Flash Lite.
+        <p className="text-gray-400 text-xs sm:text-sm max-w-xl mx-auto">
+          Specify your equipment, training goals, warmups, and cardio preferences to generate a custom routine.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
 
         {/* Left Col: Assessment Form */}
-        <div className="lg:col-span-5 glass-panel-dark rounded-3xl p-6 sm:p-8 border border-white/10 space-y-6">
-          <h3 className="text-xl font-bold text-white flex items-center gap-2">
-            <Zap className="w-5 h-5 text-[#00A3FF]" /> Assessment Stats
+        <div className="lg:col-span-5 glass-panel-dark rounded-3xl p-5 sm:p-6 border border-white/10 space-y-4">
+          <h3 className="text-lg font-bold text-white flex items-center gap-2">
+            <Zap className="w-4 h-4 text-[#00A3FF]" /> Assessment Stats
           </h3>
 
-          <form onSubmit={handleGenerate} className="space-y-4">
+          <form onSubmit={handleGenerate} className="space-y-3">
             
             {/* Age & Gender */}
             <div className="grid grid-cols-2 gap-4">
