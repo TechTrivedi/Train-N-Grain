@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageSquare, X, Send, Sparkles, Bot, Trash2 } from 'lucide-react';
+import { MessageSquare, X, Send, Sparkles, Bot, Trash2, RotateCcw, Loader2 } from 'lucide-react';
 import { ChatMessage } from '../types';
 
 interface AIChatWidgetProps {
@@ -111,26 +111,26 @@ export const AIChatWidget: React.FC<AIChatWidgetProps> = ({ showToast }) => {
         </motion.button>
       )}
 
-      {/* Expandable Chat Drawer */}
+      {/* Expandable Chat Drawer (Solid Non-Transparent) */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="w-[92vw] sm:w-[400px] h-[520px] glass-panel rounded-3xl border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.9)] flex flex-col overflow-hidden"
+            className="w-[92vw] sm:w-[400px] h-[520px] bg-[#12121A] rounded-3xl border border-white/15 shadow-[0_10px_60px_rgba(0,0,0,0.95)] flex flex-col overflow-hidden"
           >
             {/* Chat Header */}
-            <div className="p-4 border-b border-white/10 flex items-center justify-between bg-white/[0.02]">
+            <div className="p-4 border-b border-white/10 flex items-center justify-between bg-[#181824]">
               <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl bg-[#00A3FF]/10 border border-[#00A3FF]/30 flex items-center justify-center text-[#00A3FF]">
+                <div className="w-9 h-9 rounded-xl bg-[#00A3FF]/15 border border-[#00A3FF]/40 flex items-center justify-center text-[#00A3FF]">
                   <Bot className="w-5 h-5" />
                 </div>
                 <div>
                   <h4 className="text-sm font-bold text-white flex items-center gap-1.5">
                     AI Coach Assistant <Sparkles className="w-3.5 h-3.5 text-[#00A3FF]" />
                   </h4>
-                  <span className="text-[10px] text-[#00A3FF] flex items-center gap-1">
+                  <span className="text-[10px] text-[#00A3FF] flex items-center gap-1 font-semibold">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#00A3FF] animate-pulse"></span>
                     Online · Powered by Gemini
                   </span>
@@ -141,65 +141,69 @@ export const AIChatWidget: React.FC<AIChatWidgetProps> = ({ showToast }) => {
                 <button
                   onClick={handleClear}
                   title="Clear Chat"
-                  className="p-2 rounded-xl text-gray-400 hover:text-red-400 hover:bg-white/5 transition-all"
+                  className="p-2 rounded-xl text-gray-400 hover:text-white hover:bg-white/10 transition-colors"
                 >
-                  <Trash2 className="w-4 h-4" />
+                  <RotateCcw className="w-4 h-4" />
                 </button>
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="p-2 rounded-xl text-gray-400 hover:text-white hover:bg-white/5 transition-all"
+                  className="p-2 rounded-xl text-gray-400 hover:text-white hover:bg-white/10 transition-colors"
                 >
                   <X className="w-5 h-5" />
                 </button>
               </div>
             </div>
 
-            {/* Chat Messages */}
-            <div className="flex-1 p-4 overflow-y-auto space-y-3">
-              {messages.map((msg, i) => (
+            {/* Chat Messages Stream */}
+            <div className="flex-1 p-4 overflow-y-auto space-y-3 bg-[#12121A]">
+              {messages.map((msg, idx) => (
                 <div
-                  key={i}
-                  className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}
+                  key={idx}
+                  className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
                   <div
-                    className={`max-w-[85%] p-3.5 rounded-2xl text-sm leading-relaxed ${
+                    className={`max-w-[85%] rounded-2xl px-4 py-3 text-xs leading-relaxed ${
                       msg.role === 'user'
-                        ? 'bg-[#00A3FF] text-black font-medium rounded-tr-none shadow-[0_0_15px_rgba(0, 163, 255,0.2)]'
-                        : 'bg-white/[0.05] border border-white/10 text-gray-200 rounded-tl-none'
+                        ? 'bg-[#00A3FF] text-black font-semibold rounded-br-none shadow-md'
+                        : 'bg-[#1C1C28] text-gray-100 border border-white/10 rounded-bl-none shadow-md'
                     }`}
                   >
-                    {msg.text}
+                    <p className="whitespace-pre-line">{msg.text}</p>
+                    <span
+                      className={`block text-[9px] mt-1.5 ${
+                        msg.role === 'user' ? 'text-black/70 font-medium' : 'text-gray-400'
+                      }`}
+                    >
+                      {msg.timestamp}
+                    </span>
                   </div>
-                  {msg.timestamp && (
-                    <span className="text-[10px] text-gray-500 mt-1 px-1">{msg.timestamp}</span>
-                  )}
                 </div>
               ))}
 
               {loading && (
-                <div className="flex items-center gap-2 p-3.5 rounded-2xl bg-white/[0.05] border border-white/10 text-gray-400 text-xs w-fit">
-                  <span className="w-2 h-2 rounded-full bg-[#00A3FF] animate-bounce"></span>
-                  <span className="w-2 h-2 rounded-full bg-[#00A3FF] animate-bounce [animation-delay:0.2s]"></span>
-                  <span className="w-2 h-2 rounded-full bg-[#00A3FF] animate-bounce [animation-delay:0.4s]"></span>
-                  <span className="ml-1 text-[#00A3FF]">Coach is thinking...</span>
+                <div className="flex justify-start">
+                  <div className="bg-[#1C1C28] text-gray-400 border border-white/10 rounded-2xl rounded-bl-none px-4 py-3 text-xs flex items-center gap-2">
+                    <Loader2 className="w-3.5 h-3.5 animate-spin text-[#00A3FF]" />
+                    <span>AI Coach is thinking...</span>
+                  </div>
                 </div>
               )}
               <div ref={messagesEndRef} />
             </div>
 
-            {/* Chat Input */}
-            <form onSubmit={handleSend} className="p-3 border-t border-white/10 bg-white/[0.02] flex gap-2">
+            {/* Chat Input Bar */}
+            <form onSubmit={handleSend} className="p-3 border-t border-white/10 bg-[#181824] flex items-center gap-2">
               <input
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Ask about workouts, nutrition, macros..."
-                className="flex-1 px-4 py-2.5 rounded-xl bg-white/[0.05] border border-white/10 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-[#00A3FF]"
+                placeholder="Ask about workouts, macros, form..."
+                className="flex-1 bg-[#12121A] border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-[#00A3FF] transition-colors"
               />
               <button
                 type="submit"
                 disabled={loading || !input.trim()}
-                className="p-2.5 rounded-xl bg-[#00A3FF] text-black font-bold disabled:opacity-40 hover:scale-105 transition-transform"
+                className="p-2.5 rounded-xl bg-[#00A3FF] text-black hover:scale-105 active:scale-95 disabled:opacity-50 transition-all font-bold"
               >
                 <Send className="w-4 h-4" />
               </button>

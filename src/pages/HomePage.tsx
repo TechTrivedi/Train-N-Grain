@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Dumbbell, Utensils, Sparkles, Shield, ArrowRight, Zap, Send, CheckCircle } from 'lucide-react';
+import { Dumbbell, Utensils, Sparkles, ArrowRight, Zap, Send } from 'lucide-react';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../config/firebase';
 
@@ -63,10 +63,10 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, showToast }) =
   ];
 
   return (
-    <div className="space-y-20 relative">
+    <div className="space-y-12 relative">
 
-      {/* Hero Section with 5-Slide Crossfade Background */}
-      <section className="relative min-h-[85vh] flex items-center justify-center rounded-3xl overflow-hidden glass-panel border border-white/10 px-6 py-20 text-center">
+      {/* Hero Section with 5-Slide Crossfade Background & Video Support */}
+      <section className="relative min-h-[60vh] flex items-center justify-center rounded-3xl overflow-hidden glass-panel border border-white/10 px-6 pt-8 pb-10 text-center">
         {/* Background Video / 5-Slide Crossfade Layer */}
         <div className="hero-slideshow">
           <video
@@ -90,7 +90,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, showToast }) =
         </div>
 
         {/* Hero Content Overlay */}
-        <div className="relative z-10 max-w-4xl mx-auto space-y-6">
+        <div className="relative z-10 max-w-4xl mx-auto space-y-4">
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -98,32 +98,24 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, showToast }) =
           >
             <Zap className="w-3.5 h-3.5" /> Next-Gen AI Fitness & Sports Science
           </motion.div>
+          
           <motion.h1
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="font-display text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight leading-tight"
-          >
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="text-white">Train Hard.</motion.div>
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }} className="gradient-text-sky">Eat Smart.</motion.div>
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="text-white">Live Strong.</motion.div>
-          </motion.h1>
-
-          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="text-base sm:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed font-normal"
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="font-display text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight leading-none space-y-1"
           >
-            Stop guessing your workouts and meal plans. Experience hyper-customized training routines and sports nutrition generated dynamically by Google Gemini.
-          </motion.p>
+            <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="text-white">Train Hard.</motion.div>
+            <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }} className="gradient-text-sky">Eat Smart.</motion.div>
+            <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="text-white">Live Strong.</motion.div>
+          </motion.h1>
 
           {/* Action CTAs */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-            className="flex flex-wrap items-center justify-center gap-4 pt-4"
+            transition={{ delay: 0.5 }}
+            className="flex flex-wrap items-center justify-center gap-4 pt-3"
           >
             <button
               onClick={() => setActiveTab('fitness')}
@@ -147,8 +139,8 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, showToast }) =
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7 }}
-            className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-12 max-w-3xl mx-auto"
+            transition={{ delay: 0.6 }}
+            className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-8 max-w-3xl mx-auto"
           >
             <div className="glass-card-dark p-4 rounded-2xl text-center">
               <div className="text-2xl font-black text-[#00A3FF]">500+</div>
