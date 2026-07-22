@@ -101,12 +101,12 @@ export const AIChatWidget: React.FC<AIChatWidgetProps> = ({ showToast }) => {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => setIsOpen(true)}
-          className="relative group p-4 rounded-2xl bg-[#00F0FF] text-black shadow-[0_0_30px_rgba(0, 240, 255,0.5)] flex items-center justify-center font-bold"
+          className="relative group p-4 rounded-2xl bg-[#00A3FF] text-black shadow-[0_0_30px_rgba(0, 163, 255,0.5)] flex items-center justify-center font-bold"
         >
           <MessageSquare className="w-6 h-6" />
           <span className="absolute -top-1 -right-1 flex h-3 w-3">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00F0FF] opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-3 w-3 bg-[#00F0FF]"></span>
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00A3FF] opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-3 w-3 bg-[#00A3FF]"></span>
           </span>
         </motion.button>
       )}
@@ -123,15 +123,15 @@ export const AIChatWidget: React.FC<AIChatWidgetProps> = ({ showToast }) => {
             {/* Chat Header */}
             <div className="p-4 border-b border-white/10 flex items-center justify-between bg-white/[0.02]">
               <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl bg-[#00F0FF]/10 border border-[#00F0FF]/30 flex items-center justify-center text-[#00F0FF]">
+                <div className="w-9 h-9 rounded-xl bg-[#00A3FF]/10 border border-[#00A3FF]/30 flex items-center justify-center text-[#00A3FF]">
                   <Bot className="w-5 h-5" />
                 </div>
                 <div>
                   <h4 className="text-sm font-bold text-white flex items-center gap-1.5">
-                    AI Coach Assistant <Sparkles className="w-3.5 h-3.5 text-[#00F0FF]" />
+                    AI Coach Assistant <Sparkles className="w-3.5 h-3.5 text-[#00A3FF]" />
                   </h4>
-                  <span className="text-[10px] text-[#00F0FF] flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#00F0FF] animate-pulse"></span>
+                  <span className="text-[10px] text-[#00A3FF] flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#00A3FF] animate-pulse"></span>
                     Online · Powered by Gemini
                   </span>
                 </div>
@@ -164,7 +164,7 @@ export const AIChatWidget: React.FC<AIChatWidgetProps> = ({ showToast }) => {
                   <div
                     className={`max-w-[85%] p-3.5 rounded-2xl text-sm leading-relaxed ${
                       msg.role === 'user'
-                        ? 'bg-[#00F0FF] text-black font-medium rounded-tr-none shadow-[0_0_15px_rgba(0, 240, 255,0.2)]'
+                        ? 'bg-[#00A3FF] text-black font-medium rounded-tr-none shadow-[0_0_15px_rgba(0, 163, 255,0.2)]'
                         : 'bg-white/[0.05] border border-white/10 text-gray-200 rounded-tl-none'
                     }`}
                   >
@@ -178,10 +178,10 @@ export const AIChatWidget: React.FC<AIChatWidgetProps> = ({ showToast }) => {
 
               {loading && (
                 <div className="flex items-center gap-2 p-3.5 rounded-2xl bg-white/[0.05] border border-white/10 text-gray-400 text-xs w-fit">
-                  <span className="w-2 h-2 rounded-full bg-[#00F0FF] animate-bounce"></span>
-                  <span className="w-2 h-2 rounded-full bg-[#00F0FF] animate-bounce [animation-delay:0.2s]"></span>
-                  <span className="w-2 h-2 rounded-full bg-[#00F0FF] animate-bounce [animation-delay:0.4s]"></span>
-                  <span className="ml-1 text-[#00F0FF]">Coach is thinking...</span>
+                  <span className="w-2 h-2 rounded-full bg-[#00A3FF] animate-bounce"></span>
+                  <span className="w-2 h-2 rounded-full bg-[#00A3FF] animate-bounce [animation-delay:0.2s]"></span>
+                  <span className="w-2 h-2 rounded-full bg-[#00A3FF] animate-bounce [animation-delay:0.4s]"></span>
+                  <span className="ml-1 text-[#00A3FF]">Coach is thinking...</span>
                 </div>
               )}
               <div ref={messagesEndRef} />
@@ -194,12 +194,12 @@ export const AIChatWidget: React.FC<AIChatWidgetProps> = ({ showToast }) => {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Ask about workouts, nutrition, macros..."
-                className="flex-1 px-4 py-2.5 rounded-xl bg-white/[0.05] border border-white/10 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-[#00F0FF]"
+                className="flex-1 px-4 py-2.5 rounded-xl bg-white/[0.05] border border-white/10 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-[#00A3FF]"
               />
               <button
                 type="submit"
                 disabled={loading || !input.trim()}
-                className="p-2.5 rounded-xl bg-[#00F0FF] text-black font-bold disabled:opacity-40 hover:scale-105 transition-transform"
+                className="p-2.5 rounded-xl bg-[#00A3FF] text-black font-bold disabled:opacity-40 hover:scale-105 transition-transform"
               >
                 <Send className="w-4 h-4" />
               </button>

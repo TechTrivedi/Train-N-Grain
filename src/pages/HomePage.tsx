@@ -81,7 +81,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, showToast }) =
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#00F0FF]/10 border border-[#00F0FF]/30 text-[#00F0FF] text-xs font-bold tracking-wider uppercase backdrop-blur-md"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#00A3FF]/10 border border-[#00A3FF]/30 text-[#00A3FF] text-xs font-bold tracking-wider uppercase backdrop-blur-md"
           >
             <Zap className="w-3.5 h-3.5" /> Next-Gen AI Fitness & Sports Science
           </motion.div>
@@ -90,10 +90,11 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, showToast }) =
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="font-display text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-tight"
+            className="font-display text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight leading-tight"
           >
-            TRAIN HARD. <br />
-            EAT SMART. <span className="gradient-text">LIVE STRONG.</span>
+            <div className="text-white">Train Hard.</div>
+            <div className="text-[#00A3FF]">Eat Smart.</div>
+            <div className="text-white">Live Strong.</div>
           </motion.h1>
 
           <motion.p
@@ -114,7 +115,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, showToast }) =
           >
             <button
               onClick={() => setActiveTab('fitness')}
-              className="flex items-center gap-2 px-8 py-4 rounded-2xl bg-[#00F0FF] text-black font-extrabold text-base shadow-[0_0_30px_rgba(0, 240, 255,0.4)] hover:shadow-[0_0_45px_rgba(0, 240, 255,0.6)] hover:scale-[1.03] transition-all"
+              className="flex items-center gap-2 px-8 py-4 rounded-2xl bg-[#00A3FF] text-black font-extrabold text-base shadow-[0_0_30px_rgba(0, 163, 255,0.4)] hover:shadow-[0_0_45px_rgba(0, 163, 255,0.6)] hover:scale-[1.03] transition-all"
             >
               <Dumbbell className="w-5 h-5" />
               <span>Generate AI Workout</span>
@@ -123,9 +124,9 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, showToast }) =
 
             <button
               onClick={() => setActiveTab('nutrition')}
-              className="flex items-center gap-2 px-8 py-4 rounded-2xl bg-white/[0.06] border border-white/20 text-white font-bold text-base hover:bg-white/10 hover:border-[#00F0FF]/40 hover:scale-[1.03] transition-all backdrop-blur-md"
+              className="flex items-center gap-2 px-8 py-4 rounded-2xl bg-white/[0.06] border border-white/20 text-white font-bold text-base hover:bg-white/10 hover:border-[#00A3FF]/40 hover:scale-[1.03] transition-all backdrop-blur-md"
             >
-              <Utensils className="w-5 h-5 text-[#00F0FF]" />
+              <Utensils className="w-5 h-5 text-[#00A3FF]" />
               <span>Build Diet Plan</span>
             </button>
           </motion.div>
@@ -133,19 +134,19 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, showToast }) =
           {/* Highlights */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-12 max-w-3xl mx-auto">
             <div className="glass-card p-4 rounded-2xl text-center">
-              <div className="text-2xl font-black text-[#00F0FF]">500+</div>
+              <div className="text-2xl font-black text-[#00A3FF]">500+</div>
               <div className="text-xs text-gray-400 mt-1">Exercises Handled</div>
             </div>
             <div className="glass-card p-4 rounded-2xl text-center">
-              <div className="text-2xl font-black text-[#00F0FF]">100%</div>
+              <div className="text-2xl font-black text-[#00A3FF]">100%</div>
               <div className="text-xs text-gray-400 mt-1">Customized AI Plans</div>
             </div>
             <div className="glass-card p-4 rounded-2xl text-center">
-              <div className="text-2xl font-black text-[#00F0FF]">⚡ &lt; 2s</div>
+              <div className="text-2xl font-black text-[#00A3FF]">⚡ &lt; 2s</div>
               <div className="text-xs text-gray-400 mt-1">Generation Speed</div>
             </div>
             <div className="glass-card p-4 rounded-2xl text-center">
-              <div className="text-2xl font-black text-[#00F0FF]">🔒 Firestore</div>
+              <div className="text-2xl font-black text-[#00A3FF]">🔒 Firestore</div>
               <div className="text-xs text-gray-400 mt-1">Cloud Profile Sync</div>
             </div>
           </div>
@@ -173,7 +174,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, showToast }) =
                 className="glass-card p-8 rounded-3xl space-y-4 flex flex-col justify-between"
               >
                 <div className="space-y-4">
-                  <div className="w-12 h-12 rounded-2xl bg-[#00F0FF]/10 border border-[#00F0FF]/30 flex items-center justify-center text-[#00F0FF]">
+                  <div className="w-12 h-12 rounded-2xl bg-[#00A3FF]/10 border border-[#00A3FF]/30 flex items-center justify-center text-[#00A3FF]">
                     <Icon className="w-6 h-6" />
                   </div>
                   <h3 className="text-xl font-bold text-white">{feat.title}</h3>
@@ -182,7 +183,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, showToast }) =
 
                 <button
                   onClick={() => setActiveTab(feat.tab)}
-                  className="flex items-center gap-2 text-sm font-bold text-[#00F0FF] hover:underline pt-2"
+                  className="flex items-center gap-2 text-sm font-bold text-[#00A3FF] hover:underline pt-2"
                 >
                   <span>Explore Feature</span>
                   <ArrowRight className="w-4 h-4" />
@@ -210,7 +211,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, showToast }) =
                 value={contactName}
                 onChange={(e) => setContactName(e.target.value)}
                 placeholder="Alex Mercer"
-                className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-[#00F0FF] text-sm"
+                className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-[#00A3FF] text-sm"
               />
             </div>
             <div>
@@ -221,7 +222,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, showToast }) =
                 value={contactEmail}
                 onChange={(e) => setContactEmail(e.target.value)}
                 placeholder="alex@example.com"
-                className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-[#00F0FF] text-sm"
+                className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-[#00A3FF] text-sm"
               />
             </div>
           </div>
@@ -234,14 +235,14 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, showToast }) =
               value={contactMessage}
               onChange={(e) => setContactMessage(e.target.value)}
               placeholder="How can we help your fitness journey?"
-              className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-[#00F0FF] text-sm resize-none"
+              className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-[#00A3FF] text-sm resize-none"
             />
           </div>
 
           <button
             type="submit"
             disabled={contactSubmitting}
-            className="w-full py-3.5 rounded-xl bg-[#00F0FF] text-black font-extrabold text-sm shadow-[0_0_20px_rgba(0, 240, 255,0.3)] hover:scale-[1.01] transition-all flex items-center justify-center gap-2"
+            className="w-full py-3.5 rounded-xl bg-[#00A3FF] text-black font-extrabold text-sm shadow-[0_0_20px_rgba(0, 163, 255,0.3)] hover:scale-[1.01] transition-all flex items-center justify-center gap-2"
           >
             <Send className="w-4 h-4" />
             <span>{contactSubmitting ? 'Sending...' : 'Send Message'}</span>

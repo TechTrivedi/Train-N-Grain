@@ -13,18 +13,18 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
         {/* Col 1: Brand Info */}
         <div className="md:col-span-2 space-y-4">
           <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-neon-dim border border-[#00F0FF]/30 flex items-center justify-center text-[#00F0FF]">
+            <div className="w-9 h-9 rounded-xl bg-neon-dim border border-[#00A3FF]/30 flex items-center justify-center text-[#00A3FF]">
               <Flame className="w-5 h-5" />
             </div>
             <span className="font-display text-xl font-bold tracking-tight text-white">
-              TRAIN <span className="text-[#00F0FF]">N</span> GRAIN
+              TRAIN <span className="text-[#00A3FF]">N</span> GRAIN
             </span>
           </div>
           <p className="text-sm text-gray-400 max-w-sm leading-relaxed">
             Your unified AI-powered platform for hyper-personalized workout engineering and precision sports nutrition routines. Powered by Google Gemini.
           </p>
           <div className="flex items-center gap-3 pt-2">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#00F0FF]/10 text-[#00F0FF] border border-[#00F0FF]/20">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#00A3FF]/10 text-[#00A3FF] border border-[#00A3FF]/20">
               <Sparkles className="w-3.5 h-3.5" /> Gemini 3.1 Flash Lite Engine
             </span>
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/10 text-blue-400 border border-blue-500/20">
@@ -38,22 +38,22 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
           <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">Portals</h4>
           <ul className="space-y-2.5 text-sm text-gray-400">
             <li>
-              <button onClick={() => setActiveTab('home')} className="hover:text-[#00F0FF] transition-colors">
+              <button onClick={() => setActiveTab('home')} className="hover:text-[#00A3FF] transition-colors">
                 Home Dashboard
               </button>
             </li>
             <li>
-              <button onClick={() => setActiveTab('fitness')} className="hover:text-[#00F0FF] transition-colors">
+              <button onClick={() => setActiveTab('fitness')} className="hover:text-[#00A3FF] transition-colors">
                 AI Workout Generator
               </button>
             </li>
             <li>
-              <button onClick={() => setActiveTab('nutrition')} className="hover:text-[#00F0FF] transition-colors">
+              <button onClick={() => setActiveTab('nutrition')} className="hover:text-[#00A3FF] transition-colors">
                 AI Nutrition & Diet Generator
               </button>
             </li>
             <li>
-              <button onClick={() => setActiveTab('profile')} className="hover:text-[#00F0FF] transition-colors">
+              <button onClick={() => setActiveTab('profile')} className="hover:text-[#00A3FF] transition-colors">
                 Saved Programs Library
               </button>
             </li>

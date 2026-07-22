@@ -57,7 +57,7 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0A0A0C] text-gray-100 flex flex-col justify-between selection:bg-[#00F0FF] selection:text-black">
+    <div className="min-h-screen bg-[#0A0A0C] text-gray-100 flex flex-col justify-between selection:bg-[#00A3FF] selection:text-black">
       
       {/* Top Navbar */}
       <Navbar
@@ -116,9 +116,9 @@ export function App() {
               initial={{ opacity: 0, x: 50, scale: 0.9 }}
               animate={{ opacity: 1, x: 0, scale: 1 }}
               exit={{ opacity: 0, x: 50, scale: 0.9 }}
-              className="pointer-events-auto glass-panel px-4 py-3 rounded-2xl border border-[#00F0FF]/40 text-[#00F0FF] text-xs font-semibold shadow-[0_0_20px_rgba(0, 240, 255,0.25)] flex items-center gap-2.5 backdrop-blur-xl"
+              className="pointer-events-auto glass-panel px-4 py-3 rounded-2xl border border-[#00A3FF]/40 text-[#00A3FF] text-xs font-semibold shadow-[0_0_20px_rgba(0, 163, 255,0.25)] flex items-center gap-2.5 backdrop-blur-xl"
             >
-              <Sparkles className="w-4 h-4 text-[#00F0FF] flex-shrink-0 animate-pulse" />
+              <Sparkles className="w-4 h-4 text-[#00A3FF] flex-shrink-0 animate-pulse" />
               <span>{toast.message}</span>
             </motion.div>
           ))}
