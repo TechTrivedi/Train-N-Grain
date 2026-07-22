@@ -59,15 +59,15 @@ export function App() {
   return (
     <div className="min-h-screen bg-[#050508] text-gray-100 flex flex-col justify-between selection:bg-[#E4E4E7] selection:text-black relative overflow-x-hidden">
       
-      {/* Fixed Full-Screen FOCUS Statue Background Layer (Ultra Clear HD) */}
+      {/* Fixed Full-Screen Ultra-Clear Dark Statue Background Layer (No Text) */}
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
         <img
           src="/assets/hero-bg.jpg"
-          alt="Train N Grain Focus Background"
-          className="w-full h-full object-cover opacity-85 scale-100"
+          alt="Train N Grain Dark Statue Background"
+          className="w-full h-full object-cover opacity-90 scale-100 brightness-[0.85] contrast-[1.15]"
         />
-        {/* Subtle contrast protection overlay without blurring or obscuring statue details */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#050508]/40 via-[#050508]/20 to-[#050508]/60 z-[1]" />
+        {/* Sleek dark gradient for high text contrast while keeping statue ultra sharp */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#050508]/50 via-[#050508]/30 to-[#050508]/75 z-[1]" />
       </div>
 
       <Navbar
