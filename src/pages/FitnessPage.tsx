@@ -155,24 +155,24 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
   return (
     <div className="space-y-12 max-w-6xl mx-auto">
 
-      {/* Title Header */}
+      {/* Title Header (Crisp High Readability) */}
       <div className="text-center space-y-3">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-[#E4E4E7] text-xs font-bold uppercase tracking-wider">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/25 text-[#E4E4E7] text-xs font-bold uppercase tracking-wider shadow-md">
           <Dumbbell className="w-4 h-4" /> AI Training Routine Compiler
         </div>
-        <h1 className="font-consistency text-4xl sm:text-6xl font-extrabold text-white uppercase tracking-wider">
+        <h1 className="font-consistency text-4xl sm:text-6xl font-extrabold text-white uppercase tracking-wider drop-shadow-[0_4px_20px_rgba(0,0,0,0.95)]">
           AI Workout Generator
         </h1>
-        <p className="text-gray-400 text-sm sm:text-base max-w-xl mx-auto">
+        <p className="text-gray-100 font-medium text-sm sm:text-base max-w-xl mx-auto drop-shadow-md leading-relaxed">
           Specify your equipment, training goals, warmups, and cardio preferences to generate a custom routine powered by Gemini 3.1 Flash Lite.
         </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
 
-        {/* Left Col: Assessment Form */}
-        <div className="lg:col-span-5 glass-panel-dark rounded-3xl p-6 sm:p-8 border border-white/10 space-y-6">
-          <h3 className="text-xl font-bold text-white flex items-center gap-2">
+        {/* Left Col: Assessment Form Card (Crisp Non-Transparent Card Base) */}
+        <div className="bg-[#0B0B12]/85 backdrop-blur-2xl rounded-3xl p-6 sm:p-8 border border-white/15 space-y-6 shadow-2xl">
+          <h3 className="text-xl font-extrabold text-white flex items-center gap-2 border-b border-white/10 pb-4">
             <Zap className="w-5 h-5 text-[#E4E4E7]" /> Assessment Stats
           </h3>
 
@@ -181,7 +181,7 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
             {/* Age & Gender */}
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-medium text-gray-300 mb-1.5">Age</label>
+                <label className="block text-xs font-semibold text-gray-100 mb-1.5">Age</label>
                 <input
                   type="number"
                   required
@@ -189,18 +189,18 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
                   max={90}
                   value={age}
                   onChange={(e) => setAge(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-white text-sm focus:outline-none focus:border-white/30"
+                  className="w-full px-4 py-2.5 rounded-xl bg-white/[0.07] border border-white/20 text-white font-medium text-sm focus:outline-none focus:border-white/40"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-gray-300 mb-1.5">Gender</label>
-                <div className="flex bg-white/[0.04] p-1 rounded-xl border border-white/10">
+                <label className="block text-xs font-semibold text-gray-100 mb-1.5">Gender</label>
+                <div className="flex bg-white/[0.07] p-1 rounded-xl border border-white/20">
                   <button
                     type="button"
                     onClick={() => setGender('male')}
                     className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                      gender === 'male' ? 'bg-[#E4E4E7] text-black shadow-md' : 'text-gray-400'
+                      gender === 'male' ? 'bg-[#E4E4E7] text-black shadow-md' : 'text-gray-300'
                     }`}
                   >
                     Male
@@ -209,7 +209,7 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
                     type="button"
                     onClick={() => setGender('female')}
                     className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                      gender === 'female' ? 'bg-[#E4E4E7] text-black shadow-md' : 'text-gray-400'
+                      gender === 'female' ? 'bg-[#E4E4E7] text-black shadow-md' : 'text-gray-300'
                     }`}
                   >
                     Female
@@ -220,11 +220,11 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
 
             {/* Goal */}
             <div>
-              <label className="block text-xs font-medium text-gray-300 mb-1.5">Primary Fitness Goal</label>
+              <label className="block text-xs font-semibold text-gray-100 mb-1.5">Primary Fitness Goal</label>
               <select
                 value={goal}
                 onChange={(e) => setGoal(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-xl bg-[#0D0D12] border border-white/10 text-white text-sm focus:outline-none focus:border-white/30"
+                className="w-full px-4 py-2.5 rounded-xl bg-[#0B0B12] border border-white/20 text-white font-medium text-sm focus:outline-none focus:border-white/40"
               >
                 <option value="Strength">💥 Hypertrophy & Strength</option>
                 <option value="Fat Loss">🔥 Fat Loss & Conditioning</option>
@@ -235,11 +235,11 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
 
             {/* Level */}
             <div>
-              <label className="block text-xs font-medium text-gray-300 mb-1.5">Experience Level</label>
+              <label className="block text-xs font-semibold text-gray-100 mb-1.5">Experience Level</label>
               <select
                 value={level}
                 onChange={(e) => setLevel(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-xl bg-[#0D0D12] border border-white/10 text-white text-sm focus:outline-none focus:border-white/30"
+                className="w-full px-4 py-2.5 rounded-xl bg-[#0B0B12] border border-white/20 text-white font-medium text-sm focus:outline-none focus:border-white/40"
               >
                 <option value="Beginner">🟢 Beginner (0 - 6 months)</option>
                 <option value="Intermediate">🟡 Intermediate (6+ months)</option>
@@ -249,11 +249,11 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
 
             {/* Equipment */}
             <div>
-              <label className="block text-xs font-medium text-gray-300 mb-1.5">Available Equipment</label>
+              <label className="block text-xs font-semibold text-gray-100 mb-1.5">Available Equipment</label>
               <select
                 value={equipment}
                 onChange={(e) => setEquipment(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-xl bg-[#0D0D12] border border-white/10 text-white text-sm focus:outline-none focus:border-white/30"
+                className="w-full px-4 py-2.5 rounded-xl bg-[#0B0B12] border border-white/20 text-white font-medium text-sm focus:outline-none focus:border-white/40"
               >
                 <option value="No Equipment">🤸 Bodyweight Only (No Equipment)</option>
                 <option value="Dumbbells">🏋️ Dumbbells</option>
@@ -263,12 +263,12 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
             </div>
 
             {/* Cardio & Warmups Section */}
-            <div className="pt-3 border-t border-white/10 space-y-3">
-              <label className="block text-xs font-bold text-[#E4E4E7] uppercase tracking-wider">
+            <div className="pt-3 border-t border-white/15 space-y-3">
+              <label className="block text-xs font-extrabold text-[#E4E4E7] uppercase tracking-wider">
                 Cardio & Warm-Up Settings
               </label>
 
-              <label className="flex items-center gap-2.5 text-xs text-gray-300 cursor-pointer">
+              <label className="flex items-center gap-2.5 text-xs text-gray-200 cursor-pointer font-medium">
                 <input
                   type="checkbox"
                   checked={includeWarmup}
@@ -279,11 +279,11 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
               </label>
 
               <div>
-                <label className="block text-xs font-medium text-gray-400 mb-1">Active Rest Cardio Preference</label>
+                <label className="block text-xs font-medium text-gray-300 mb-1">Active Rest Cardio Preference</label>
                 <select
                   value={cardioPref}
                   onChange={(e) => setCardioPref(e.target.value)}
-                  className="w-full px-4 py-2 rounded-xl bg-[#0D0D12] border border-white/10 text-white text-xs focus:outline-none focus:border-white/30"
+                  className="w-full px-4 py-2 rounded-xl bg-[#0B0B12] border border-white/20 text-white font-medium text-xs focus:outline-none focus:border-white/40"
                 >
                   <option value="none">None (Standard Rest)</option>
                   <option value="walking">🚶 Walking (Low Intensity Steady State)</option>
@@ -317,10 +317,10 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
         <div className="lg:col-span-7 space-y-6">
           
           {loading ? (
-            <div className="glass-panel rounded-3xl p-12 text-center border border-white/10 space-y-4">
-              <div className="w-16 h-16 rounded-full border-4 border-[#00A3FF]/20 border-t-[#00A3FF] animate-spin mx-auto"></div>
+            <div className="bg-[#0B0B12]/85 rounded-3xl p-12 text-center border border-white/15 space-y-4 shadow-2xl">
+              <div className="w-16 h-16 rounded-full border-4 border-white/20 border-t-[#E4E4E7] animate-spin mx-auto"></div>
               <h3 className="text-xl font-bold text-white">Compiling AI Training Routine</h3>
-              <p className="text-sm text-gray-400 max-w-sm mx-auto">
+              <p className="text-sm text-gray-300 max-w-sm mx-auto">
                 Gemini 3.1 Flash Lite is designing a custom weekly split based on your parameters...
               </p>
             </div>
@@ -333,25 +333,25 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
             >
 
               {/* Plan Header Controls */}
-              <div className="glass-panel-dark rounded-2xl p-4 border border-white/10 flex flex-wrap items-center justify-between gap-4">
+              <div className="bg-[#0B0B12]/85 backdrop-blur-xl rounded-2xl p-4 border border-white/15 flex flex-wrap items-center justify-between gap-4 shadow-lg">
                 <div>
-                  <span className="text-xs text-gray-400">Goal: </span>
-                  <span className="text-sm font-bold text-[#00A3FF]">{currentStats?.goal}</span>
+                  <span className="text-xs text-gray-300">Goal: </span>
+                  <span className="text-sm font-bold text-[#E4E4E7]">{currentStats?.goal}</span>
                   <span className="text-xs text-gray-500 mx-2">•</span>
-                  <span className="text-xs text-gray-400">Level: </span>
+                  <span className="text-xs text-gray-300">Level: </span>
                   <span className="text-sm font-semibold text-white">{currentStats?.level}</span>
                 </div>
 
                 <div className="flex items-center gap-2">
                   {loadedDocId ? (
-                    <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-[#00A3FF]/10 border border-[#00A3FF]/30 text-[#00A3FF] text-xs font-semibold">
+                    <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-white/10 border border-white/20 text-[#E4E4E7] text-xs font-semibold">
                       <CheckCircle className="w-3.5 h-3.5" /> Loaded from Cloud
                     </span>
                   ) : (
                     <button
                       onClick={handleSaveToProfile}
                       disabled={saving}
-                      className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#00A3FF] text-black font-bold text-xs shadow-[0_0_15px_rgba(0,163,255,0.3)] hover:scale-105 active:scale-95 transition-all"
+                      className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#E4E4E7] text-black font-extrabold text-xs shadow-md hover:scale-105 active:scale-95 transition-all"
                     >
                       <Save className="w-3.5 h-3.5" />
                       <span>{saving ? 'Saving...' : 'Save to Profile'}</span>
@@ -368,10 +368,10 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
                     initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: dayIdx * 0.1 }}
-                    className="glass-panel-dark rounded-3xl p-6 border border-white/10 space-y-4"
+                    className="bg-[#0B0B12]/85 backdrop-blur-xl rounded-3xl p-6 border border-white/15 space-y-4 shadow-xl"
                   >
                     <h3 className="text-lg font-bold text-white flex items-center gap-2 border-b border-white/10 pb-3">
-                      <Activity className="w-5 h-5 text-[#00A3FF]" />
+                      <Activity className="w-5 h-5 text-[#E4E4E7]" />
                       <span>{dayObj.day}</span>
                     </h3>
 
@@ -379,16 +379,16 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
                       {dayObj.exercises.map((ex, exIdx) => (
                         <div
                           key={exIdx}
-                          className="glass-card-dark p-4 rounded-2xl space-y-1.5"
+                          className="bg-white/[0.05] p-4 rounded-2xl space-y-1.5 border border-white/10"
                         >
                           <div className="flex items-center justify-between flex-wrap gap-2">
                             <span className="font-bold text-white text-sm">{ex.name}</span>
-                            <span className="text-xs font-semibold text-[#00A3FF] px-2.5 py-1 rounded-full bg-[#00A3FF]/10 border border-[#00A3FF]/20">
+                            <span className="text-xs font-bold text-[#E4E4E7] px-2.5 py-1 rounded-full bg-white/10 border border-white/20">
                               {ex.sets} sets × {ex.reps}
                             </span>
                           </div>
                           {ex.instruction && (
-                            <p className="text-xs text-gray-400 leading-relaxed pt-1">
+                            <p className="text-xs text-gray-300 leading-relaxed pt-1">
                               💡 <span className="italic">{ex.instruction}</span>
                             </p>
                           )}
@@ -401,12 +401,12 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
 
             </motion.div>
           ) : (
-            <div className="glass-panel rounded-3xl p-12 text-center border border-white/10 space-y-4">
-              <div className="w-16 h-16 rounded-3xl bg-white/[0.03] border border-white/10 flex items-center justify-center text-[#00A3FF] mx-auto">
+            <div className="bg-[#0B0B12]/85 backdrop-blur-xl rounded-3xl p-12 text-center border border-white/15 space-y-4 shadow-2xl">
+              <div className="w-16 h-16 rounded-3xl bg-white/[0.05] border border-white/15 flex items-center justify-center text-[#E4E4E7] mx-auto">
                 <Dumbbell className="w-8 h-8" />
               </div>
               <h3 className="text-xl font-bold text-white">No Program Generated Yet</h3>
-              <p className="text-sm text-gray-400 max-w-sm mx-auto">
+              <p className="text-sm text-gray-300 max-w-sm mx-auto">
                 Fill in your fitness parameters on the left and click "Generate AI Workout Plan" to build your personalized routine.
               </p>
             </div>

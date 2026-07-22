@@ -97,16 +97,16 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
   if (!user) {
     return (
       <div className="glass-panel rounded-3xl p-12 text-center border border-white/10 space-y-6 max-w-lg mx-auto my-12">
-        <div className="w-16 h-16 rounded-3xl bg-[#00A3FF]/10 border border-[#00A3FF]/30 flex items-center justify-center text-[#00A3FF] mx-auto">
+        <div className="w-16 h-16 rounded-3xl bg-white/10 border border-white/20 flex items-center justify-center text-[#E4E4E7] mx-auto">
           <UserIcon className="w-8 h-8" />
         </div>
         <h2 className="font-display text-2xl font-bold text-white">Sign In to Access Your Library</h2>
-        <p className="text-gray-400 text-sm">
+        <p className="text-gray-300 text-sm">
           Save custom AI workout programs and nutrition plans directly to your profile.
         </p>
         <button
           onClick={openAuthModal}
-          className="px-8 py-3.5 rounded-2xl bg-[#00A3FF] text-black font-extrabold text-sm shadow-[0_0_25px_rgba(0, 163, 255,0.4)] hover:scale-105 transition-all"
+          className="px-8 py-3.5 rounded-2xl bg-[#E4E4E7] text-black font-extrabold text-sm shadow-[0_0_20px_rgba(228,228,231,0.25)] hover:scale-105 transition-all"
         >
           Sign In Now
         </button>
@@ -120,13 +120,13 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
       {/* User Dashboard Banner */}
       <div className="glass-panel-dark rounded-3xl p-6 sm:p-8 border border-white/10 flex flex-wrap items-center justify-between gap-6">
         <div className="flex items-center gap-4">
-          <div className="w-16 h-16 rounded-2xl bg-[#00A3FF]/20 border border-[#00A3FF] flex items-center justify-center text-[#00A3FF] font-bold text-2xl shadow-[0_0_20px_rgba(0,163,255,0.3)]">
+          <div className="w-16 h-16 rounded-2xl bg-white/15 border border-white/30 flex items-center justify-center text-white font-extrabold text-2xl shadow-md">
             {user.displayName ? user.displayName.charAt(0).toUpperCase() : user.email?.charAt(0).toUpperCase() || 'U'}
           </div>
           <div>
             <h2 className="text-2xl font-bold text-white flex items-center gap-2">
               {user.displayName || user.email?.split('@')[0]}
-              <ShieldCheck className="w-5 h-5 text-[#00A3FF]" />
+              <ShieldCheck className="w-5 h-5 text-[#E4E4E7]" />
             </h2>
             <p className="text-xs text-gray-400 mt-0.5">{user.email}</p>
             <span className="inline-block mt-2 px-2.5 py-0.5 rounded-md bg-white/[0.05] border border-white/10 text-[10px] text-gray-400 font-mono">
@@ -137,12 +137,12 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
 
         <div className="flex items-center gap-3">
           <div className="glass-card-dark p-3 rounded-2xl text-center px-5">
-            <div className="text-xl font-bold text-[#00A3FF]">{savedWorkouts.length}</div>
-            <div className="text-[10px] text-gray-400 uppercase">Workouts</div>
+            <div className="text-xl font-bold text-[#E4E4E7]">{savedWorkouts.length}</div>
+            <div className="text-[11px] text-gray-400 font-medium">Workouts</div>
           </div>
           <div className="glass-card-dark p-3 rounded-2xl text-center px-5">
-            <div className="text-xl font-bold text-[#00A3FF]">{savedDiets.length}</div>
-            <div className="text-[10px] text-gray-400 uppercase">Diet Plans</div>
+            <div className="text-xl font-bold text-[#E4E4E7]">{savedDiets.length}</div>
+            <div className="text-[11px] text-gray-400 font-medium">Diet Plans</div>
           </div>
         </div>
       </div>
@@ -151,11 +151,11 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <h3 className="font-display text-2xl font-bold text-white flex items-center gap-2">
-            <Dumbbell className="w-6 h-6 text-[#00A3FF]" /> Saved Workout Programs
+            <Dumbbell className="w-6 h-6 text-[#E4E4E7]" /> Saved Workout Programs
           </h3>
           <button
             onClick={() => setActiveTab('fitness')}
-            className="text-xs font-bold text-[#00A3FF] hover:underline flex items-center gap-1"
+            className="text-xs font-bold text-[#E4E4E7] hover:underline flex items-center gap-1"
           >
             + Create New Workout
           </button>

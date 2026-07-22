@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageSquare, X, Send, Sparkles, Bot, Trash2, RotateCcw, Loader2 } from 'lucide-react';
+import { MessageSquare, X, Send, Sparkles, Bot, RotateCcw, Loader2 } from 'lucide-react';
 import { ChatMessage } from '../types';
 
 interface AIChatWidgetProps {
@@ -101,37 +101,37 @@ export const AIChatWidget: React.FC<AIChatWidgetProps> = ({ showToast }) => {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => setIsOpen(true)}
-          className="relative group p-4 rounded-2xl bg-[#00A3FF] text-black shadow-[0_0_30px_rgba(0, 163, 255,0.5)] flex items-center justify-center font-bold"
+          className="relative group p-4 rounded-2xl bg-[#E4E4E7] text-black shadow-[0_0_20px_rgba(228,228,231,0.3)] flex items-center justify-center font-bold"
         >
           <MessageSquare className="w-6 h-6" />
           <span className="absolute -top-1 -right-1 flex h-3 w-3">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00A3FF] opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-3 w-3 bg-[#00A3FF]"></span>
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-3 w-3 bg-[#E4E4E7]"></span>
           </span>
         </motion.button>
       )}
 
-      {/* Expandable Chat Drawer (Solid Non-Transparent) */}
+      {/* Expandable Chat Drawer */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="w-[92vw] sm:w-[400px] h-[520px] bg-[#12121A] rounded-3xl border border-white/15 shadow-[0_10px_60px_rgba(0,0,0,0.95)] flex flex-col overflow-hidden"
+            className="w-[92vw] sm:w-[400px] h-[520px] bg-[#0B0B12] rounded-3xl border border-white/20 shadow-[0_10px_60px_rgba(0,0,0,0.95)] flex flex-col overflow-hidden"
           >
             {/* Chat Header */}
-            <div className="p-4 border-b border-white/10 flex items-center justify-between bg-[#181824]">
+            <div className="p-4 border-b border-white/10 flex items-center justify-between bg-[#12121A]">
               <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl bg-[#00A3FF]/15 border border-[#00A3FF]/40 flex items-center justify-center text-[#00A3FF]">
+                <div className="w-9 h-9 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-[#E4E4E7]">
                   <Bot className="w-5 h-5" />
                 </div>
                 <div>
                   <h4 className="text-sm font-bold text-white flex items-center gap-1.5">
-                    AI Coach Assistant <Sparkles className="w-3.5 h-3.5 text-[#00A3FF]" />
+                    AI Coach Assistant <Sparkles className="w-3.5 h-3.5 text-[#E4E4E7]" />
                   </h4>
-                  <span className="text-[10px] text-[#00A3FF] flex items-center gap-1 font-semibold">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#00A3FF] animate-pulse"></span>
+                  <span className="text-[10px] text-[#E4E4E7] flex items-center gap-1 font-semibold">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#E4E4E7] animate-pulse"></span>
                     Online · Powered by Gemini
                   </span>
                 </div>
@@ -155,7 +155,7 @@ export const AIChatWidget: React.FC<AIChatWidgetProps> = ({ showToast }) => {
             </div>
 
             {/* Chat Messages Stream */}
-            <div className="flex-1 p-4 overflow-y-auto space-y-3 bg-[#12121A]">
+            <div className="flex-1 p-4 overflow-y-auto space-y-3 bg-[#0B0B12]">
               {messages.map((msg, idx) => (
                 <div
                   key={idx}
@@ -164,8 +164,8 @@ export const AIChatWidget: React.FC<AIChatWidgetProps> = ({ showToast }) => {
                   <div
                     className={`max-w-[85%] rounded-2xl px-4 py-3 text-xs leading-relaxed ${
                       msg.role === 'user'
-                        ? 'bg-[#00A3FF] text-black font-semibold rounded-br-none shadow-md'
-                        : 'bg-[#1C1C28] text-gray-100 border border-white/10 rounded-bl-none shadow-md'
+                        ? 'bg-[#E4E4E7] text-black font-semibold rounded-br-none shadow-md'
+                        : 'bg-[#181824] text-gray-100 border border-white/10 rounded-bl-none shadow-md'
                     }`}
                   >
                     <p className="whitespace-pre-line">{msg.text}</p>
@@ -182,8 +182,8 @@ export const AIChatWidget: React.FC<AIChatWidgetProps> = ({ showToast }) => {
 
               {loading && (
                 <div className="flex justify-start">
-                  <div className="bg-[#1C1C28] text-gray-400 border border-white/10 rounded-2xl rounded-bl-none px-4 py-3 text-xs flex items-center gap-2">
-                    <Loader2 className="w-3.5 h-3.5 animate-spin text-[#00A3FF]" />
+                  <div className="bg-[#181824] text-gray-400 border border-white/10 rounded-2xl rounded-bl-none px-4 py-3 text-xs flex items-center gap-2">
+                    <Loader2 className="w-3.5 h-3.5 animate-spin text-[#E4E4E7]" />
                     <span>AI Coach is thinking...</span>
                   </div>
                 </div>
@@ -192,18 +192,18 @@ export const AIChatWidget: React.FC<AIChatWidgetProps> = ({ showToast }) => {
             </div>
 
             {/* Chat Input Bar */}
-            <form onSubmit={handleSend} className="p-3 border-t border-white/10 bg-[#181824] flex items-center gap-2">
+            <form onSubmit={handleSend} className="p-3 border-t border-white/10 bg-[#12121A] flex items-center gap-2">
               <input
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Ask about workouts, macros, form..."
-                className="flex-1 bg-[#12121A] border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-[#00A3FF] transition-colors"
+                className="flex-1 bg-[#0B0B12] border border-white/15 rounded-xl px-4 py-2.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-white/30 transition-colors"
               />
               <button
                 type="submit"
                 disabled={loading || !input.trim()}
-                className="p-2.5 rounded-xl bg-[#00A3FF] text-black hover:scale-105 active:scale-95 disabled:opacity-50 transition-all font-bold"
+                className="p-2.5 rounded-xl bg-[#E4E4E7] text-black hover:scale-105 active:scale-95 disabled:opacity-50 transition-all font-bold"
               >
                 <Send className="w-4 h-4" />
               </button>
