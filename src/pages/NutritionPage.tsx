@@ -202,7 +202,7 @@ export const NutritionPage: React.FC<NutritionPageProps> = ({ user, openAuthModa
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
 
         {/* Left Col: Nutrition Assessment Form (Crisp Non-Transparent Card Base) */}
-        <div className="bg-[#0B0B12]/85 backdrop-blur-2xl rounded-3xl p-6 sm:p-8 border border-white/15 space-y-6 shadow-2xl">
+        <div className="lg:col-span-5 bg-[#0B0B12]/85 backdrop-blur-2xl rounded-3xl p-6 sm:p-8 border border-white/15 space-y-6 shadow-2xl">
           
           {/* Veg / Non-Veg Toggle Header */}
           <div className="flex items-center justify-between bg-white/[0.06] p-2 rounded-2xl border border-white/15">

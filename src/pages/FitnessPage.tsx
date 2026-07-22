@@ -171,7 +171,7 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
 
         {/* Left Col: Assessment Form Card (Crisp Non-Transparent Card Base) */}
-        <div className="bg-[#0B0B12]/85 backdrop-blur-2xl rounded-3xl p-6 sm:p-8 border border-white/15 space-y-6 shadow-2xl">
+        <div className="lg:col-span-5 bg-[#0B0B12]/85 backdrop-blur-2xl rounded-3xl p-6 sm:p-8 border border-white/15 space-y-6 shadow-2xl">
           <h3 className="text-xl font-extrabold text-white flex items-center gap-2 border-b border-white/10 pb-4">
             <Zap className="w-5 h-5 text-[#E4E4E7]" /> Assessment Stats
           </h3>
