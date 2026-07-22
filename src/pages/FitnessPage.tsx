@@ -157,7 +157,7 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
 
       {/* Title Header */}
       <div className="text-center space-y-3">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FF5C00]/10 border border-[#FF5C00]/30 text-[#FF5C00] text-xs font-bold uppercase tracking-wider">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#00F0FF]/10 border border-[#00F0FF]/30 text-[#00F0FF] text-xs font-bold uppercase tracking-wider">
           <Dumbbell className="w-4 h-4" /> AI Training Routine Compiler
         </div>
         <h1 className="font-display text-4xl sm:text-5xl font-extrabold text-white">
@@ -173,7 +173,7 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
         {/* Left Col: Assessment Form */}
         <div className="lg:col-span-5 glass-panel rounded-3xl p-6 sm:p-8 border border-white/10 space-y-6">
           <h3 className="text-xl font-bold text-white flex items-center gap-2">
-            <Zap className="w-5 h-5 text-[#FF5C00]" /> Assessment Stats
+            <Zap className="w-5 h-5 text-[#00F0FF]" /> Assessment Stats
           </h3>
 
           <form onSubmit={handleGenerate} className="space-y-4">
@@ -189,7 +189,7 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
                   max={90}
                   value={age}
                   onChange={(e) => setAge(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-white text-sm focus:outline-none focus:border-[#FF5C00]"
+                  className="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-white text-sm focus:outline-none focus:border-[#00F0FF]"
                 />
               </div>
 
@@ -200,7 +200,7 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
                     type="button"
                     onClick={() => setGender('male')}
                     className={`flex-1 py-1.5 rounded-lg text-xs font-semibold ${
-                      gender === 'male' ? 'bg-[#FF5C00] text-black' : 'text-gray-400'
+                      gender === 'male' ? 'bg-[#00F0FF] text-black' : 'text-gray-400'
                     }`}
                   >
                     Male
@@ -209,7 +209,7 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
                     type="button"
                     onClick={() => setGender('female')}
                     className={`flex-1 py-1.5 rounded-lg text-xs font-semibold ${
-                      gender === 'female' ? 'bg-[#FF5C00] text-black' : 'text-gray-400'
+                      gender === 'female' ? 'bg-[#00F0FF] text-black' : 'text-gray-400'
                     }`}
                   >
                     Female
@@ -224,7 +224,7 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
               <select
                 value={goal}
                 onChange={(e) => setGoal(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-xl bg-[#121216] border border-white/10 text-white text-sm focus:outline-none focus:border-[#FF5C00]"
+                className="w-full px-4 py-2.5 rounded-xl bg-[#121216] border border-white/10 text-white text-sm focus:outline-none focus:border-[#00F0FF]"
               >
                 <option value="Strength">💥 Hypertrophy & Strength</option>
                 <option value="Fat Loss">🔥 Fat Loss & Conditioning</option>
@@ -239,7 +239,7 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
               <select
                 value={level}
                 onChange={(e) => setLevel(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-xl bg-[#121216] border border-white/10 text-white text-sm focus:outline-none focus:border-[#FF5C00]"
+                className="w-full px-4 py-2.5 rounded-xl bg-[#121216] border border-white/10 text-white text-sm focus:outline-none focus:border-[#00F0FF]"
               >
                 <option value="Beginner">🟢 Beginner (0 - 6 months)</option>
                 <option value="Intermediate">🟡 Intermediate (6+ months)</option>
@@ -253,7 +253,7 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
               <select
                 value={equipment}
                 onChange={(e) => setEquipment(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-xl bg-[#121216] border border-white/10 text-white text-sm focus:outline-none focus:border-[#FF5C00]"
+                className="w-full px-4 py-2.5 rounded-xl bg-[#121216] border border-white/10 text-white text-sm focus:outline-none focus:border-[#00F0FF]"
               >
                 <option value="No Equipment">🤸 Bodyweight Only (No Equipment)</option>
                 <option value="Dumbbells">🏋️ Dumbbells</option>
@@ -264,7 +264,7 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
 
             {/* Cardio & Warmups Section */}
             <div className="pt-2 border-t border-white/10 space-y-3">
-              <label className="block text-xs font-bold text-[#FF5C00] uppercase tracking-wider">
+              <label className="block text-xs font-bold text-[#00F0FF] uppercase tracking-wider">
                 Cardio & Warm-Up Settings
               </label>
 
@@ -273,7 +273,7 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
                   type="checkbox"
                   checked={includeWarmup}
                   onChange={(e) => setIncludeWarmup(e.target.checked)}
-                  className="rounded bg-white/10 border-white/20 text-[#FF5C00] focus:ring-0 w-4 h-4 accent-[#FF5C00]"
+                  className="rounded bg-white/10 border-white/20 text-[#00F0FF] focus:ring-0 w-4 h-4 accent-[#00F0FF]"
                 />
                 <span>Include Daily Warm-ups & Cardio Finishers</span>
               </label>
@@ -283,7 +283,7 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
                 <select
                   value={cardioPref}
                   onChange={(e) => setCardioPref(e.target.value)}
-                  className="w-full px-4 py-2 rounded-xl bg-[#121216] border border-white/10 text-white text-xs focus:outline-none focus:border-[#FF5C00]"
+                  className="w-full px-4 py-2 rounded-xl bg-[#121216] border border-white/10 text-white text-xs focus:outline-none focus:border-[#00F0FF]"
                 >
                   <option value="none">None (Standard Rest)</option>
                   <option value="walking">🚶 Walking (Low Intensity Steady State)</option>
@@ -295,7 +295,7 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3.5 rounded-2xl bg-[#FF5C00] text-black font-extrabold text-sm shadow-[0_0_25px_rgba(255, 92, 0,0.4)] hover:shadow-[0_0_35px_rgba(255, 92, 0,0.6)] hover:scale-[1.01] transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+              className="w-full py-3.5 rounded-2xl bg-[#00F0FF] text-black font-extrabold text-sm shadow-[0_0_25px_rgba(0, 240, 255,0.4)] hover:shadow-[0_0_35px_rgba(0, 240, 255,0.6)] hover:scale-[1.01] transition-all flex items-center justify-center gap-2 disabled:opacity-50"
             >
               {loading ? (
                 <>
@@ -318,7 +318,7 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
           
           {loading ? (
             <div className="glass-panel rounded-3xl p-12 text-center border border-white/10 space-y-4">
-              <div className="w-16 h-16 rounded-full border-4 border-[#FF5C00]/20 border-t-[#FF5C00] animate-spin mx-auto"></div>
+              <div className="w-16 h-16 rounded-full border-4 border-[#00F0FF]/20 border-t-[#00F0FF] animate-spin mx-auto"></div>
               <h3 className="text-xl font-bold text-white">Compiling AI Training Routine</h3>
               <p className="text-sm text-gray-400 max-w-sm mx-auto">
                 Gemini 3.1 Flash Lite is designing a custom weekly split based on your parameters...
@@ -331,7 +331,7 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
               <div className="glass-panel rounded-2xl p-4 border border-white/10 flex flex-wrap items-center justify-between gap-4">
                 <div>
                   <span className="text-xs text-gray-400">Goal: </span>
-                  <span className="text-sm font-bold text-[#FF5C00]">{currentStats?.goal}</span>
+                  <span className="text-sm font-bold text-[#00F0FF]">{currentStats?.goal}</span>
                   <span className="text-xs text-gray-500 mx-2">•</span>
                   <span className="text-xs text-gray-400">Level: </span>
                   <span className="text-sm font-semibold text-white">{currentStats?.level}</span>
@@ -339,14 +339,14 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
 
                 <div className="flex items-center gap-2">
                   {loadedDocId ? (
-                    <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-[#FF5C00]/10 border border-[#FF5C00]/30 text-[#FF5C00] text-xs font-semibold">
+                    <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-[#00F0FF]/10 border border-[#00F0FF]/30 text-[#00F0FF] text-xs font-semibold">
                       <CheckCircle className="w-3.5 h-3.5" /> Loaded from Cloud
                     </span>
                   ) : (
                     <button
                       onClick={handleSaveToProfile}
                       disabled={saving}
-                      className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#FF5C00] text-black font-bold text-xs shadow-[0_0_15px_rgba(255, 92, 0,0.3)] hover:scale-105 transition-all"
+                      className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#00F0FF] text-black font-bold text-xs shadow-[0_0_15px_rgba(0, 240, 255,0.3)] hover:scale-105 transition-all"
                     >
                       <Save className="w-3.5 h-3.5" />
                       <span>{saving ? 'Saving...' : 'Save to Profile'}</span>
@@ -366,7 +366,7 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
                     className="glass-panel rounded-3xl p-6 border border-white/10 space-y-4"
                   >
                     <h3 className="text-lg font-bold text-white flex items-center gap-2 border-b border-white/10 pb-3">
-                      <Activity className="w-5 h-5 text-[#FF5C00]" />
+                      <Activity className="w-5 h-5 text-[#00F0FF]" />
                       <span>{dayObj.day}</span>
                     </h3>
 
@@ -374,11 +374,11 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
                       {dayObj.exercises.map((ex, exIdx) => (
                         <div
                           key={exIdx}
-                          className="glass-card p-4 rounded-2xl border border-white/5 space-y-1.5 hover:border-[#FF5C00]/30 transition-colors"
+                          className="glass-card p-4 rounded-2xl border border-white/5 space-y-1.5 hover:border-[#00F0FF]/30 transition-colors"
                         >
                           <div className="flex items-center justify-between flex-wrap gap-2">
                             <span className="font-bold text-white text-sm">{ex.name}</span>
-                            <span className="text-xs font-semibold text-[#FF5C00] px-2.5 py-1 rounded-full bg-[#FF5C00]/10 border border-[#FF5C00]/20">
+                            <span className="text-xs font-semibold text-[#00F0FF] px-2.5 py-1 rounded-full bg-[#00F0FF]/10 border border-[#00F0FF]/20">
                               {ex.sets} sets × {ex.reps}
                             </span>
                           </div>
@@ -397,7 +397,7 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
             </div>
           ) : (
             <div className="glass-panel rounded-3xl p-12 text-center border border-white/10 space-y-4">
-              <div className="w-16 h-16 rounded-3xl bg-white/[0.03] border border-white/10 flex items-center justify-center text-[#FF5C00] mx-auto">
+              <div className="w-16 h-16 rounded-3xl bg-white/[0.03] border border-white/10 flex items-center justify-center text-[#00F0FF] mx-auto">
                 <Dumbbell className="w-8 h-8" />
               </div>
               <h3 className="text-xl font-bold text-white">No Program Generated Yet</h3>

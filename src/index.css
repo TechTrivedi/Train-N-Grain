@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    --neon-green: #FF5C00;
+    --neon-green: #00F0FF;
     --dark-bg: #0A0A0C;
     --dark-surface: #121216;
   }
@@ -32,18 +32,18 @@
 }
 
 .glass-card:hover {
-  border-color: rgba(255, 92, 0, 0.3);
-  box-shadow: 0 0 25px rgba(255, 92, 0, 0.1);
+  border-color: rgba(0, 240, 255, 0.3);
+  box-shadow: 0 0 25px rgba(0, 240, 255, 0.1);
   transform: translateY(-2px);
 }
 
 /* Glow Text & Borders */
 .text-neon-glow {
-  text-shadow: 0 0 12px rgba(255, 92, 0, 0.5);
+  text-shadow: 0 0 12px rgba(0, 240, 255, 0.5);
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, #FF5C00 0%, #00F0FF 100%);
+  background: linear-gradient(135deg, #00F0FF 0%, #00F0FF 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -113,5 +113,5 @@
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #FF5C00;
+  background: #00F0FF;
 }

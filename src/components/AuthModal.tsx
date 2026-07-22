@@ -109,7 +109,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, showToast
 
           {/* Header */}
           <div className="text-center mb-6">
-            <div className="inline-flex p-3 rounded-2xl bg-[#FF5C00]/10 border border-[#FF5C00]/30 text-[#FF5C00] mb-3">
+            <div className="inline-flex p-3 rounded-2xl bg-[#00F0FF]/10 border border-[#00F0FF]/30 text-[#00F0FF] mb-3">
               <ShieldCheck className="w-7 h-7" />
             </div>
             <h3 className="text-2xl font-bold text-white font-display">
@@ -126,7 +126,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, showToast
               type="button"
               onClick={() => setIsSignUp(false)}
               className={`flex-1 py-2 rounded-xl text-xs font-semibold transition-all ${
-                !isSignUp ? 'bg-[#FF5C00] text-black shadow-[0_0_15px_rgba(255, 92, 0,0.3)]' : 'text-gray-400 hover:text-white'
+                !isSignUp ? 'bg-[#00F0FF] text-black shadow-[0_0_15px_rgba(0, 240, 255,0.3)]' : 'text-gray-400 hover:text-white'
               }`}
             >
               Sign In
@@ -135,7 +135,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, showToast
               type="button"
               onClick={() => setIsSignUp(true)}
               className={`flex-1 py-2 rounded-xl text-xs font-semibold transition-all ${
-                isSignUp ? 'bg-[#FF5C00] text-black shadow-[0_0_15px_rgba(255, 92, 0,0.3)]' : 'text-gray-400 hover:text-white'
+                isSignUp ? 'bg-[#00F0FF] text-black shadow-[0_0_15px_rgba(0, 240, 255,0.3)]' : 'text-gray-400 hover:text-white'
               }`}
             >
               Sign Up
@@ -154,7 +154,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, showToast
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="John Doe"
-                    className="w-full pl-10 pr-4 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-[#FF5C00] focus:ring-1 focus:ring-[#FF5C00] text-sm"
+                    className="w-full pl-10 pr-4 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-[#00F0FF] focus:ring-1 focus:ring-[#00F0FF] text-sm"
                   />
                 </div>
               </div>
@@ -170,7 +170,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, showToast
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@example.com"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-[#FF5C00] focus:ring-1 focus:ring-[#FF5C00] text-sm"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-[#00F0FF] focus:ring-1 focus:ring-[#00F0FF] text-sm"
                 />
               </div>
             </div>
@@ -185,7 +185,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, showToast
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full pl-10 pr-10 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-[#FF5C00] focus:ring-1 focus:ring-[#FF5C00] text-sm"
+                  className="w-full pl-10 pr-10 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-[#00F0FF] focus:ring-1 focus:ring-[#00F0FF] text-sm"
                 />
                 <button
                   type="button"
@@ -202,7 +202,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, showToast
                 <button
                   type="button"
                   onClick={handleForgotPassword}
-                  className="text-xs text-[#FF5C00] hover:underline"
+                  className="text-xs text-[#00F0FF] hover:underline"
                 >
                   Forgot Password?
                 </button>
@@ -212,7 +212,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, showToast
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 rounded-xl bg-[#FF5C00] text-black font-bold text-sm shadow-[0_0_20px_rgba(255, 92, 0,0.3)] hover:shadow-[0_0_30px_rgba(255, 92, 0,0.5)] hover:scale-[1.01] transition-all disabled:opacity-50"
+              className="w-full py-3 rounded-xl bg-[#00F0FF] text-black font-bold text-sm shadow-[0_0_20px_rgba(0, 240, 255,0.3)] hover:shadow-[0_0_30px_rgba(0, 240, 255,0.5)] hover:scale-[1.01] transition-all disabled:opacity-50"
             >
               {loading ? 'Processing...' : isSignUp ? 'Create Account' : 'Sign In'}
             </button>
