@@ -9,20 +9,20 @@ export default {
     extend: {
       colors: {
         sky: {
-          brand: "#00A3FF",
-          dim: "rgba(0, 163, 255, 0.1)",
-          glow: "rgba(0, 163, 255, 0.25)",
+          brand: "#E4E4E7",
+          dim: "rgba(228, 228, 231, 0.1)",
+          glow: "rgba(228, 228, 231, 0.2)",
         },
         neon: {
-          green: "#00A3FF",
-          dim: "rgba(0, 163, 255, 0.1)",
-          glow: "rgba(0, 163, 255, 0.25)",
+          green: "#E4E4E7",
+          dim: "rgba(228, 228, 231, 0.1)",
+          glow: "rgba(228, 228, 231, 0.2)",
         },
         dark: {
-          bg: "#0A0A0F",
-          surface: "#12121A",
-          card: "rgba(18, 18, 26, 0.6)",
-          border: "rgba(255, 255, 255, 0.08)",
+          bg: "#050508",
+          surface: "#0D0D12",
+          card: "rgba(13, 13, 18, 0.7)",
+          border: "rgba(255, 255, 255, 0.1)",
         },
       },
       fontFamily: {

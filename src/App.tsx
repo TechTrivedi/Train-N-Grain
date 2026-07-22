@@ -57,16 +57,16 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0A0A0F] text-gray-100 flex flex-col justify-between selection:bg-[#00A3FF] selection:text-black relative overflow-x-hidden">
+    <div className="min-h-screen bg-[#050508] text-gray-100 flex flex-col justify-between selection:bg-[#E4E4E7] selection:text-black relative overflow-x-hidden">
       
-      {/* Fixed Full-Screen Background Photo Layer (Stays Visible Across Entire Page Scroll) */}
+      {/* Fixed Full-Screen FOCUS Statue Background Layer */}
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
         <img
           src="/assets/hero-bg.jpg"
-          alt="Train N Grain Fullscreen Background"
-          className="w-full h-full object-cover opacity-50 scale-105"
+          alt="Train N Grain Focus Background"
+          className="w-full h-full object-cover opacity-55 scale-105"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0F]/75 via-[#0A0A0F]/50 to-[#0A0A0F]/85 z-[1]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#050508]/80 via-[#050508]/55 to-[#050508]/90 z-[1]" />
       </div>
 
       {/* Background Animated Gradient Blobs */}

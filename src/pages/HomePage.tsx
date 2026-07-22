@@ -73,7 +73,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, showToast }) =
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#00A3FF]/15 border border-[#00A3FF]/35 text-[#00A3FF] text-xs font-bold tracking-wider uppercase backdrop-blur-md shadow-[0_0_20px_rgba(0,163,255,0.2)]"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-[#E4E4E7] text-xs font-bold tracking-wider uppercase backdrop-blur-md shadow-md"
           >
             <Zap className="w-3.5 h-3.5" /> Next-Gen AI Fitness & Sports Science
           </motion.div>
@@ -82,7 +82,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, showToast }) =
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="font-consistency text-6xl sm:text-8xl lg:text-9xl font-extrabold tracking-wider leading-none space-y-1 drop-shadow-[0_10px_35px_rgba(0,0,0,0.9)] uppercase"
+            className="font-consistency text-6xl sm:text-8xl lg:text-9xl font-extrabold tracking-wider leading-none space-y-1 drop-shadow-[0_10px_35px_rgba(0,0,0,0.95)] uppercase"
           >
             <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="text-white tracking-widest">Train Hard.</motion.div>
             <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }} className="gradient-text-consistency tracking-widest">Eat Smart.</motion.div>
@@ -98,7 +98,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, showToast }) =
           >
             <button
               onClick={() => setActiveTab('fitness')}
-              className="flex items-center gap-2 px-8 py-4 rounded-2xl bg-[#00A3FF] text-black font-extrabold text-base shadow-[0_0_30px_rgba(0,163,255,0.5)] hover:shadow-[0_0_45px_rgba(0,163,255,0.7)] hover:scale-[1.03] active:scale-[0.98] transition-all"
+              className="flex items-center gap-2 px-8 py-4 rounded-2xl bg-[#E4E4E7] text-black font-extrabold text-base shadow-[0_0_25px_rgba(228,228,231,0.3)] hover:shadow-[0_0_35px_rgba(228,228,231,0.5)] hover:scale-[1.03] active:scale-[0.98] transition-all"
             >
               <Dumbbell className="w-5 h-5" />
               <span>Generate AI Workout</span>
@@ -107,9 +107,9 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, showToast }) =
 
             <button
               onClick={() => setActiveTab('nutrition')}
-              className="flex items-center gap-2 px-8 py-4 rounded-2xl bg-white/[0.08] border border-white/20 text-white font-bold text-base hover:bg-white/15 hover:border-[#00A3FF]/50 hover:scale-[1.03] active:scale-[0.98] transition-all backdrop-blur-md"
+              className="flex items-center gap-2 px-8 py-4 rounded-2xl bg-white/[0.08] border border-white/20 text-white font-bold text-base hover:bg-white/15 hover:scale-[1.03] active:scale-[0.98] transition-all backdrop-blur-md"
             >
-              <Utensils className="w-5 h-5 text-[#00A3FF]" />
+              <Utensils className="w-5 h-5 text-[#E4E4E7]" />
               <span>Build Diet Plan</span>
             </button>
           </motion.div>
@@ -121,20 +121,20 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, showToast }) =
             transition={{ delay: 0.6 }}
             className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-8 max-w-3xl mx-auto"
           >
-            <div className="glass-card-dark p-4 rounded-2xl text-center">
-              <div className="text-2xl font-black text-[#00A3FF]">500+</div>
+            <div className="glass-card-dark p-4 rounded-2xl text-center border border-white/10">
+              <div className="text-2xl font-black text-[#E4E4E7]">500+</div>
               <div className="text-xs text-gray-400 mt-1">Exercises Handled</div>
             </div>
-            <div className="glass-card-dark p-4 rounded-2xl text-center">
-              <div className="text-2xl font-black text-[#00A3FF]">100%</div>
+            <div className="glass-card-dark p-4 rounded-2xl text-center border border-white/10">
+              <div className="text-2xl font-black text-[#E4E4E7]">100%</div>
               <div className="text-xs text-gray-400 mt-1">Customized AI Plans</div>
             </div>
-            <div className="glass-card-dark p-4 rounded-2xl text-center">
-              <div className="text-2xl font-black text-[#00A3FF]">⚡ &lt; 2s</div>
+            <div className="glass-card-dark p-4 rounded-2xl text-center border border-white/10">
+              <div className="text-2xl font-black text-[#E4E4E7]">⚡ &lt; 2s</div>
               <div className="text-xs text-gray-400 mt-1">Generation Speed</div>
             </div>
-            <div className="glass-card-dark p-4 rounded-2xl text-center">
-              <div className="text-2xl font-black text-[#00A3FF]">🔒 Firestore</div>
+            <div className="glass-card-dark p-4 rounded-2xl text-center border border-white/10">
+              <div className="text-2xl font-black text-[#E4E4E7]">🔒 Firestore</div>
               <div className="text-xs text-gray-400 mt-1">Cloud Profile Sync</div>
             </div>
           </motion.div>
@@ -169,10 +169,10 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, showToast }) =
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.15 }}
                 whileHover={{ y: -6 }}
-                className="glass-card-dark p-8 rounded-3xl space-y-4 flex flex-col justify-between"
+                className="glass-card-dark p-8 rounded-3xl space-y-4 flex flex-col justify-between border border-white/10"
               >
                 <div className="space-y-4">
-                  <div className="w-12 h-12 rounded-2xl bg-[#00A3FF]/10 border border-[#00A3FF]/30 flex items-center justify-center text-[#00A3FF] shadow-[0_0_15px_rgba(0,163,255,0.2)]">
+                  <div className="w-12 h-12 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center text-[#E4E4E7] shadow-md">
                     <Icon className="w-6 h-6" />
                   </div>
                   <h3 className="text-xl font-bold text-white">{feat.title}</h3>
@@ -181,7 +181,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, showToast }) =
 
                 <button
                   onClick={() => setActiveTab(feat.tab)}
-                  className="flex items-center gap-2 text-sm font-bold text-[#00A3FF] hover:underline pt-2"
+                  className="flex items-center gap-2 text-sm font-bold text-[#E4E4E7] hover:underline pt-2"
                 >
                   <span>Explore Feature</span>
                   <ArrowRight className="w-4 h-4" />

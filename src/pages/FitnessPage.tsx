@@ -157,10 +157,10 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
 
       {/* Title Header */}
       <div className="text-center space-y-3">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#00A3FF]/10 border border-[#00A3FF]/30 text-[#00A3FF] text-xs font-bold uppercase tracking-wider">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-[#E4E4E7] text-xs font-bold uppercase tracking-wider">
           <Dumbbell className="w-4 h-4" /> AI Training Routine Compiler
         </div>
-        <h1 className="font-display text-4xl sm:text-5xl font-extrabold text-white">
+        <h1 className="font-consistency text-4xl sm:text-6xl font-extrabold text-white uppercase tracking-wider">
           AI Workout Generator
         </h1>
         <p className="text-gray-400 text-sm sm:text-base max-w-xl mx-auto">
@@ -173,7 +173,7 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
         {/* Left Col: Assessment Form */}
         <div className="lg:col-span-5 glass-panel-dark rounded-3xl p-6 sm:p-8 border border-white/10 space-y-6">
           <h3 className="text-xl font-bold text-white flex items-center gap-2">
-            <Zap className="w-5 h-5 text-[#00A3FF]" /> Assessment Stats
+            <Zap className="w-5 h-5 text-[#E4E4E7]" /> Assessment Stats
           </h3>
 
           <form onSubmit={handleGenerate} className="space-y-4">
@@ -189,7 +189,7 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
                   max={90}
                   value={age}
                   onChange={(e) => setAge(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-white text-sm focus:outline-none focus:border-[#00A3FF]"
+                  className="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-white text-sm focus:outline-none focus:border-white/30"
                 />
               </div>
 
@@ -199,8 +199,8 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
                   <button
                     type="button"
                     onClick={() => setGender('male')}
-                    className={`flex-1 py-1.5 rounded-lg text-xs font-semibold ${
-                      gender === 'male' ? 'bg-[#00A3FF] text-black' : 'text-gray-400'
+                    className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                      gender === 'male' ? 'bg-[#E4E4E7] text-black shadow-md' : 'text-gray-400'
                     }`}
                   >
                     Male
@@ -208,8 +208,8 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
                   <button
                     type="button"
                     onClick={() => setGender('female')}
-                    className={`flex-1 py-1.5 rounded-lg text-xs font-semibold ${
-                      gender === 'female' ? 'bg-[#00A3FF] text-black' : 'text-gray-400'
+                    className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                      gender === 'female' ? 'bg-[#E4E4E7] text-black shadow-md' : 'text-gray-400'
                     }`}
                   >
                     Female
@@ -224,7 +224,7 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
               <select
                 value={goal}
                 onChange={(e) => setGoal(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-xl bg-[#121216] border border-white/10 text-white text-sm focus:outline-none focus:border-[#00A3FF]"
+                className="w-full px-4 py-2.5 rounded-xl bg-[#0D0D12] border border-white/10 text-white text-sm focus:outline-none focus:border-white/30"
               >
                 <option value="Strength">💥 Hypertrophy & Strength</option>
                 <option value="Fat Loss">🔥 Fat Loss & Conditioning</option>
@@ -239,7 +239,7 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
               <select
                 value={level}
                 onChange={(e) => setLevel(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-xl bg-[#121216] border border-white/10 text-white text-sm focus:outline-none focus:border-[#00A3FF]"
+                className="w-full px-4 py-2.5 rounded-xl bg-[#0D0D12] border border-white/10 text-white text-sm focus:outline-none focus:border-white/30"
               >
                 <option value="Beginner">🟢 Beginner (0 - 6 months)</option>
                 <option value="Intermediate">🟡 Intermediate (6+ months)</option>
@@ -253,7 +253,7 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
               <select
                 value={equipment}
                 onChange={(e) => setEquipment(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-xl bg-[#121216] border border-white/10 text-white text-sm focus:outline-none focus:border-[#00A3FF]"
+                className="w-full px-4 py-2.5 rounded-xl bg-[#0D0D12] border border-white/10 text-white text-sm focus:outline-none focus:border-white/30"
               >
                 <option value="No Equipment">🤸 Bodyweight Only (No Equipment)</option>
                 <option value="Dumbbells">🏋️ Dumbbells</option>
@@ -263,8 +263,8 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
             </div>
 
             {/* Cardio & Warmups Section */}
-            <div className="pt-2 border-t border-white/10 space-y-3">
-              <label className="block text-xs font-bold text-[#00A3FF] uppercase tracking-wider">
+            <div className="pt-3 border-t border-white/10 space-y-3">
+              <label className="block text-xs font-bold text-[#E4E4E7] uppercase tracking-wider">
                 Cardio & Warm-Up Settings
               </label>
 
@@ -273,7 +273,7 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
                   type="checkbox"
                   checked={includeWarmup}
                   onChange={(e) => setIncludeWarmup(e.target.checked)}
-                  className="rounded bg-white/10 border-white/20 text-[#00A3FF] focus:ring-0 w-4 h-4 accent-[#00A3FF]"
+                  className="rounded bg-white/10 border-white/20 text-[#E4E4E7] focus:ring-0 w-4 h-4 accent-[#E4E4E7]"
                 />
                 <span>Include Daily Warm-ups & Cardio Finishers</span>
               </label>
@@ -283,7 +283,7 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
                 <select
                   value={cardioPref}
                   onChange={(e) => setCardioPref(e.target.value)}
-                  className="w-full px-4 py-2 rounded-xl bg-[#121216] border border-white/10 text-white text-xs focus:outline-none focus:border-[#00A3FF]"
+                  className="w-full px-4 py-2 rounded-xl bg-[#0D0D12] border border-white/10 text-white text-xs focus:outline-none focus:border-white/30"
                 >
                   <option value="none">None (Standard Rest)</option>
                   <option value="walking">🚶 Walking (Low Intensity Steady State)</option>
@@ -295,7 +295,7 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3.5 rounded-2xl bg-[#00A3FF] text-black font-extrabold text-sm shadow-[0_0_25px_rgba(0, 163, 255,0.4)] hover:shadow-[0_0_35px_rgba(0, 163, 255,0.6)] hover:scale-[1.01] transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+              className="w-full py-3.5 rounded-2xl bg-[#E4E4E7] text-black font-extrabold text-sm shadow-[0_0_20px_rgba(228,228,231,0.25)] hover:shadow-[0_0_30px_rgba(228,228,231,0.4)] hover:scale-[1.01] transition-all flex items-center justify-center gap-2 disabled:opacity-50"
             >
               {loading ? (
                 <>

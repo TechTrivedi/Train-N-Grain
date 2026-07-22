@@ -40,7 +40,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   ];
 
   return (
-    <nav className="sticky top-0 z-40 w-full backdrop-blur-xl bg-[#0A0A0F]/80 border-b border-white/10 px-4 lg:px-8 py-3 transition-all duration-300 shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
+    <nav className="sticky top-0 z-40 w-full backdrop-blur-xl bg-[#050508]/85 border-b border-white/10 px-4 lg:px-8 py-3 transition-all duration-300 shadow-[0_4px_30px_rgba(0,0,0,0.8)]">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         
         {/* Brand Logo */}
@@ -48,12 +48,12 @@ export const Navbar: React.FC<NavbarProps> = ({
           onClick={() => setActiveTab('home')}
           className="flex items-center gap-2.5 group text-left focus:outline-none"
         >
-          <div className="w-10 h-10 rounded-xl bg-neon-dim border border-[#00A3FF]/30 flex items-center justify-center text-[#00A3FF] shadow-[0_0_15px_rgba(0, 163, 255,0.2)] group-hover:scale-105 transition-transform duration-300">
+          <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-[#E4E4E7] group-hover:scale-105 transition-transform duration-300">
             <Flame className="w-6 h-6 animate-pulse" />
           </div>
           <div>
             <span className="font-consistency text-2xl font-extrabold tracking-wider uppercase">
-              <span className="text-[#00A3FF]">Train</span><span className="text-white">N Grain</span>
+              <span className="text-[#E4E4E7]">Train</span><span className="text-gray-300">N Grain</span>
             </span>
             <span className="block text-[10px] uppercase tracking-widest text-gray-400 font-medium -mt-1">
               AI Fitness Platform
@@ -71,13 +71,13 @@ export const Navbar: React.FC<NavbarProps> = ({
                 key={link.id}
                 onClick={() => setActiveTab(link.id)}
                 className={`relative flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
-                  isActive ? 'text-black font-semibold' : 'text-gray-300 hover:text-white hover:bg-white/5'
+                  isActive ? 'text-black font-extrabold' : 'text-gray-300 hover:text-white hover:bg-white/5'
                 }`}
               >
                 {isActive && (
                   <motion.div
                     layoutId="activeTabBg"
-                    className="absolute inset-0 bg-[#00A3FF] rounded-xl shadow-[0_0_20px_rgba(0, 163, 255,0.4)]"
+                    className="absolute inset-0 bg-[#E4E4E7] rounded-xl shadow-[0_0_15px_rgba(228,228,231,0.3)]"
                     transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                   />
                 )}
@@ -94,9 +94,9 @@ export const Navbar: React.FC<NavbarProps> = ({
             <div className="flex items-center gap-3">
               <button
                 onClick={() => setActiveTab('profile')}
-                className="flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-white/[0.04] border border-white/10 hover:border-[#00A3FF]/40 transition-colors"
+                className="flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-white/[0.04] border border-white/10 hover:border-white/30 transition-colors"
               >
-                <div className="w-7 h-7 rounded-full bg-[#00A3FF]/20 border border-[#00A3FF] flex items-center justify-center text-[#00A3FF] text-xs font-bold">
+                <div className="w-7 h-7 rounded-full bg-white/20 border border-white/40 flex items-center justify-center text-white text-xs font-bold">
                   {user.displayName ? user.displayName.charAt(0).toUpperCase() : user.email?.charAt(0).toUpperCase() || 'U'}
                 </div>
                 <span className="text-sm font-medium text-gray-200 max-w-[120px] truncate">
@@ -114,7 +114,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           ) : (
             <button
               onClick={openAuthModal}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#00A3FF] text-black font-bold text-sm shadow-[0_0_20px_rgba(0, 163, 255,0.3)] hover:shadow-[0_0_30px_rgba(0, 163, 255,0.5)] hover:scale-[1.02] transition-all"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#E4E4E7] text-black font-extrabold text-sm shadow-[0_0_15px_rgba(228,228,231,0.2)] hover:scale-105 active:scale-95 transition-all"
             >
               <LogIn className="w-4 h-4" />
               <span>Sign In</span>
