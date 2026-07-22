@@ -239,14 +239,14 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, showToast }) =
               value={contactMessage}
               onChange={(e) => setContactMessage(e.target.value)}
               placeholder="How can we help your fitness journey?"
-              className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-[#00A3FF] text-sm resize-none transition-colors"
+              className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-white/30 text-sm resize-none transition-colors"
             />
           </div>
 
           <button
             type="submit"
             disabled={contactSubmitting}
-            className="w-full py-3.5 rounded-xl bg-[#00A3FF] text-black font-extrabold text-sm shadow-[0_0_20px_rgba(0,163,255,0.3)] hover:scale-[1.01] active:scale-[0.99] transition-all flex items-center justify-center gap-2"
+            className="w-full py-3.5 rounded-xl bg-[#E4E4E7] text-black font-extrabold text-sm shadow-[0_0_20px_rgba(228,228,231,0.25)] hover:scale-[1.01] active:scale-[0.99] transition-all flex items-center justify-center gap-2"
           >
             <Send className="w-4 h-4" />
             <span>{contactSubmitting ? 'Sending Message...' : 'Send Message'}</span>
