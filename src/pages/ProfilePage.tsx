@@ -118,9 +118,9 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
     <div className="space-y-12 max-w-6xl mx-auto">
 
       {/* User Dashboard Banner */}
-      <div className="glass-panel rounded-3xl p-6 sm:p-8 border border-white/10 flex flex-wrap items-center justify-between gap-6">
+      <div className="glass-panel-dark rounded-3xl p-6 sm:p-8 border border-white/10 flex flex-wrap items-center justify-between gap-6">
         <div className="flex items-center gap-4">
-          <div className="w-16 h-16 rounded-2xl bg-[#00A3FF]/20 border border-[#00A3FF] flex items-center justify-center text-[#00A3FF] font-bold text-2xl shadow-[0_0_20px_rgba(0, 163, 255,0.3)]">
+          <div className="w-16 h-16 rounded-2xl bg-[#00A3FF]/20 border border-[#00A3FF] flex items-center justify-center text-[#00A3FF] font-bold text-2xl shadow-[0_0_20px_rgba(0,163,255,0.3)]">
             {user.displayName ? user.displayName.charAt(0).toUpperCase() : user.email?.charAt(0).toUpperCase() || 'U'}
           </div>
           <div>
@@ -136,11 +136,11 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
         </div>
 
         <div className="flex items-center gap-3">
-          <div className="glass-card p-3 rounded-2xl text-center px-5">
+          <div className="glass-card-dark p-3 rounded-2xl text-center px-5">
             <div className="text-xl font-bold text-[#00A3FF]">{savedWorkouts.length}</div>
             <div className="text-[10px] text-gray-400 uppercase">Workouts</div>
           </div>
-          <div className="glass-card p-3 rounded-2xl text-center px-5">
+          <div className="glass-card-dark p-3 rounded-2xl text-center px-5">
             <div className="text-xl font-bold text-[#00A3FF]">{savedDiets.length}</div>
             <div className="text-[10px] text-gray-400 uppercase">Diet Plans</div>
           </div>
@@ -162,12 +162,12 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
         </div>
 
         {loadingWorkouts ? (
-          <div className="glass-panel rounded-2xl p-8 text-center border border-white/10">
+          <div className="glass-panel-dark rounded-2xl p-8 text-center border border-white/10">
             <RefreshCw className="w-6 h-6 text-[#00A3FF] animate-spin mx-auto mb-2" />
             <p className="text-sm text-gray-400">Loading saved workout library...</p>
           </div>
         ) : savedWorkouts.length === 0 ? (
-          <div className="glass-panel rounded-2xl p-8 text-center border border-white/10 space-y-3">
+          <div className="glass-panel-dark rounded-2xl p-8 text-center border border-white/10 space-y-3">
             <p className="text-sm text-gray-400">No workout programs saved to your library yet.</p>
             <button
               onClick={() => setActiveTab('fitness')}
@@ -182,7 +182,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
               <motion.div
                 key={w.id}
                 whileHover={{ y: -3 }}
-                className="glass-panel p-5 rounded-2xl border border-white/10 space-y-3 hover:border-[#00A3FF]/40 transition-colors flex flex-col justify-between"
+                className="glass-card-dark p-5 rounded-2xl border border-white/10 space-y-3 flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center justify-between gap-2 mb-2">

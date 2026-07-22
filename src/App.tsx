@@ -57,9 +57,17 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0A0A0C] text-gray-100 flex flex-col justify-between selection:bg-[#00A3FF] selection:text-black">
+    <div className="min-h-screen bg-[#0A0A0F] text-gray-100 flex flex-col justify-between selection:bg-[#00A3FF] selection:text-black relative overflow-x-hidden">
       
-      {/* Top Navbar */}
+      {/* Background Animated Gradient Blobs */}
+      <div className="blob-container">
+        <div className="blob-sky" />
+        <div className="blob-cyan" />
+        <div className="blob-purple" />
+      </div>
+
+      {/* Grain / Noise Texture Overlay */}
+      <div className="grain-overlay" />
       <Navbar
         activeTab={activeTab}
         setActiveTab={handleTabChange}

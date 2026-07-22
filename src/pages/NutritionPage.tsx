@@ -202,7 +202,7 @@ export const NutritionPage: React.FC<NutritionPageProps> = ({ user, openAuthModa
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
 
         {/* Left Col: Nutrition Assessment Form */}
-        <div className="lg:col-span-5 glass-panel rounded-3xl p-6 sm:p-8 border border-white/10 space-y-6">
+        <div className="lg:col-span-5 glass-panel-dark rounded-3xl p-6 sm:p-8 border border-white/10 space-y-6">
           
           {/* Veg / Non-Veg Toggle Header */}
           <div className="flex items-center justify-between bg-white/[0.04] p-2 rounded-2xl border border-white/10">
@@ -363,10 +363,15 @@ export const NutritionPage: React.FC<NutritionPageProps> = ({ user, openAuthModa
               </p>
             </div>
           ) : currentPlan ? (
-            <div className="space-y-6">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+              className="space-y-6"
+            >
 
               {/* Header Controls */}
-              <div className="glass-panel rounded-2xl p-4 border border-white/10 flex flex-wrap items-center justify-between gap-4">
+              <div className="glass-panel-dark rounded-2xl p-4 border border-white/10 flex flex-wrap items-center justify-between gap-4">
                 <div>
                   <span className="text-xs text-gray-400">Target Goal: </span>
                   <span className="text-sm font-bold text-[#00A3FF]">{currentPlan.goal || goal}</span>
@@ -385,7 +390,7 @@ export const NutritionPage: React.FC<NutritionPageProps> = ({ user, openAuthModa
                     <button
                       onClick={handleSaveToProfile}
                       disabled={saving}
-                      className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#00A3FF] text-black font-bold text-xs shadow-[0_0_15px_rgba(0, 163, 255,0.3)] hover:scale-105 transition-all"
+                      className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#00A3FF] text-black font-bold text-xs shadow-[0_0_15px_rgba(0,163,255,0.3)] hover:scale-105 active:scale-95 transition-all"
                     >
                       <Save className="w-3.5 h-3.5" />
                       <span>{saving ? 'Saving...' : 'Save to Profile'}</span>
@@ -396,15 +401,15 @@ export const NutritionPage: React.FC<NutritionPageProps> = ({ user, openAuthModa
 
               {/* Macro Cards Summary */}
               <div className="grid grid-cols-3 gap-4">
-                <div className="glass-panel p-4 rounded-2xl text-center border border-[#00A3FF]/30 bg-[#00A3FF]/5">
+                <div className="glass-card-dark p-4 rounded-2xl text-center border border-[#00A3FF]/30 bg-[#00A3FF]/5">
                   <div className="text-2xl font-black text-[#00A3FF]">{currentPlan.calories}</div>
                   <div className="text-xs text-gray-400 font-medium uppercase mt-0.5">Daily Calories</div>
                 </div>
-                <div className="glass-panel p-4 rounded-2xl text-center border border-white/10">
+                <div className="glass-card-dark p-4 rounded-2xl text-center">
                   <div className="text-2xl font-black text-white">{currentPlan.proteinG}g</div>
                   <div className="text-xs text-gray-400 font-medium uppercase mt-0.5">Protein</div>
                 </div>
-                <div className="glass-panel p-4 rounded-2xl text-center border border-white/10">
+                <div className="glass-card-dark p-4 rounded-2xl text-center">
                   <div className="text-2xl font-black text-white">{currentPlan.carbsG}g</div>
                   <div className="text-xs text-gray-400 font-medium uppercase mt-0.5">Carbs</div>
                 </div>
@@ -412,11 +417,11 @@ export const NutritionPage: React.FC<NutritionPageProps> = ({ user, openAuthModa
 
               {/* Secondary Fat & Total Calorie Badges */}
               <div className="flex gap-4">
-                <div className="flex-1 glass-card p-3 rounded-xl text-center">
+                <div className="flex-1 glass-card-dark p-3 rounded-xl text-center">
                   <span className="text-xs text-gray-400">Fat Target: </span>
                   <span className="text-sm font-bold text-purple-400">{currentPlan.fatG}g</span>
                 </div>
-                <div className="flex-1 glass-card p-3 rounded-xl text-center">
+                <div className="flex-1 glass-card-dark p-3 rounded-xl text-center">
                   <span className="text-xs text-gray-400">Calculated Energy: </span>
                   <span className="text-sm font-bold text-[#00A3FF]">
                     {Math.round(currentPlan.proteinG * 4 + currentPlan.carbsG * 4 + currentPlan.fatG * 9)} kcal
@@ -436,7 +441,7 @@ export const NutritionPage: React.FC<NutritionPageProps> = ({ user, openAuthModa
                     initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: idx * 0.08 }}
-                    className="glass-panel rounded-2xl p-5 border border-white/10 space-y-2 hover:border-[#00A3FF]/30 transition-colors"
+                    className="glass-card-dark rounded-2xl p-5 space-y-2"
                   >
                     <div className="flex items-center justify-between flex-wrap gap-2">
                       <span className="text-sm font-bold text-white">{m.type}</span>
@@ -456,7 +461,7 @@ export const NutritionPage: React.FC<NutritionPageProps> = ({ user, openAuthModa
                 ))}
               </div>
 
-            </div>
+            </motion.div>
           ) : (
             <div className="glass-panel rounded-3xl p-12 text-center border border-white/10 space-y-4">
               <div className="w-16 h-16 rounded-3xl bg-white/[0.03] border border-white/10 flex items-center justify-center text-[#00A3FF] mx-auto">

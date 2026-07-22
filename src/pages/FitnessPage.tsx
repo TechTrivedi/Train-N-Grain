@@ -171,7 +171,7 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
 
         {/* Left Col: Assessment Form */}
-        <div className="lg:col-span-5 glass-panel rounded-3xl p-6 sm:p-8 border border-white/10 space-y-6">
+        <div className="lg:col-span-5 glass-panel-dark rounded-3xl p-6 sm:p-8 border border-white/10 space-y-6">
           <h3 className="text-xl font-bold text-white flex items-center gap-2">
             <Zap className="w-5 h-5 text-[#00A3FF]" /> Assessment Stats
           </h3>
@@ -325,10 +325,15 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
               </p>
             </div>
           ) : currentPlan ? (
-            <div className="space-y-6">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+              className="space-y-6"
+            >
 
               {/* Plan Header Controls */}
-              <div className="glass-panel rounded-2xl p-4 border border-white/10 flex flex-wrap items-center justify-between gap-4">
+              <div className="glass-panel-dark rounded-2xl p-4 border border-white/10 flex flex-wrap items-center justify-between gap-4">
                 <div>
                   <span className="text-xs text-gray-400">Goal: </span>
                   <span className="text-sm font-bold text-[#00A3FF]">{currentStats?.goal}</span>
@@ -346,7 +351,7 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
                     <button
                       onClick={handleSaveToProfile}
                       disabled={saving}
-                      className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#00A3FF] text-black font-bold text-xs shadow-[0_0_15px_rgba(0, 163, 255,0.3)] hover:scale-105 transition-all"
+                      className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#00A3FF] text-black font-bold text-xs shadow-[0_0_15px_rgba(0,163,255,0.3)] hover:scale-105 active:scale-95 transition-all"
                     >
                       <Save className="w-3.5 h-3.5" />
                       <span>{saving ? 'Saving...' : 'Save to Profile'}</span>
@@ -363,7 +368,7 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
                     initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: dayIdx * 0.1 }}
-                    className="glass-panel rounded-3xl p-6 border border-white/10 space-y-4"
+                    className="glass-panel-dark rounded-3xl p-6 border border-white/10 space-y-4"
                   >
                     <h3 className="text-lg font-bold text-white flex items-center gap-2 border-b border-white/10 pb-3">
                       <Activity className="w-5 h-5 text-[#00A3FF]" />
@@ -374,7 +379,7 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
                       {dayObj.exercises.map((ex, exIdx) => (
                         <div
                           key={exIdx}
-                          className="glass-card p-4 rounded-2xl border border-white/5 space-y-1.5 hover:border-[#00A3FF]/30 transition-colors"
+                          className="glass-card-dark p-4 rounded-2xl space-y-1.5"
                         >
                           <div className="flex items-center justify-between flex-wrap gap-2">
                             <span className="font-bold text-white text-sm">{ex.name}</span>
@@ -394,7 +399,7 @@ export const FitnessPage: React.FC<FitnessPageProps> = ({ user, openAuthModal, s
                 ))}
               </div>
 
-            </div>
+            </motion.div>
           ) : (
             <div className="glass-panel rounded-3xl p-12 text-center border border-white/10 space-y-4">
               <div className="w-16 h-16 rounded-3xl bg-white/[0.03] border border-white/10 flex items-center justify-center text-[#00A3FF] mx-auto">

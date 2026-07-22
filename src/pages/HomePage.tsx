@@ -98,22 +98,21 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, showToast }) =
           >
             <Zap className="w-3.5 h-3.5" /> Next-Gen AI Fitness & Sports Science
           </motion.div>
-
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="font-display text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight leading-tight"
           >
-            <div className="text-white">Train Hard.</div>
-            <div className="text-[#00A3FF]">Eat Smart.</div>
-            <div className="text-white">Live Strong.</div>
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="text-white">Train Hard.</motion.div>
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }} className="gradient-text-sky">Eat Smart.</motion.div>
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="text-white">Live Strong.</motion.div>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
+            transition={{ delay: 0.5 }}
             className="text-base sm:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed font-normal"
           >
             Stop guessing your workouts and meal plans. Experience hyper-customized training routines and sports nutrition generated dynamically by Google Gemini.
@@ -123,12 +122,12 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, showToast }) =
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
+            transition={{ delay: 0.6 }}
             className="flex flex-wrap items-center justify-center gap-4 pt-4"
           >
             <button
               onClick={() => setActiveTab('fitness')}
-              className="flex items-center gap-2 px-8 py-4 rounded-2xl bg-[#00A3FF] text-black font-extrabold text-base shadow-[0_0_30px_rgba(0, 163, 255,0.4)] hover:shadow-[0_0_45px_rgba(0, 163, 255,0.6)] hover:scale-[1.03] transition-all"
+              className="flex items-center gap-2 px-8 py-4 rounded-2xl bg-[#00A3FF] text-black font-extrabold text-base shadow-[0_0_30px_rgba(0,163,255,0.4)] hover:shadow-[0_0_45px_rgba(0,163,255,0.6)] hover:scale-[1.03] active:scale-[0.98] transition-all"
             >
               <Dumbbell className="w-5 h-5" />
               <span>Generate AI Workout</span>
@@ -137,7 +136,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, showToast }) =
 
             <button
               onClick={() => setActiveTab('nutrition')}
-              className="flex items-center gap-2 px-8 py-4 rounded-2xl bg-white/[0.06] border border-white/20 text-white font-bold text-base hover:bg-white/10 hover:border-[#00A3FF]/40 hover:scale-[1.03] transition-all backdrop-blur-md"
+              className="flex items-center gap-2 px-8 py-4 rounded-2xl bg-white/[0.06] border border-white/20 text-white font-bold text-base hover:bg-white/10 hover:border-[#00A3FF]/40 hover:scale-[1.03] active:scale-[0.98] transition-all backdrop-blur-md"
             >
               <Utensils className="w-5 h-5 text-[#00A3FF]" />
               <span>Build Diet Plan</span>
@@ -145,29 +144,40 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, showToast }) =
           </motion.div>
 
           {/* Highlights */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-12 max-w-3xl mx-auto">
-            <div className="glass-card p-4 rounded-2xl text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7 }}
+            className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-12 max-w-3xl mx-auto"
+          >
+            <div className="glass-card-dark p-4 rounded-2xl text-center">
               <div className="text-2xl font-black text-[#00A3FF]">500+</div>
               <div className="text-xs text-gray-400 mt-1">Exercises Handled</div>
             </div>
-            <div className="glass-card p-4 rounded-2xl text-center">
+            <div className="glass-card-dark p-4 rounded-2xl text-center">
               <div className="text-2xl font-black text-[#00A3FF]">100%</div>
               <div className="text-xs text-gray-400 mt-1">Customized AI Plans</div>
             </div>
-            <div className="glass-card p-4 rounded-2xl text-center">
+            <div className="glass-card-dark p-4 rounded-2xl text-center">
               <div className="text-2xl font-black text-[#00A3FF]">⚡ &lt; 2s</div>
               <div className="text-xs text-gray-400 mt-1">Generation Speed</div>
             </div>
-            <div className="glass-card p-4 rounded-2xl text-center">
+            <div className="glass-card-dark p-4 rounded-2xl text-center">
               <div className="text-2xl font-black text-[#00A3FF]">🔒 Firestore</div>
               <div className="text-xs text-gray-400 mt-1">Cloud Profile Sync</div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Feature Cards Grid */}
-      <section className="space-y-8">
+      <motion.section
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="space-y-8"
+      >
         <div className="text-center space-y-2">
           <h2 className="font-display text-3xl sm:text-4xl font-bold text-white">
             Everything You Need To Transform
@@ -183,11 +193,15 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, showToast }) =
             return (
               <motion.div
                 key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: idx * 0.15 }}
                 whileHover={{ y: -6 }}
-                className="glass-card p-8 rounded-3xl space-y-4 flex flex-col justify-between"
+                className="glass-card-dark p-8 rounded-3xl space-y-4 flex flex-col justify-between"
               >
                 <div className="space-y-4">
-                  <div className="w-12 h-12 rounded-2xl bg-[#00A3FF]/10 border border-[#00A3FF]/30 flex items-center justify-center text-[#00A3FF]">
+                  <div className="w-12 h-12 rounded-2xl bg-[#00A3FF]/10 border border-[#00A3FF]/30 flex items-center justify-center text-[#00A3FF] shadow-[0_0_15px_rgba(0,163,255,0.2)]">
                     <Icon className="w-6 h-6" />
                   </div>
                   <h3 className="text-xl font-bold text-white">{feat.title}</h3>
@@ -205,10 +219,16 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, showToast }) =
             );
           })}
         </div>
-      </section>
+      </motion.section>
 
       {/* Contact Us Form */}
-      <section className="glass-panel rounded-3xl p-8 lg:p-12 border border-white/10 max-w-3xl mx-auto">
+      <motion.section
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="glass-panel-dark rounded-3xl p-8 lg:p-12 border border-white/10 max-w-3xl mx-auto"
+      >
         <div className="text-center space-y-2 mb-8">
           <h3 className="font-display text-2xl sm:text-3xl font-bold text-white">Have Questions or Suggestions?</h3>
           <p className="text-gray-400 text-sm">Send us a direct message and our team will get back to you!</p>
@@ -224,7 +244,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, showToast }) =
                 value={contactName}
                 onChange={(e) => setContactName(e.target.value)}
                 placeholder="Alex Mercer"
-                className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-[#00A3FF] text-sm"
+                className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-[#00A3FF] text-sm transition-colors"
               />
             </div>
             <div>
@@ -235,7 +255,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, showToast }) =
                 value={contactEmail}
                 onChange={(e) => setContactEmail(e.target.value)}
                 placeholder="alex@example.com"
-                className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-[#00A3FF] text-sm"
+                className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-[#00A3FF] text-sm transition-colors"
               />
             </div>
           </div>
@@ -248,20 +268,20 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, showToast }) =
               value={contactMessage}
               onChange={(e) => setContactMessage(e.target.value)}
               placeholder="How can we help your fitness journey?"
-              className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-[#00A3FF] text-sm resize-none"
+              className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-[#00A3FF] text-sm resize-none transition-colors"
             />
           </div>
 
           <button
             type="submit"
             disabled={contactSubmitting}
-            className="w-full py-3.5 rounded-xl bg-[#00A3FF] text-black font-extrabold text-sm shadow-[0_0_20px_rgba(0, 163, 255,0.3)] hover:scale-[1.01] transition-all flex items-center justify-center gap-2"
+            className="w-full py-3.5 rounded-xl bg-[#00A3FF] text-black font-extrabold text-sm shadow-[0_0_20px_rgba(0,163,255,0.3)] hover:scale-[1.01] active:scale-[0.99] transition-all flex items-center justify-center gap-2"
           >
             <Send className="w-4 h-4" />
-            <span>{contactSubmitting ? 'Sending...' : 'Send Message'}</span>
+            <span>{contactSubmitting ? 'Sending Message...' : 'Send Message'}</span>
           </button>
         </form>
-      </section>
+      </motion.section>
 
     </div>
   );
