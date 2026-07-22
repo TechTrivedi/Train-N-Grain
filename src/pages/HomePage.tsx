@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Dumbbell, Utensils, Sparkles, ArrowRight, Zap, Send } from 'lucide-react';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
@@ -14,17 +14,6 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, showToast }) =
   const [contactEmail, setContactEmail] = useState('');
   const [contactMessage, setContactMessage] = useState('');
   const [contactSubmitting, setContactSubmitting] = useState(false);
-
-  // Background Video Slideshow Sources
-  const videoSources = ['/assets/video1.mp4', '/assets/video2.mp4', '/assets/bg-video.mp4'];
-  const [activeVideoIdx, setActiveVideoIdx] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setActiveVideoIdx((prev) => (prev + 1) % videoSources.length);
-    }, 8000);
-    return () => clearInterval(timer);
-  }, []);
 
   const handleContactSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -76,30 +65,18 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, showToast }) =
   return (
     <div className="space-y-12 relative">
 
-      {/* Unboxed Hero Section with Background Video Slideshow */}
+      {/* Unboxed Hero Section with Exclusive Custom Background Photo */}
       <section className="relative min-h-[65vh] flex items-center justify-center overflow-hidden rounded-3xl px-6 pt-10 pb-12 text-center">
         
-        {/* Seamless Video Slideshow Background Layer */}
+        {/* Exclusive Image Background Layer */}
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-          {videoSources.map((src, idx) => (
-            <video
-              key={src}
-              autoPlay
-              loop
-              muted
-              playsInline
-              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
-                idx === activeVideoIdx ? 'opacity-65' : 'opacity-0'
-              }`}
-              onError={(e) => {
-                (e.currentTarget as HTMLVideoElement).style.display = 'none';
-              }}
-            >
-              <source src={src} type="video/mp4" />
-            </video>
-          ))}
-          {/* Subtle Dark Vignette & Gradient Overlay for Contrast */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0F]/80 via-[#0A0A0F]/60 to-[#0A0A0F] z-[1]" />
+          <img
+            src="/assets/hero-bg.jpg"
+            alt="Train N Grain Consistency Background"
+            className="absolute inset-0 w-full h-full object-cover opacity-60 scale-105 transition-transform duration-1000"
+          />
+          {/* Dark Gradient Overlay for Crisp Text & CTA Contrast */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0F]/85 via-[#0A0A0F]/55 to-[#0A0A0F] z-[1]" />
         </div>
 
         {/* Hero Content Overlay */}
