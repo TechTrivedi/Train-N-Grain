@@ -67,8 +67,21 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, showToast }) =
 
       {/* Hero Section with 5-Slide Crossfade Background */}
       <section className="relative min-h-[85vh] flex items-center justify-center rounded-3xl overflow-hidden glass-panel border border-white/10 px-6 py-20 text-center">
-        {/* 5-Slide Background */}
+        {/* Background Video / 5-Slide Crossfade Layer */}
         <div className="hero-slideshow">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover opacity-70 z-[1] pointer-events-none"
+            onError={(e) => {
+              (e.currentTarget as HTMLVideoElement).style.display = 'none';
+            }}
+          >
+            <source src="/assets/bg-video.mp4" type="video/mp4" />
+          </video>
+
           <div className="slide" style={{ backgroundImage: "url('/assets/slide1.jpg')" }}></div>
           <div className="slide" style={{ backgroundImage: "url('/assets/slide2.jpg')" }}></div>
           <div className="slide" style={{ backgroundImage: "url('/assets/slide3.jpg')" }}></div>
