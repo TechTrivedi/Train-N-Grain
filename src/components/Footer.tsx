@@ -8,7 +8,7 @@ interface FooterProps {
 export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
   return (
     <footer className="w-full glass-panel border-t border-white/10 mt-20 py-12 px-4 lg:px-8 relative z-10">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
         
         {/* Col 1: Brand Info */}
         <div className="md:col-span-2 space-y-4">
@@ -57,18 +57,6 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
                 Saved Programs Library
               </button>
             </li>
-          </ul>
-        </div>
-
-        {/* Col 3: Tech Stack */}
-        <div>
-          <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">Built With</h4>
-          <ul className="space-y-2 text-xs text-gray-400">
-            <li>⚡ React 19 & TypeScript</li>
-            <li>🎨 Tailwind CSS & Framer Motion</li>
-            <li>✨ Lucide React Icons</li>
-            <li>🔒 Firebase Cloud Firestore</li>
-            <li>🚀 Vite HMR Engine</li>
           </ul>
         </div>
 
