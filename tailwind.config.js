@@ -9,9 +9,9 @@ export default {
     extend: {
       colors: {
         neon: {
-          green: "#39FF14",
-          dim: "rgba(57, 255, 20, 0.1)",
-          glow: "rgba(57, 255, 20, 0.25)",
+          green: "#FF5C00",
+          dim: "rgba(255, 92, 0, 0.1)",
+          glow: "rgba(255, 92, 0, 0.25)",
         },
         dark: {
           bg: "#0A0A0C",

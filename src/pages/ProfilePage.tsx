@@ -97,7 +97,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
   if (!user) {
     return (
       <div className="glass-panel rounded-3xl p-12 text-center border border-white/10 space-y-6 max-w-lg mx-auto my-12">
-        <div className="w-16 h-16 rounded-3xl bg-[#39FF14]/10 border border-[#39FF14]/30 flex items-center justify-center text-[#39FF14] mx-auto">
+        <div className="w-16 h-16 rounded-3xl bg-[#FF5C00]/10 border border-[#FF5C00]/30 flex items-center justify-center text-[#FF5C00] mx-auto">
           <UserIcon className="w-8 h-8" />
         </div>
         <h2 className="font-display text-2xl font-bold text-white">Sign In to Access Your Library</h2>
@@ -106,7 +106,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
         </p>
         <button
           onClick={openAuthModal}
-          className="px-8 py-3.5 rounded-2xl bg-[#39FF14] text-black font-extrabold text-sm shadow-[0_0_25px_rgba(57,255,20,0.4)] hover:scale-105 transition-all"
+          className="px-8 py-3.5 rounded-2xl bg-[#FF5C00] text-black font-extrabold text-sm shadow-[0_0_25px_rgba(255, 92, 0,0.4)] hover:scale-105 transition-all"
         >
           Sign In Now
         </button>
@@ -120,13 +120,13 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
       {/* User Dashboard Banner */}
       <div className="glass-panel rounded-3xl p-6 sm:p-8 border border-white/10 flex flex-wrap items-center justify-between gap-6">
         <div className="flex items-center gap-4">
-          <div className="w-16 h-16 rounded-2xl bg-[#39FF14]/20 border border-[#39FF14] flex items-center justify-center text-[#39FF14] font-bold text-2xl shadow-[0_0_20px_rgba(57,255,20,0.3)]">
+          <div className="w-16 h-16 rounded-2xl bg-[#FF5C00]/20 border border-[#FF5C00] flex items-center justify-center text-[#FF5C00] font-bold text-2xl shadow-[0_0_20px_rgba(255, 92, 0,0.3)]">
             {user.displayName ? user.displayName.charAt(0).toUpperCase() : user.email?.charAt(0).toUpperCase() || 'U'}
           </div>
           <div>
             <h2 className="text-2xl font-bold text-white flex items-center gap-2">
               {user.displayName || user.email?.split('@')[0]}
-              <ShieldCheck className="w-5 h-5 text-[#39FF14]" />
+              <ShieldCheck className="w-5 h-5 text-[#FF5C00]" />
             </h2>
             <p className="text-xs text-gray-400 mt-0.5">{user.email}</p>
             <span className="inline-block mt-2 px-2.5 py-0.5 rounded-md bg-white/[0.05] border border-white/10 text-[10px] text-gray-400 font-mono">
@@ -137,11 +137,11 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
 
         <div className="flex items-center gap-3">
           <div className="glass-card p-3 rounded-2xl text-center px-5">
-            <div className="text-xl font-bold text-[#39FF14]">{savedWorkouts.length}</div>
+            <div className="text-xl font-bold text-[#FF5C00]">{savedWorkouts.length}</div>
             <div className="text-[10px] text-gray-400 uppercase">Workouts</div>
           </div>
           <div className="glass-card p-3 rounded-2xl text-center px-5">
-            <div className="text-xl font-bold text-[#39FF14]">{savedDiets.length}</div>
+            <div className="text-xl font-bold text-[#FF5C00]">{savedDiets.length}</div>
             <div className="text-[10px] text-gray-400 uppercase">Diet Plans</div>
           </div>
         </div>
@@ -151,11 +151,11 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <h3 className="font-display text-2xl font-bold text-white flex items-center gap-2">
-            <Dumbbell className="w-6 h-6 text-[#39FF14]" /> Saved Workout Programs
+            <Dumbbell className="w-6 h-6 text-[#FF5C00]" /> Saved Workout Programs
           </h3>
           <button
             onClick={() => setActiveTab('fitness')}
-            className="text-xs font-bold text-[#39FF14] hover:underline flex items-center gap-1"
+            className="text-xs font-bold text-[#FF5C00] hover:underline flex items-center gap-1"
           >
             + Create New Workout
           </button>
@@ -163,7 +163,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
 
         {loadingWorkouts ? (
           <div className="glass-panel rounded-2xl p-8 text-center border border-white/10">
-            <RefreshCw className="w-6 h-6 text-[#39FF14] animate-spin mx-auto mb-2" />
+            <RefreshCw className="w-6 h-6 text-[#FF5C00] animate-spin mx-auto mb-2" />
             <p className="text-sm text-gray-400">Loading saved workout library...</p>
           </div>
         ) : savedWorkouts.length === 0 ? (
@@ -171,7 +171,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
             <p className="text-sm text-gray-400">No workout programs saved to your library yet.</p>
             <button
               onClick={() => setActiveTab('fitness')}
-              className="px-4 py-2 rounded-xl bg-[#39FF14]/10 border border-[#39FF14]/30 text-[#39FF14] text-xs font-bold hover:bg-[#39FF14]/20 transition-all"
+              className="px-4 py-2 rounded-xl bg-[#FF5C00]/10 border border-[#FF5C00]/30 text-[#FF5C00] text-xs font-bold hover:bg-[#FF5C00]/20 transition-all"
             >
               Generate Your First Workout
             </button>
@@ -182,12 +182,12 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
               <motion.div
                 key={w.id}
                 whileHover={{ y: -3 }}
-                className="glass-panel p-5 rounded-2xl border border-white/10 space-y-3 hover:border-[#39FF14]/40 transition-colors flex flex-col justify-between"
+                className="glass-panel p-5 rounded-2xl border border-white/10 space-y-3 hover:border-[#FF5C00]/40 transition-colors flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center justify-between gap-2 mb-2">
                     <h4 className="font-bold text-white text-base truncate">{w.title}</h4>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#39FF14] px-2 py-0.5 rounded-full bg-[#39FF14]/10 border border-[#39FF14]/20">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#FF5C00] px-2 py-0.5 rounded-full bg-[#FF5C00]/10 border border-[#FF5C00]/20">
                       {w.stats?.goal || 'Workout'}
                     </span>
                   </div>
@@ -195,7 +195,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
                   <div className="text-xs text-gray-400 space-y-1">
                     <p>Level: <strong className="text-gray-200">{w.stats?.level || 'N/A'}</strong></p>
                     <p>Equipment: <strong className="text-gray-200">{w.stats?.equipment || 'N/A'}</strong></p>
-                    <p>Days Count: <strong className="text-[#39FF14]">{w.plan?.length || 0} Days</strong></p>
+                    <p>Days Count: <strong className="text-[#FF5C00]">{w.plan?.length || 0} Days</strong></p>
                   </div>
                 </div>
 
@@ -205,7 +205,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
                       setActiveTab('fitness');
                       window.history.pushState({}, '', `/fitness?id=${w.id}`);
                     }}
-                    className="flex items-center gap-1.5 text-xs font-bold text-[#39FF14] hover:underline"
+                    className="flex items-center gap-1.5 text-xs font-bold text-[#FF5C00] hover:underline"
                   >
                     <ExternalLink className="w-3.5 h-3.5" />
                     <span>Open in Workout Portal</span>
@@ -229,11 +229,11 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <h3 className="font-display text-2xl font-bold text-white flex items-center gap-2">
-            <Utensils className="w-6 h-6 text-[#39FF14]" /> Saved Diet Plans
+            <Utensils className="w-6 h-6 text-[#FF5C00]" /> Saved Diet Plans
           </h3>
           <button
             onClick={() => setActiveTab('nutrition')}
-            className="text-xs font-bold text-[#39FF14] hover:underline flex items-center gap-1"
+            className="text-xs font-bold text-[#FF5C00] hover:underline flex items-center gap-1"
           >
             + Create New Diet Plan
           </button>
@@ -241,7 +241,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
 
         {loadingDiets ? (
           <div className="glass-panel rounded-2xl p-8 text-center border border-white/10">
-            <RefreshCw className="w-6 h-6 text-[#39FF14] animate-spin mx-auto mb-2" />
+            <RefreshCw className="w-6 h-6 text-[#FF5C00] animate-spin mx-auto mb-2" />
             <p className="text-sm text-gray-400">Loading saved diet library...</p>
           </div>
         ) : savedDiets.length === 0 ? (
@@ -249,7 +249,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
             <p className="text-sm text-gray-400">No diet plans saved to your library yet.</p>
             <button
               onClick={() => setActiveTab('nutrition')}
-              className="px-4 py-2 rounded-xl bg-[#39FF14]/10 border border-[#39FF14]/30 text-[#39FF14] text-xs font-bold hover:bg-[#39FF14]/20 transition-all"
+              className="px-4 py-2 rounded-xl bg-[#FF5C00]/10 border border-[#FF5C00]/30 text-[#FF5C00] text-xs font-bold hover:bg-[#FF5C00]/20 transition-all"
             >
               Generate Your First Diet Plan
             </button>
@@ -260,18 +260,18 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
               <motion.div
                 key={d.id}
                 whileHover={{ y: -3 }}
-                className="glass-panel p-5 rounded-2xl border border-white/10 space-y-3 hover:border-[#39FF14]/40 transition-colors flex flex-col justify-between"
+                className="glass-panel p-5 rounded-2xl border border-white/10 space-y-3 hover:border-[#FF5C00]/40 transition-colors flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center justify-between gap-2 mb-2">
                     <h4 className="font-bold text-white text-base truncate">{d.title}</h4>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#39FF14] px-2 py-0.5 rounded-full bg-[#39FF14]/10 border border-[#39FF14]/20">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#FF5C00] px-2 py-0.5 rounded-full bg-[#FF5C00]/10 border border-[#FF5C00]/20">
                       {d.stats?.dietType === 'nonveg' ? '🍗 Non-Veg' : '🥦 Veg'}
                     </span>
                   </div>
 
                   <div className="text-xs text-gray-400 space-y-1">
-                    <p>Daily Target: <strong className="text-[#39FF14]">{d.plan?.calories || 0} kcal</strong></p>
+                    <p>Daily Target: <strong className="text-[#FF5C00]">{d.plan?.calories || 0} kcal</strong></p>
                     <p>Protein: <strong className="text-gray-200">{d.plan?.proteinG || 0}g</strong> · Carbs: <strong className="text-gray-200">{d.plan?.carbsG || 0}g</strong></p>
                   </div>
                 </div>
@@ -282,7 +282,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
                       setActiveTab('nutrition');
                       window.history.pushState({}, '', `/nutrition?id=${d.id}`);
                     }}
-                    className="flex items-center gap-1.5 text-xs font-bold text-[#39FF14] hover:underline"
+                    className="flex items-center gap-1.5 text-xs font-bold text-[#FF5C00] hover:underline"
                   >
                     <ExternalLink className="w-3.5 h-3.5" />
                     <span>Open in Nutrition Portal</span>

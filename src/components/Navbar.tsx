@@ -48,12 +48,12 @@ export const Navbar: React.FC<NavbarProps> = ({
           onClick={() => setActiveTab('home')}
           className="flex items-center gap-2.5 group text-left focus:outline-none"
         >
-          <div className="w-10 h-10 rounded-xl bg-neon-dim border border-[#39FF14]/30 flex items-center justify-center text-[#39FF14] shadow-[0_0_15px_rgba(57,255,20,0.2)] group-hover:scale-105 transition-transform duration-300">
+          <div className="w-10 h-10 rounded-xl bg-neon-dim border border-[#FF5C00]/30 flex items-center justify-center text-[#FF5C00] shadow-[0_0_15px_rgba(255, 92, 0,0.2)] group-hover:scale-105 transition-transform duration-300">
             <Flame className="w-6 h-6 animate-pulse" />
           </div>
           <div>
-            <span className="font-display text-xl font-bold tracking-tight text-white group-hover:text-[#39FF14] transition-colors">
-              TRAIN <span className="text-[#39FF14]">N</span> GRAIN
+            <span className="font-display text-xl font-bold tracking-tight text-white group-hover:text-[#FF5C00] transition-colors">
+              TRAIN <span className="text-[#FF5C00]">N</span> GRAIN
             </span>
             <span className="block text-[10px] uppercase tracking-widest text-gray-400 font-medium -mt-1">
               AI Fitness Platform
@@ -77,7 +77,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 {isActive && (
                   <motion.div
                     layoutId="activeTabBg"
-                    className="absolute inset-0 bg-[#39FF14] rounded-xl shadow-[0_0_20px_rgba(57,255,20,0.4)]"
+                    className="absolute inset-0 bg-[#FF5C00] rounded-xl shadow-[0_0_20px_rgba(255, 92, 0,0.4)]"
                     transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                   />
                 )}
@@ -94,9 +94,9 @@ export const Navbar: React.FC<NavbarProps> = ({
             <div className="flex items-center gap-3">
               <button
                 onClick={() => setActiveTab('profile')}
-                className="flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-white/[0.04] border border-white/10 hover:border-[#39FF14]/40 transition-colors"
+                className="flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-white/[0.04] border border-white/10 hover:border-[#FF5C00]/40 transition-colors"
               >
-                <div className="w-7 h-7 rounded-full bg-[#39FF14]/20 border border-[#39FF14] flex items-center justify-center text-[#39FF14] text-xs font-bold">
+                <div className="w-7 h-7 rounded-full bg-[#FF5C00]/20 border border-[#FF5C00] flex items-center justify-center text-[#FF5C00] text-xs font-bold">
                   {user.displayName ? user.displayName.charAt(0).toUpperCase() : user.email?.charAt(0).toUpperCase() || 'U'}
                 </div>
                 <span className="text-sm font-medium text-gray-200 max-w-[120px] truncate">
@@ -114,7 +114,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           ) : (
             <button
               onClick={openAuthModal}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#39FF14] text-black font-bold text-sm shadow-[0_0_20px_rgba(57,255,20,0.3)] hover:shadow-[0_0_30px_rgba(57,255,20,0.5)] hover:scale-[1.02] transition-all"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#FF5C00] text-black font-bold text-sm shadow-[0_0_20px_rgba(255, 92, 0,0.3)] hover:shadow-[0_0_30px_rgba(255, 92, 0,0.5)] hover:scale-[1.02] transition-all"
             >
               <LogIn className="w-4 h-4" />
               <span>Sign In</span>
@@ -125,7 +125,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         {/* Mobile Hamburger Toggle */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden p-2 rounded-xl bg-white/5 border border-white/10 text-gray-200 hover:text-[#39FF14]"
+          className="md:hidden p-2 rounded-xl bg-white/5 border border-white/10 text-gray-200 hover:text-[#FF5C00]"
         >
           {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
@@ -152,7 +152,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                       setMobileMenuOpen(false);
                     }}
                     className={`flex items-center gap-3 px-4 py-3 rounded-xl text-left text-sm font-medium transition-all ${
-                      isActive ? 'bg-[#39FF14] text-black font-semibold' : 'text-gray-300 hover:bg-white/5'
+                      isActive ? 'bg-[#FF5C00] text-black font-semibold' : 'text-gray-300 hover:bg-white/5'
                     }`}
                   >
                     <Icon className="w-5 h-5" />
@@ -179,7 +179,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                       openAuthModal();
                       setMobileMenuOpen(false);
                     }}
-                    className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-[#39FF14] text-black font-bold text-sm"
+                    className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-[#FF5C00] text-black font-bold text-sm"
                   >
                     <LogIn className="w-4 h-4" />
                     <span>Sign In to Account</span>
