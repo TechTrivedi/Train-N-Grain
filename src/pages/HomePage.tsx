@@ -82,11 +82,11 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, showToast }) =
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="font-display text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight leading-none space-y-1 drop-shadow-2xl"
+            className="font-consistency text-6xl sm:text-8xl lg:text-9xl font-extrabold tracking-wider leading-none space-y-1 drop-shadow-[0_10px_35px_rgba(0,0,0,0.9)] uppercase"
           >
-            <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="text-white">Train Hard.</motion.div>
-            <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }} className="gradient-text-sky">Eat Smart.</motion.div>
-            <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="text-white">Live Strong.</motion.div>
+            <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="text-white tracking-widest">Train Hard.</motion.div>
+            <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }} className="gradient-text-consistency tracking-widest">Eat Smart.</motion.div>
+            <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="text-white tracking-widest">Live Strong.</motion.div>
           </motion.h1>
 
           {/* Action CTAs */}

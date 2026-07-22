@@ -28,6 +28,7 @@ export default {
       fontFamily: {
         sans: ["Inter", "system-ui", "-apple-system", "sans-serif"],
         display: ["Outfit", "Inter", "sans-serif"],
+        consistency: ["'Bebas Neue'", "'Anton'", "'Oswald'", "Impact", "sans-serif"],
       },
       animation: {
         'blob': 'blob 10s ease-in-out infinite',

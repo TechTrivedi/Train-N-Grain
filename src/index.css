@@ -108,6 +108,16 @@
   -webkit-text-fill-color: transparent;
 }
 
+/* Metallic / Steel Textured Font matching CONSISTENCY background image */
+.gradient-text-consistency {
+  background: linear-gradient(180deg, #FFFFFF 0%, #E2E8F0 40%, #94A3B8 75%, #64748B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: 'Bebas Neue', 'Anton', 'Oswald', 'Impact', sans-serif;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
 /* Hero Background Slideshow & Video Layer */
 .hero-slideshow {
   position: absolute;

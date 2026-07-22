@@ -52,7 +52,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <Flame className="w-6 h-6 animate-pulse" />
           </div>
           <div>
-            <span className="font-display text-2xl font-extrabold tracking-tight">
+            <span className="font-consistency text-2xl font-extrabold tracking-wider uppercase">
               <span className="text-[#00A3FF]">Train</span><span className="text-white">N Grain</span>
             </span>
             <span className="block text-[10px] uppercase tracking-widest text-gray-400 font-medium -mt-1">
