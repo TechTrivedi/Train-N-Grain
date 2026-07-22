@@ -65,19 +65,8 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, showToast }) =
   return (
     <div className="space-y-12 relative">
 
-      {/* Unboxed Hero Section with Exclusive Custom Background Photo */}
-      <section className="relative min-h-[65vh] flex items-center justify-center overflow-hidden rounded-3xl px-6 pt-10 pb-12 text-center">
-        
-        {/* Exclusive Image Background Layer */}
-        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-          <img
-            src="/assets/hero-bg.jpg"
-            alt="Train N Grain Consistency Background"
-            className="absolute inset-0 w-full h-full object-cover opacity-60 scale-105 transition-transform duration-1000"
-          />
-          {/* Dark Gradient Overlay for Crisp Text & CTA Contrast */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0F]/85 via-[#0A0A0F]/55 to-[#0A0A0F] z-[1]" />
-        </div>
+      {/* Unboxed Hero Section (Full Fixed Page Background Display) */}
+      <section className="relative min-h-[60vh] flex items-center justify-center rounded-3xl px-6 pt-10 pb-12 text-center">
 
         {/* Hero Content Overlay */}
         <div className="relative z-10 max-w-4xl mx-auto space-y-4">
