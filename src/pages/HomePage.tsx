@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Dumbbell, Utensils, Sparkles, ArrowRight, Zap, Send } from 'lucide-react';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
@@ -14,6 +14,17 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, showToast }) =
   const [contactEmail, setContactEmail] = useState('');
   const [contactMessage, setContactMessage] = useState('');
   const [contactSubmitting, setContactSubmitting] = useState(false);
+
+  // Background Video Slideshow Sources
+  const videoSources = ['/assets/video1.mp4', '/assets/video2.mp4', '/assets/bg-video.mp4'];
+  const [activeVideoIdx, setActiveVideoIdx] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveVideoIdx((prev) => (prev + 1) % videoSources.length);
+    }, 8000);
+    return () => clearInterval(timer);
+  }, []);
 
   const handleContactSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -65,28 +76,30 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, showToast }) =
   return (
     <div className="space-y-12 relative">
 
-      {/* Hero Section with 5-Slide Crossfade Background & Video Support */}
-      <section className="relative min-h-[60vh] flex items-center justify-center rounded-3xl overflow-hidden glass-panel border border-white/10 px-6 pt-8 pb-10 text-center">
-        {/* Background Video / 5-Slide Crossfade Layer */}
-        <div className="hero-slideshow">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover opacity-70 z-[1] pointer-events-none"
-            onError={(e) => {
-              (e.currentTarget as HTMLVideoElement).style.display = 'none';
-            }}
-          >
-            <source src="/assets/bg-video.mp4" type="video/mp4" />
-          </video>
-
-          <div className="slide" style={{ backgroundImage: "url('/assets/slide1.jpg')" }}></div>
-          <div className="slide" style={{ backgroundImage: "url('/assets/slide2.jpg')" }}></div>
-          <div className="slide" style={{ backgroundImage: "url('/assets/slide3.jpg')" }}></div>
-          <div className="slide" style={{ backgroundImage: "url('/assets/slide4.jpg')" }}></div>
-          <div className="slide" style={{ backgroundImage: "url('/assets/slide5.jpg')" }}></div>
+      {/* Unboxed Hero Section with Background Video Slideshow */}
+      <section className="relative min-h-[65vh] flex items-center justify-center overflow-hidden rounded-3xl px-6 pt-10 pb-12 text-center">
+        
+        {/* Seamless Video Slideshow Background Layer */}
+        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+          {videoSources.map((src, idx) => (
+            <video
+              key={src}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+                idx === activeVideoIdx ? 'opacity-65' : 'opacity-0'
+              }`}
+              onError={(e) => {
+                (e.currentTarget as HTMLVideoElement).style.display = 'none';
+              }}
+            >
+              <source src={src} type="video/mp4" />
+            </video>
+          ))}
+          {/* Subtle Dark Vignette & Gradient Overlay for Contrast */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0F]/80 via-[#0A0A0F]/60 to-[#0A0A0F] z-[1]" />
         </div>
 
         {/* Hero Content Overlay */}
@@ -94,7 +107,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, showToast }) =
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#00A3FF]/10 border border-[#00A3FF]/30 text-[#00A3FF] text-xs font-bold tracking-wider uppercase backdrop-blur-md"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#00A3FF]/15 border border-[#00A3FF]/35 text-[#00A3FF] text-xs font-bold tracking-wider uppercase backdrop-blur-md shadow-[0_0_20px_rgba(0,163,255,0.2)]"
           >
             <Zap className="w-3.5 h-3.5" /> Next-Gen AI Fitness & Sports Science
           </motion.div>
@@ -103,7 +116,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, showToast }) =
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="font-display text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight leading-none space-y-1"
+            className="font-display text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight leading-none space-y-1 drop-shadow-2xl"
           >
             <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="text-white">Train Hard.</motion.div>
             <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }} className="gradient-text-sky">Eat Smart.</motion.div>
@@ -119,7 +132,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, showToast }) =
           >
             <button
               onClick={() => setActiveTab('fitness')}
-              className="flex items-center gap-2 px-8 py-4 rounded-2xl bg-[#00A3FF] text-black font-extrabold text-base shadow-[0_0_30px_rgba(0,163,255,0.4)] hover:shadow-[0_0_45px_rgba(0,163,255,0.6)] hover:scale-[1.03] active:scale-[0.98] transition-all"
+              className="flex items-center gap-2 px-8 py-4 rounded-2xl bg-[#00A3FF] text-black font-extrabold text-base shadow-[0_0_30px_rgba(0,163,255,0.5)] hover:shadow-[0_0_45px_rgba(0,163,255,0.7)] hover:scale-[1.03] active:scale-[0.98] transition-all"
             >
               <Dumbbell className="w-5 h-5" />
               <span>Generate AI Workout</span>
@@ -128,7 +141,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setActiveTab, showToast }) =
 
             <button
               onClick={() => setActiveTab('nutrition')}
-              className="flex items-center gap-2 px-8 py-4 rounded-2xl bg-white/[0.06] border border-white/20 text-white font-bold text-base hover:bg-white/10 hover:border-[#00A3FF]/40 hover:scale-[1.03] active:scale-[0.98] transition-all backdrop-blur-md"
+              className="flex items-center gap-2 px-8 py-4 rounded-2xl bg-white/[0.08] border border-white/20 text-white font-bold text-base hover:bg-white/15 hover:border-[#00A3FF]/50 hover:scale-[1.03] active:scale-[0.98] transition-all backdrop-blur-md"
             >
               <Utensils className="w-5 h-5 text-[#00A3FF]" />
               <span>Build Diet Plan</span>
