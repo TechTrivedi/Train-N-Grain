@@ -59,25 +59,17 @@ export function App() {
   return (
     <div className="min-h-screen bg-[#050508] text-gray-100 flex flex-col justify-between selection:bg-[#E4E4E7] selection:text-black relative overflow-x-hidden">
       
-      {/* Fixed Full-Screen FOCUS Statue Background Layer */}
+      {/* Fixed Full-Screen FOCUS Statue Background Layer (Ultra Clear HD) */}
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
         <img
           src="/assets/hero-bg.jpg"
           alt="Train N Grain Focus Background"
-          className="w-full h-full object-cover opacity-55 scale-105"
+          className="w-full h-full object-cover opacity-85 scale-100"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#050508]/80 via-[#050508]/55 to-[#050508]/90 z-[1]" />
+        {/* Subtle contrast protection overlay without blurring or obscuring statue details */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#050508]/40 via-[#050508]/20 to-[#050508]/60 z-[1]" />
       </div>
 
-      {/* Background Animated Gradient Blobs */}
-      <div className="blob-container">
-        <div className="blob-sky" />
-        <div className="blob-cyan" />
-        <div className="blob-purple" />
-      </div>
-
-      {/* Grain / Noise Texture Overlay */}
-      <div className="grain-overlay" />
       <Navbar
         activeTab={activeTab}
         setActiveTab={handleTabChange}
