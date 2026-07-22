@@ -32,12 +32,22 @@ export function App() {
     }
   }, []);
 
-  // Update browser history state on tab change
+  // Update browser history state on tab change and scroll smooth
   const handleTabChange = (tab: string) => {
     setActiveTab(tab);
     const newPath = tab === 'home' ? '/' : `/${tab}`;
     window.history.pushState({}, '', newPath);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    
+    if (tab === 'profile') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      const targetElem = document.getElementById(tab);
+      if (targetElem) {
+        targetElem.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
   };
 
   // Firebase Auth listener
@@ -78,30 +88,28 @@ export function App() {
         showToast={showToast}
       />
 
-      {/* Main Content Area */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeTab}
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -15 }}
-            transition={{ duration: 0.25 }}
-          >
-            {activeTab === 'home' && (
+      {/* Main Content Area: Stacked Single-Page Continuous Scroll */}
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10 space-y-24">
+        {activeTab === 'profile' ? (
+          <ProfilePage user={user} setActiveTab={handleTabChange} openAuthModal={() => setAuthModalOpen(true)} showToast={showToast} />
+        ) : (
+          <>
+            {/* 1. Home Dashboard Hero & Overview */}
+            <div id="home">
               <HomePage setActiveTab={handleTabChange} showToast={showToast} />
-            )}
-            {activeTab === 'fitness' && (
+            </div>
+
+            {/* 2. AI Workout Generator (Stacked Directly Below Home) */}
+            <div id="fitness" className="pt-12 border-t border-white/10">
               <FitnessPage user={user} openAuthModal={() => setAuthModalOpen(true)} showToast={showToast} />
-            )}
-            {activeTab === 'nutrition' && (
+            </div>
+
+            {/* 3. AI Nutrition & Diet Generator (Stacked Directly Below Workouts) */}
+            <div id="nutrition" className="pt-12 border-t border-white/10">
               <NutritionPage user={user} openAuthModal={() => setAuthModalOpen(true)} showToast={showToast} />
-            )}
-            {activeTab === 'profile' && (
-              <ProfilePage user={user} setActiveTab={handleTabChange} openAuthModal={() => setAuthModalOpen(true)} showToast={showToast} />
-            )}
-          </motion.div>
-        </AnimatePresence>
+            </div>
+          </>
+        )}
       </main>
 
       {/* Footer */}
