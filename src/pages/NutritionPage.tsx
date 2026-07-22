@@ -184,35 +184,36 @@ export const NutritionPage: React.FC<NutritionPageProps> = ({ user, openAuthModa
   };
 
   return (
-    <div className="space-y-6 max-w-6xl mx-auto pt-1">
+    <div className="space-y-6 max-w-7xl mx-auto pt-0">
 
-      {/* Title Header */}
-      <div className="text-center space-y-1.5">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#00A3FF]/10 border border-[#00A3FF]/30 text-[#00A3FF] text-[11px] font-bold uppercase tracking-wider">
-          <Utensils className="w-3.5 h-3.5" /> Sports Nutrition & Macro Engine
-        </div>
-        <h1 className="font-display text-3xl sm:text-4xl font-extrabold text-white">
-          AI Nutrition & Diet Generator
-        </h1>
-        <p className="text-gray-400 text-xs sm:text-sm max-w-xl mx-auto">
-          Calculate your exact Mifflin-St Jeor TDEE calorie targets and generate custom daily meal cards.
-        </p>
-      </div>
+      {/* Top Assessment Control Bar */}
+      <div className="glass-panel-dark rounded-3xl p-5 sm:p-6 border border-white/10 space-y-4">
+        
+        {/* Inline Header */}
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-3">
+          <div className="flex items-center gap-2.5">
+            <div className="w-9 h-9 rounded-xl bg-[#00A3FF]/10 border border-[#00A3FF]/30 flex items-center justify-center text-[#00A3FF] shadow-[0_0_15px_rgba(0,163,255,0.2)]">
+              <Utensils className="w-5 h-5" />
+            </div>
+            <div>
+              <h1 className="font-display text-xl sm:text-2xl font-extrabold text-white">
+                AI Nutrition & Diet Generator
+              </h1>
+              <p className="text-gray-400 text-xs">
+                Calculate TDEE and generate custom meal cards with instant Veg/Non-Veg swapping
+              </p>
+            </div>
+          </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-
-        {/* Left Col: Nutrition Assessment Form */}
-        <div className="lg:col-span-5 glass-panel-dark rounded-3xl p-5 sm:p-6 border border-white/10 space-y-4">
-          
           {/* Veg / Non-Veg Toggle Header */}
-          <div className="flex items-center justify-between bg-white/[0.04] p-2 rounded-2xl border border-white/10">
-            <span className="text-xs font-bold text-gray-300 ml-2">Diet Preference:</span>
+          <div className="flex items-center gap-2 bg-white/[0.04] p-1.5 rounded-2xl border border-white/10">
+            <span className="text-xs font-bold text-gray-300 px-2">Preference:</span>
             <div className="flex gap-1">
               <button
                 type="button"
                 onClick={() => handleToggleDietType('veg')}
-                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
-                  dietType === 'veg' ? 'bg-[#00A3FF] text-black shadow-[0_0_15px_rgba(0, 163, 255,0.3)]' : 'text-gray-400 hover:text-white'
+                className={`px-3 py-1 rounded-xl text-xs font-bold transition-all ${
+                  dietType === 'veg' ? 'bg-[#00A3FF] text-black shadow-[0_0_12px_rgba(0,163,255,0.4)]' : 'text-gray-400 hover:text-white'
                 }`}
               >
                 🥦 Veg
@@ -220,34 +221,34 @@ export const NutritionPage: React.FC<NutritionPageProps> = ({ user, openAuthModa
               <button
                 type="button"
                 onClick={() => handleToggleDietType('nonveg')}
-                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
-                  dietType === 'nonveg' ? 'bg-[#00A3FF] text-black shadow-[0_0_15px_rgba(0, 163, 255,0.3)]' : 'text-gray-400 hover:text-white'
+                className={`px-3 py-1 rounded-xl text-xs font-bold transition-all ${
+                  dietType === 'nonveg' ? 'bg-[#00A3FF] text-black shadow-[0_0_12px_rgba(0,163,255,0.4)]' : 'text-gray-400 hover:text-white'
                 }`}
               >
                 🍗 Non-Veg
               </button>
             </div>
           </div>
+        </div>
 
-          <form onSubmit={handleGenerate} className="space-y-4">
+        {/* Compact Parameters Form */}
+        <form onSubmit={handleGenerate} className="space-y-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
             
             {/* Height & Weight */}
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-medium text-gray-300 mb-1.5">Height (cm)</label>
+            <div>
+              <label className="block text-xs font-medium text-gray-300 mb-1">Height & Weight</label>
+              <div className="grid grid-cols-2 gap-2">
                 <input
                   type="number"
                   required
                   min={100}
-                  max={230}
+                  max={250}
                   value={height}
                   onChange={(e) => setHeight(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-white text-sm focus:outline-none focus:border-[#00A3FF]"
+                  placeholder="Height (cm)"
+                  className="w-full px-3 py-2 rounded-xl bg-white/[0.04] border border-white/10 text-white text-xs focus:outline-none focus:border-[#00A3FF]"
                 />
-              </div>
-
-              <div>
-                <label className="block text-xs font-medium text-gray-300 mb-1.5">Weight (kg)</label>
                 <input
                   type="number"
                   required
@@ -255,15 +256,16 @@ export const NutritionPage: React.FC<NutritionPageProps> = ({ user, openAuthModa
                   max={250}
                   value={weight}
                   onChange={(e) => setWeight(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-white text-sm focus:outline-none focus:border-[#00A3FF]"
+                  placeholder="Weight (kg)"
+                  className="w-full px-3 py-2 rounded-xl bg-white/[0.04] border border-white/10 text-white text-xs focus:outline-none focus:border-[#00A3FF]"
                 />
               </div>
             </div>
 
             {/* Age & Gender */}
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-medium text-gray-300 mb-1.5">Age</label>
+            <div>
+              <label className="block text-xs font-medium text-gray-300 mb-1">Age & Gender</label>
+              <div className="grid grid-cols-2 gap-2">
                 <input
                   type="number"
                   required
@@ -271,18 +273,15 @@ export const NutritionPage: React.FC<NutritionPageProps> = ({ user, openAuthModa
                   max={90}
                   value={age}
                   onChange={(e) => setAge(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-white text-sm focus:outline-none focus:border-[#00A3FF]"
+                  placeholder="Age"
+                  className="w-full px-3 py-2 rounded-xl bg-white/[0.04] border border-white/10 text-white text-xs focus:outline-none focus:border-[#00A3FF]"
                 />
-              </div>
-
-              <div>
-                <label className="block text-xs font-medium text-gray-300 mb-1.5">Gender</label>
-                <div className="flex bg-white/[0.04] p-1 rounded-xl border border-white/10">
+                <div className="flex bg-white/[0.04] p-0.5 rounded-xl border border-white/10">
                   <button
                     type="button"
                     onClick={() => setGender('male')}
-                    className={`flex-1 py-1.5 rounded-lg text-xs font-semibold ${
-                      gender === 'male' ? 'bg-[#00A3FF] text-black' : 'text-gray-400'
+                    className={`flex-1 py-1 rounded-lg text-[11px] font-semibold transition-all ${
+                      gender === 'male' ? 'bg-[#00A3FF] text-black shadow-[0_0_10px_rgba(0,163,255,0.4)]' : 'text-gray-400'
                     }`}
                   >
                     Male
@@ -290,8 +289,8 @@ export const NutritionPage: React.FC<NutritionPageProps> = ({ user, openAuthModa
                   <button
                     type="button"
                     onClick={() => setGender('female')}
-                    className={`flex-1 py-1.5 rounded-lg text-xs font-semibold ${
-                      gender === 'female' ? 'bg-[#00A3FF] text-black' : 'text-gray-400'
+                    className={`flex-1 py-1 rounded-lg text-[11px] font-semibold transition-all ${
+                      gender === 'female' ? 'bg-[#00A3FF] text-black shadow-[0_0_10px_rgba(0,163,255,0.4)]' : 'text-gray-400'
                     }`}
                   >
                     Female
@@ -300,182 +299,187 @@ export const NutritionPage: React.FC<NutritionPageProps> = ({ user, openAuthModa
               </div>
             </div>
 
-            {/* Activity Level */}
+            {/* Target Goal */}
             <div>
-              <label className="block text-xs font-medium text-gray-300 mb-1.5">Activity Level</label>
-              <select
-                value={activity}
-                onChange={(e) => setActivity(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-xl bg-[#121216] border border-white/10 text-white text-sm focus:outline-none focus:border-[#00A3FF]"
-              >
-                <option value="Sedentary">🛋️ Sedentary (Little or no exercise)</option>
-                <option value="Lightly Active">🚶 Lightly Active (1-3 days/week)</option>
-                <option value="Moderately Active">🏋️ Moderately Active (3-5 days/week)</option>
-                <option value="Very Active">🔥 Very Active (6-7 days/week)</option>
-                <option value="Extremely Active">⚡ Extremely Active (Athlete/Physical job)</option>
-              </select>
-            </div>
-
-            {/* Nutrition Goal */}
-            <div>
-              <label className="block text-xs font-medium text-gray-300 mb-1.5">Nutrition Goal</label>
+              <label className="block text-xs font-medium text-gray-300 mb-1">Target Goal</label>
               <select
                 value={goal}
                 onChange={(e) => setGoal(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-xl bg-[#121216] border border-white/10 text-white text-sm focus:outline-none focus:border-[#00A3FF]"
+                className="w-full px-3 py-2 rounded-xl bg-[#121216] border border-white/10 text-white text-xs focus:outline-none focus:border-[#00A3FF]"
               >
-                <option value="Bulk">💪 Muscle Gain (Surplus +400 kcal)</option>
-                <option value="Cut">🔥 Fat Loss (Deficit -500 kcal)</option>
-                <option value="Maintain">⚖️ Weight Maintenance (TDEE)</option>
+                <option value="Fat Loss">🔥 Fat Loss (-500 kcal)</option>
+                <option value="Muscle Gain">💪 Muscle Gain (+300 kcal)</option>
+                <option value="Maintenance">⚡ Weight Maintenance</option>
               </select>
             </div>
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full py-3.5 rounded-2xl bg-[#00A3FF] text-black font-extrabold text-sm shadow-[0_0_25px_rgba(0, 163, 255,0.4)] hover:shadow-[0_0_35px_rgba(0, 163, 255,0.6)] hover:scale-[1.01] transition-all flex items-center justify-center gap-2 disabled:opacity-50"
-            >
-              {loading ? (
-                <>
-                  <RefreshCw className="w-4 h-4 animate-spin" />
-                  <span>Compiling Diet Plan...</span>
-                </>
-              ) : (
-                <>
-                  <Salad className="w-4 h-4" />
-                  <span>Calculate & Generate Diet Plan</span>
-                </>
-              )}
-            </button>
-
-          </form>
-        </div>
-
-        {/* Right Col: Diet Plan Display */}
-        <div className="lg:col-span-7 space-y-6">
-          
-          {loading ? (
-            <div className="glass-panel rounded-3xl p-12 text-center border border-white/10 space-y-4">
-              <div className="w-16 h-16 rounded-full border-4 border-[#00A3FF]/20 border-t-[#00A3FF] animate-spin mx-auto"></div>
-              <h3 className="text-xl font-bold text-white">Calculating Target Macros</h3>
-              <p className="text-sm text-gray-400 max-w-sm mx-auto">
-                Gemini 3.1 Flash Lite is analyzing your BMR/TDEE targets and generating custom {dietType === 'nonveg' ? 'Non-Veg' : 'Veg'} meal cards...
-              </p>
+            {/* Daily Activity Level */}
+            <div>
+              <label className="block text-xs font-medium text-gray-300 mb-1">Daily Activity Level</label>
+              <select
+                value={activity}
+                onChange={(e) => setActivity(e.target.value)}
+                className="w-full px-3 py-2 rounded-xl bg-[#121216] border border-white/10 text-white text-xs focus:outline-none focus:border-[#00A3FF]"
+              >
+                <option value="1.2">😴 Sedentary (Desk Job)</option>
+                <option value="1.375">🚶 Lightly Active (1-3 days)</option>
+                <option value="1.55">🏃 Moderately Active (3-5 days)</option>
+                <option value="1.725">🏋️ Very Active (6-7 days)</option>
+              </select>
             </div>
-          ) : currentPlan ? (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-              className="space-y-6"
-            >
 
-              {/* Header Controls */}
-              <div className="glass-panel-dark rounded-2xl p-4 border border-white/10 flex flex-wrap items-center justify-between gap-4">
-                <div>
-                  <span className="text-xs text-gray-400">Target Goal: </span>
-                  <span className="text-sm font-bold text-[#00A3FF]">{currentPlan.goal || goal}</span>
-                  <span className="text-xs text-gray-500 mx-2">•</span>
-                  <span className="text-xs font-semibold text-white">
-                    {dietType === 'nonveg' ? '🍗 Non-Vegetarian' : '🥦 Vegetarian'}
+            {/* CTA Button Column */}
+            <div className="flex items-end">
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full py-2.5 rounded-xl bg-[#00A3FF] text-black font-extrabold text-xs shadow-[0_0_20px_rgba(0,163,255,0.4)] hover:shadow-[0_0_30px_rgba(0,163,255,0.6)] hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-1.5 disabled:opacity-50"
+              >
+                {loading ? (
+                  <>
+                    <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                    <span>Calculating...</span>
+                  </>
+                ) : (
+                  <>
+                    <Utensils className="w-3.5 h-3.5" />
+                    <span>Calculate & Generate</span>
+                  </>
+                )}
+              </button>
+            </div>
+
+          </div>
+        </form>
+      </div>
+
+      {/* Nutrition Plan Results Display Area */}
+      <div className="space-y-6">
+        {loading ? (
+          <div className="glass-panel-dark rounded-3xl p-12 text-center border border-white/10 space-y-4">
+            <div className="w-16 h-16 rounded-full border-4 border-[#00A3FF]/20 border-t-[#00A3FF] animate-spin mx-auto"></div>
+            <h3 className="text-xl font-bold text-white">Calculating Target Macros</h3>
+            <p className="text-sm text-gray-400 max-w-sm mx-auto">
+              Gemini 3.1 Flash Lite is analyzing your BMR/TDEE targets and generating custom {dietType === 'nonveg' ? 'Non-Veg' : 'Veg'} meal cards...
+            </p>
+          </div>
+        ) : currentPlan ? (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+            className="space-y-6"
+          >
+
+            {/* Header Controls */}
+            <div className="glass-panel-dark rounded-2xl p-4 border border-white/10 flex flex-wrap items-center justify-between gap-4">
+              <div>
+                <span className="text-xs text-gray-400">Target Goal: </span>
+                <span className="text-sm font-bold text-[#00A3FF]">{currentPlan.goal || goal}</span>
+                <span className="text-xs text-gray-500 mx-2">•</span>
+                <span className="text-xs font-semibold text-white">
+                  {dietType === 'nonveg' ? '🍗 Non-Vegetarian' : '🥦 Vegetarian'}
+                </span>
+              </div>
+
+              <div className="flex items-center gap-2">
+                {loadedDocId ? (
+                  <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-[#00A3FF]/10 border border-[#00A3FF]/30 text-[#00A3FF] text-xs font-semibold">
+                    <CheckCircle className="w-3.5 h-3.5" /> Loaded from Cloud
                   </span>
-                </div>
-
-                <div className="flex items-center gap-2">
-                  {loadedDocId ? (
-                    <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-[#00A3FF]/10 border border-[#00A3FF]/30 text-[#00A3FF] text-xs font-semibold">
-                      <CheckCircle className="w-3.5 h-3.5" /> Loaded from Cloud
-                    </span>
-                  ) : (
-                    <button
-                      onClick={handleSaveToProfile}
-                      disabled={saving}
-                      className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#00A3FF] text-black font-bold text-xs shadow-[0_0_15px_rgba(0,163,255,0.3)] hover:scale-105 active:scale-95 transition-all"
-                    >
-                      <Save className="w-3.5 h-3.5" />
-                      <span>{saving ? 'Saving...' : 'Save to Profile'}</span>
-                    </button>
-                  )}
-                </div>
+                ) : (
+                  <button
+                    onClick={handleSaveToProfile}
+                    disabled={saving}
+                    className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#00A3FF] text-black font-bold text-xs shadow-[0_0_15px_rgba(0,163,255,0.3)] hover:scale-105 active:scale-95 transition-all"
+                  >
+                    <Save className="w-3.5 h-3.5" />
+                    <span>{saving ? 'Saving...' : 'Save to Profile'}</span>
+                  </button>
+                )}
               </div>
+            </div>
 
-              {/* Macro Cards Summary */}
-              <div className="grid grid-cols-3 gap-4">
-                <div className="glass-card-dark p-4 rounded-2xl text-center border border-[#00A3FF]/30 bg-[#00A3FF]/5">
-                  <div className="text-2xl font-black text-[#00A3FF]">{currentPlan.calories}</div>
-                  <div className="text-xs text-gray-400 font-medium uppercase mt-0.5">Daily Calories</div>
-                </div>
-                <div className="glass-card-dark p-4 rounded-2xl text-center">
-                  <div className="text-2xl font-black text-white">{currentPlan.proteinG}g</div>
-                  <div className="text-xs text-gray-400 font-medium uppercase mt-0.5">Protein</div>
-                </div>
-                <div className="glass-card-dark p-4 rounded-2xl text-center">
-                  <div className="text-2xl font-black text-white">{currentPlan.carbsG}g</div>
-                  <div className="text-xs text-gray-400 font-medium uppercase mt-0.5">Carbs</div>
-                </div>
+            {/* Macro Cards Summary */}
+            <div className="grid grid-cols-3 gap-4">
+              <div className="glass-card-dark p-4 rounded-2xl text-center border border-[#00A3FF]/30 bg-[#00A3FF]/5">
+                <div className="text-2xl font-black text-[#00A3FF]">{currentPlan.calories}</div>
+                <div className="text-xs text-gray-400 font-medium uppercase mt-0.5">Daily Calories</div>
               </div>
-
-              {/* Secondary Fat & Total Calorie Badges */}
-              <div className="flex gap-4">
-                <div className="flex-1 glass-card-dark p-3 rounded-xl text-center">
-                  <span className="text-xs text-gray-400">Fat Target: </span>
-                  <span className="text-sm font-bold text-purple-400">{currentPlan.fatG}g</span>
-                </div>
-                <div className="flex-1 glass-card-dark p-3 rounded-xl text-center">
-                  <span className="text-xs text-gray-400">Calculated Energy: </span>
-                  <span className="text-sm font-bold text-[#00A3FF]">
-                    {Math.round(currentPlan.proteinG * 4 + currentPlan.carbsG * 4 + currentPlan.fatG * 9)} kcal
-                  </span>
-                </div>
+              <div className="glass-card-dark p-4 rounded-2xl text-center">
+                <div className="text-2xl font-black text-white">{currentPlan.proteinG}g</div>
+                <div className="text-xs text-gray-400 font-medium uppercase mt-0.5">Protein</div>
               </div>
+              <div className="glass-card-dark p-4 rounded-2xl text-center">
+                <div className="text-2xl font-black text-white">{currentPlan.carbsG}g</div>
+                <div className="text-xs text-gray-400 font-medium uppercase mt-0.5">Carbs</div>
+              </div>
+            </div>
 
-              {/* Meal Cards List */}
-              <div className="space-y-4">
-                <h3 className="text-base font-bold text-white flex items-center gap-2">
-                  <Utensils className="w-4 h-4 text-[#00A3FF]" /> Daily Meal Breakdown
-                </h3>
+            {/* Secondary Fat & Total Calorie Badges */}
+            <div className="flex gap-4">
+              <div className="flex-1 glass-card-dark p-3 rounded-xl text-center">
+                <span className="text-xs text-gray-400">Fat Target: </span>
+                <span className="text-sm font-bold text-purple-400">{currentPlan.fatG}g</span>
+              </div>
+              <div className="flex-1 glass-card-dark p-3 rounded-xl text-center">
+                <span className="text-xs text-gray-400">Calculated Energy: </span>
+                <span className="text-sm font-bold text-[#00A3FF]">
+                  {Math.round(currentPlan.proteinG * 4 + currentPlan.carbsG * 4 + currentPlan.fatG * 9)} kcal
+                </span>
+              </div>
+            </div>
 
+            {/* Meal Cards Grid */}
+            <div className="space-y-4">
+              <h3 className="text-base font-bold text-white flex items-center gap-2">
+                <Utensils className="w-4 h-4 text-[#00A3FF]" /> Daily Meal Breakdown
+              </h3>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 {currentPlan.meals && currentPlan.meals.map((m, idx) => (
                   <motion.div
                     key={idx}
                     initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: idx * 0.08 }}
-                    className="glass-card-dark rounded-2xl p-5 space-y-2"
+                    className="glass-card-dark rounded-2xl p-5 space-y-2 flex flex-col justify-between"
                   >
-                    <div className="flex items-center justify-between flex-wrap gap-2">
-                      <span className="text-sm font-bold text-white">{m.type}</span>
-                      <span className="text-xs font-bold text-[#00A3FF] px-2.5 py-1 rounded-full bg-[#00A3FF]/10 border border-[#00A3FF]/20">
-                        {m.calories} kcal
-                      </span>
+                    <div>
+                      <div className="flex items-center justify-between flex-wrap gap-2 mb-1">
+                        <span className="text-xs font-bold text-white uppercase">{m.type}</span>
+                        <span className="text-[11px] font-bold text-[#00A3FF] px-2 py-0.5 rounded-full bg-[#00A3FF]/10 border border-[#00A3FF]/20">
+                          {m.calories} kcal
+                        </span>
+                      </div>
+
+                      <div className="text-sm font-semibold text-gray-200">{m.name}</div>
                     </div>
 
-                    <div className="text-sm font-semibold text-gray-200">{m.name}</div>
-
-                    <div className="text-xs text-gray-400 flex items-center gap-3 pt-1 border-t border-white/5">
-                      <span>🥩 P: <strong className="text-white">{m.protein}g</strong></span>
-                      <span>🍞 C: <strong className="text-white">{m.carbs}g</strong></span>
-                      <span>🥑 F: <strong className="text-white">{m.fat}g</strong></span>
+                    <div className="text-[11px] text-gray-400 flex items-center gap-2 pt-2 border-t border-white/5">
+                      <span>🥩 {m.protein}g P</span>
+                      <span>•</span>
+                      <span>🍞 {m.carbs}g C</span>
+                      <span>•</span>
+                      <span>🥑 {m.fat}g F</span>
                     </div>
                   </motion.div>
                 ))}
               </div>
-
-            </motion.div>
-          ) : (
-            <div className="glass-panel rounded-3xl p-12 text-center border border-white/10 space-y-4">
-              <div className="w-16 h-16 rounded-3xl bg-white/[0.03] border border-white/10 flex items-center justify-center text-[#00A3FF] mx-auto">
-                <Utensils className="w-8 h-8" />
-              </div>
-              <h3 className="text-xl font-bold text-white">No Diet Plan Calculated Yet</h3>
-              <p className="text-sm text-gray-400 max-w-sm mx-auto">
-                Fill in your body stats on the left and click "Calculate & Generate Diet Plan" to build your custom nutrition menu.
-              </p>
             </div>
-          )}
 
-        </div>
-
+          </motion.div>
+        ) : (
+          <div className="glass-panel-dark rounded-3xl p-10 text-center border border-white/10 space-y-3">
+            <div className="w-14 h-14 rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-center text-[#00A3FF] mx-auto">
+              <Utensils className="w-7 h-7" />
+            </div>
+            <h3 className="text-lg font-bold text-white">No Diet Plan Calculated Yet</h3>
+            <p className="text-xs text-gray-400 max-w-sm mx-auto">
+              Adjust your parameters in the top bar above and click "Calculate & Generate" to build your custom nutrition menu.
+            </p>
+          </div>
+        )}
       </div>
 
     </div>
