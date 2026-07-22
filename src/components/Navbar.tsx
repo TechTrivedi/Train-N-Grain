@@ -40,7 +40,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   ];
 
   return (
-    <nav className="sticky top-0 z-40 w-full backdrop-blur-xl bg-[#050508]/85 border-b border-white/10 px-4 lg:px-8 py-3 transition-all duration-300 shadow-[0_4px_30px_rgba(0,0,0,0.8)]">
+    <nav className="sticky top-0 z-40 w-full backdrop-blur-md bg-transparent border-b border-white/10 px-4 lg:px-8 py-3 transition-all duration-300">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         
         {/* Brand Logo */}
@@ -52,8 +52,8 @@ export const Navbar: React.FC<NavbarProps> = ({
             <Flame className="w-6 h-6 animate-pulse" />
           </div>
           <div>
-            <span className="font-consistency text-2xl font-extrabold tracking-wider uppercase">
-              <span className="text-[#E4E4E7]">Train</span><span className="text-gray-300">N Grain</span>
+            <span className="font-consistency text-2xl font-extrabold tracking-wider uppercase text-white">
+              TRAIN <span className="text-[#E4E4E7]">N</span> GRAIN
             </span>
             <span className="block text-[10px] uppercase tracking-widest text-gray-400 font-medium -mt-1">
               AI Fitness Platform
