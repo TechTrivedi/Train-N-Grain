@@ -11,6 +11,7 @@ import { HomePage } from './pages/HomePage';
 import { FitnessPage } from './pages/FitnessPage';
 import { NutritionPage } from './pages/NutritionPage';
 import { ProfilePage } from './pages/ProfilePage';
+import heroBgImage from './assets/hero-bg.jpg';
 import { Sparkles, CheckCircle2, AlertCircle } from 'lucide-react';
 
 interface ToastState {
@@ -72,7 +73,7 @@ export function App() {
       {/* Fixed Full-Screen Ultra-Clear Dark Statue Background Layer (No Text) */}
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
         <img
-          src="/assets/hero-bg.jpg"
+          src={heroBgImage}
           alt="Train N Grain Dark Statue Background"
           className="w-full h-full object-cover opacity-90 scale-100 brightness-[0.85] contrast-[1.15]"
         />
